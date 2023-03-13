@@ -1,69 +1,111 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link,Route,Routes } from 'react-router-dom';
 import './App.scss';
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
 import Projects from './projects/Projects';
+import ProjectCard from './components/ProjectCard';
+import { Canvas } from '@react-three/fiber';
+import SmallBlob from './components/three_components/SmallBlob';
+
 
 function App() {
-  const [refValue1,setRefValue] = React.useState(0);
   const direction = React.useRef(1);
+  const [clicked,setClicked] = React.useState(false);
 
-  /*React.useEffect(() => {
-    if(refValue1 === 0){
-      direction.current = 1;
+  const [pos, setPos] = React.useState([0, 0]);
+  const [pos2, setPos2] = React.useState([0, 0]);
+
+  const refValue1 = React.useRef(0);
+  const refValue2 = React.useRef(0);
+
+
+  useEffect(() => {
+    if (refValue1.current) {
+      console.log(refValue1.current);
+
+      // get absolute position of the element
+      let rect = refValue1.current.getBoundingClientRect();
+
+      console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+
+      // scale it to the size of the canvas
+      let x = (rect.left / window.innerWidth) * 2 - 1;
+      let y = -(rect.top / window.innerHeight) * 2 + 1;
+
+      console.log(x,y);
+
+      setPos([x,y]);
     }
-    if(refValue1 === 100){
-      direction.current = -1;
+  }, [refValue1]);
+
+
+  useEffect(() => {
+    if (refValue2.current) {
+      console.log(refValue2.current);
+
+      // get absolute position of the element
+      let rect = refValue2.current.getBoundingClientRect();
+
+      console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+
+      // scale it to the size of the canvas
+      let x = (rect.left / window.innerWidth) * 2 - 1;
+      let y = -(rect.top / window.innerHeight) * 2 + 1;
+
+      console.log(x,y);
+
+      setPos2([x,y]);
     }
-    const interval = setInterval(() => {
-      setRefValue(refValue1 + direction.current);
-    }, 100);
-    return () => clearInterval(interval);
-  }, [refValue1]);*/
+  }, [refValue2]);
+
 
   return (
     <div className="App">
-      <div>
-        <nav>
-          <div id="navigation">
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-            <Link to="/projects">Projects</Link>          
-            <Link to="/contact">Contact</Link>
-          </div>
-        </nav>
-        <svg className='svg-navbar'
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 200 100"
-          width={400}
-          height={200}
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="none"
-            stroke="lightgrey"
-            d="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
-
-          <circle r="5" fill="red">
-            <animateMotion
-              dur="10s"
-              repeatCount="indefinite"
-              path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
-          </circle>
-        </svg>
-
-      </div>
-        <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      </div>
-        );
+      <Canvas
+        orthographic
+        camera={{ zoom: 100, position: [0, 0, 5] }}
+        className="canvas"
+        onClick={() => {
+          console.log("Clicked");
+          setClicked(!clicked);
+        }}
+      >
+        <axesHelper args={[5]} />
+        <pointLight position={[10, 10, 10]} />
+        <ambientLight />
+        <SmallBlob 
+          clicked={clicked} 
+          position={-100, 10 , 0}
+          scale={0.3}
+        />
+        <SmallBlob 
+          clicked={clicked}
+          position={[pos2[0],pos2[1],3]}
+          scale={0.3}
+        />
+      </Canvas>
+      <section className="section">
+        <div className="section-subtitle">Projects</div>
+        <div className="section-title">My Projects</div>
+        <div className="section-info">
+          These are some of my projects. I have worked on a lot of projects, but I have not uploaded all of them to GitHub. I will upload them soon.
+        </div>
+        <div className="section-container">
+          <ProjectCard
+          ref={refValue1}
+          title="React Portfolio"
+          description="Some text"
+          />
+          <ProjectCard
+          ref={refValue2}
+          title="React Portfolio"
+          description="Some text"
+          />
+        </div>
+      </section>
+    </div>
+  );
 }
 
 export default App;
