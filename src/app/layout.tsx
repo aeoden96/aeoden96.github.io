@@ -13,15 +13,15 @@ const jakartaSans = PJS({
 });
 
 export const metadata: Metadata = {
-  title: "Modex | Hrvatski tekstilni proizvodi",
+  title: "My Hub: Graphics, CS, and React Frontend Development",
   description:
-    "Maloprodaja dječje,muške i ženske odjeće hrvatskih i ostalih proizvođača po pristupačnim cijenama.",
+    "Explore the world of graphics, computer science, and React frontend development with Mateo. Get insights, tutorials, and resources to master the art of digital design and code craftsmanship",
   openGraph: {
-    title: "Modex | Hrvatski tekstilni proizvodi",
+    title: "My Hub: Graphics, CS, and React Frontend Development",
     description:
-      "Maloprodaja dječje,muške i ženske odjeće hrvatskih i ostalih proizvođača po pristupačnim cijenama.",
+      "Explore the world of graphics, computer science, and React frontend development with Mateo. Get insights, tutorials, and resources to master the art of digital design and code craftsmanship",
     type: "website",
-    url: "https://modex.hr",
+    url: "https://mateomartinjak.com",
   },
 };
 
