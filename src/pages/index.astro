@@ -1,51 +1,200 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import ThreeCanvasToggle from "../components/ThreeCanvasToggle.astro";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1 class="">🧑‍🚀 Hello, Astronaut!</h1>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <table class="w-full shadow-lg rounded-lg overflow-hidden">
+      <colgroup class="w-full">
+        <col class="w-5 cool-col" />
+        <col class="w-[250px]" />
+        <col class="w-5 cool-col" />
+        <col class="w-fit" />
+        <col class="w-5 cool-col" />
+        <col class="w-fit" />
+        <col class="w-5 cool-col" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td></td>
+          <td rowspan="3" class="p-3 text-center">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Profile"
+              class="rounded-full mx-auto shadow-md"
+            />
+          </td>
+          <td></td>
+          <td class="font-bold text-lg text-gray-800">Interactive Dashboard</td>
+          <td></td>
+          <td class="font-bold text-lg text-gray-800">Connect With Me</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td rowspan="3" class="work-item">
+            <span class="font-semibold">Work Exp 1</span><br />
+          </td>
+          <td></td>
+          <td class="border-b border-gray-200"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-blue-600">
+            <a href="#" class="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14v10"></path>
+              </svg>
+              CS Degree, Stanford
+            </a>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-xl font-bold text-gray-800">Alex Morgan</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="border-b border-gray-200"></td>
+          <td></td>
+          <td rowspan="3" class="work-item">
+            <span class="font-semibold">work exp 2</span><br />
+            <span class="text-gray-600">Python, TensorFlow, AWS</span>
+          </td>
+          <td rowspan="2"></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td rowspan="2" class="p-2 text-gray-600 text-sm">
+            Full-stack developer with 6 years of experience creating beautiful,
+            responsive web applications. Specialized in React, Node.js, and
+            modern front-end architecture.
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td rowspan="2"></td>
+          <td></td>
+        </tr>
+        <tr class="cool-col h-5"> </tr>
+        <tr>
+          <td></td>
+          <td class="font-bold text-gray-800">Recent Projects</td>
+          <td></td>
+          <td class="">
+            <span class="font-medium">Social Media Dashboard</span><br />
+            <span class="text-xs text-gray-600">React, Firebase, Tailwind</span>
+          </td>
+          <td></td>
+          <td class="">
+            <span class="font-medium">Fitness Tracker App</span><br />
+            <span class="text-xs text-gray-600">React Native, GraphQL</span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="p-2 transition duration-300">
+            <span class="font-medium">Recipe Collection</span><br />
+            <span class="text-xs text-gray-600">Vue.js, Supabase</span>
+          </td>
+          <td></td>
+          <td class="">
+            <span class="font-medium">Weather Visualization</span><br />
+            <span class="text-xs text-gray-600">D3.js, Express</span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
 
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+    <Footer />
+  </body>
 </html>
+<style>
+  td {
+    /* border: 1px solid white; */
+    padding: 5px;
+  }
+
+  .cool-col {
+    /* opacity: 0; */
+    background-color: white;
+    background-size: 10px 10px;
+
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-dark) 0,
+      var(--color-dark) 0.5px,
+      transparent 0,
+      transparent 50%
+    );
+  }
+
+  [data-theme="dark"] .cool-col {
+    background-color: black;
+  }
+
+  .work-item {
+    padding: 5px;
+    background-color: rgba(0, 0, 255, 0.29);
+    margin: 5px;
+    height: 500px;
+  }
+</style>

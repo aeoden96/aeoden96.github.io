@@ -1,0 +1,119 @@
+
+<div id="three-canvas-container" class="fixed inset-0 z-[-1] opacity-0 transition-opacity duration-300">
+    <canvas id="three-canvas"></canvas>
+</div>
+
+<button 
+    id="toggle-three-canvas" 
+    class="fixed top-4 right-4 z-10 px-4 py-2 bg-blue-500 text-black rounded"
+>
+    Toggle 3D Background
+</button>
+
+<script>
+    import * as THREE from 'three';
+
+    const canvasContainer = document.getElementById('three-canvas-container');
+    const toggleButton = document.getElementById('toggle-three-canvas');
+    const canvasElement = document.getElementById('three-canvas');
+
+    let scene: THREE.Scene | null = null;
+    let camera: THREE.PerspectiveCamera | null = null;
+    let renderer: THREE.WebGLRenderer | null = null;
+    let animationFrameId: number | null = null;
+
+    function initThreeScene() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ 
+            canvas: canvasElement as HTMLCanvasElement,
+            alpha: true 
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Create a simple scene with some interesting elements
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0x49ef4, 
+            metalness: 0.7, 
+            roughness: 0.3 
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        camera.position.z = 30;
+
+        function animate() {
+            if (!scene || !camera || !renderer) return;
+
+            animationFrameId = requestAnimationFrame(animate);
+            
+            // Rotate the torus knot
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+    }
+
+    function cleanupThreeScene() {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+        
+        // Dispose of Three.js resources
+        scene?.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+                child.geometry.dispose();
+                if (Array.isArray(child.material)) {
+                    child.material.forEach(material => material.dispose());
+                } else {
+                    child.material.dispose();
+                }
+            }
+        });
+
+        scene = null;
+        camera = null;
+        renderer = null;
+    }
+
+    toggleButton?.addEventListener('click', () => {
+        const isVisible = canvasContainer?.classList.toggle('opacity-0');
+        
+        if (!isVisible) {
+            // Canvas is now hidden
+            cleanupThreeScene();
+        } else {
+            // Canvas is now visible, initialize scene
+            initThreeScene();
+        }
+    });
+</script>
+
+<style>
+    #three-canvas-container.opacity-0 {
+        pointer-events: none;
+    }
+</style>

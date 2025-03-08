@@ -1,16 +1,19 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import ThemeIcon from './ThemeIcon.astro';
+
 ---
 
-<header>
+<header class="sticky top-0 m-0 py-1 shadow-2xl bg-white/50 dark:bg-black/50 px-0 backdrop-blur-sm border-b border-gray-700">
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/blog">Notes</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
+		<ThemeIcon />
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
 				<span class="sr-only">Follow Astro on Mastodon</span>
@@ -43,12 +46,7 @@ import { SITE_TITLE } from '../consts';
 	</nav>
 </header>
 <style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
+	
 	h2 {
 		margin: 0;
 		font-size: 1em;
