@@ -4,6 +4,11 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import ThreeCanvasToggle from "../components/ThreeCanvasToggle.astro";
+import WorkItem from "../components/WorkItem.astro";
+import CompanySection from "../components/CompanySection.astro";
+import EducationItem from "../components/EducationItem.astro";
+import AbsoluteIsland from "../components/AbsoluteIsland.astro";
+import ThemeIcon from "../components/ThemeIcon.astro";
 ---
 
 <!doctype html>
@@ -11,190 +16,234 @@ import ThreeCanvasToggle from "../components/ThreeCanvasToggle.astro";
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body>
-    <Header />
-    <table class="w-full shadow-lg rounded-lg overflow-hidden">
-      <colgroup class="w-full">
-        <col class="w-5 cool-col" />
-        <col class="w-[250px]" />
-        <col class="w-5 cool-col" />
-        <col class="w-fit" />
-        <col class="w-5 cool-col" />
-        <col class="w-fit" />
-        <col class="w-5 cool-col" />
-      </colgroup>
-      <tbody>
-        <tr>
-          <td></td>
-          <td rowspan="3" class="p-3 text-center">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Profile"
-              class="rounded-full mx-auto shadow-md"
-            />
-          </td>
-          <td></td>
-          <td class="font-bold text-lg text-gray-800">Interactive Dashboard</td>
-          <td></td>
-          <td class="font-bold text-lg text-gray-800">Connect With Me</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td rowspan="3" class="work-item">
-            <span class="font-semibold">Work Exp 1</span><br />
-          </td>
-          <td></td>
-          <td class="border-b border-gray-200"></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="text-blue-600">
-            <a href="#" class="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 14v10"></path>
-              </svg>
-              CS Degree, Stanford
-            </a>
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="text-xl font-bold text-gray-800">Alex Morgan</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="border-b border-gray-200"></td>
-          <td></td>
-          <td rowspan="3" class="work-item">
-            <span class="font-semibold">work exp 2</span><br />
-            <span class="text-gray-600">Python, TensorFlow, AWS</span>
-          </td>
-          <td rowspan="2"></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td rowspan="2" class="p-2 text-gray-600 text-sm">
-            Full-stack developer with 6 years of experience creating beautiful,
-            responsive web applications. Specialized in React, Node.js, and
-            modern front-end architecture.
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td rowspan="2"></td>
-          <td></td>
-        </tr>
-        <tr class="cool-col h-5"> </tr>
-        <tr>
-          <td></td>
-          <td class="font-bold text-gray-800">Recent Projects</td>
-          <td></td>
-          <td class="">
-            <span class="font-medium">Social Media Dashboard</span><br />
-            <span class="text-xs text-gray-600">React, Firebase, Tailwind</span>
-          </td>
-          <td></td>
-          <td class="">
-            <span class="font-medium">Fitness Tracker App</span><br />
-            <span class="text-xs text-gray-600">React Native, GraphQL</span>
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="p-2 transition duration-300">
-            <span class="font-medium">Recipe Collection</span><br />
-            <span class="text-xs text-gray-600">Vue.js, Supabase</span>
-          </td>
-          <td></td>
-          <td class="">
-            <span class="font-medium">Weather Visualization</span><br />
-            <span class="text-xs text-gray-600">D3.js, Express</span>
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+  <body class="flex w-full justify-between">
+    <div class="fixed w-[300px] left-part p-4 gap-4 h-full flex flex-col">
+      <AbsoluteIsland classes=" flex flex-col gap-4 ">
+        <div class="social-links flex justify-center gap-4">
+          <a
+            href="https://github.com/aeoden96"
+            target="_blank"
+            class="social-icon hover:opacity-80 transition-opacity"
+          >
+            <span class="sr-only">GitHub Profile</span>
+            <svg
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+              width="32"
+              height="32"
+              class="text-github dark:text-white"
+              ><path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              ></path></svg
+            >
+          </a>
+          <a
+            href="https://www.linkedin.com/in/mateo-martinjak-803040197/"
+            target="_blank"
+            class="social-icon hover:opacity-80 transition-opacity"
+          >
+            <span class="sr-only">LinkedIn Profile</span>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              width="32"
+              height="32"
+              class="text-linkedin dark:text-white"
+              ><path
+                fill="currentColor"
+                d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+              ></path></svg
+            >
+          </a>
+          <a
+            href="https://www.instagram.com/aeoden96"
+            target="_blank"
+            class="social-icon hover:opacity-80 transition-opacity"
+          >
+            <span class="sr-only">Instagram Profile</span>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              width="32"
+              height="32"
+              class="text-instagram dark:text-white"
+              ><path
+                fill="currentColor"
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+              ></path></svg
+            >
+          </a>
+        </div>
+      </AbsoluteIsland>
+      <AbsoluteIsland classes=" flex flex-col gap-4  ">
+        <div class="text-center mb-2">
+          <h2 class="text-lg text-left font-bold">Mateo Martinjak</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300">Web Developer</p>
+        </div>
 
-    <Footer />
+        <div class="text-sm">
+          <p class="mb-3">
+            I'm a web developer who has particular love towards computer
+            graphics. I very much like to think about new ideas and features to
+            add and that's why this profession is so fulfilling for me.
+          </p>
+        </div>
+      </AbsoluteIsland>
+    </div>
+    <div class="pl-[300px] pr-[500px]">
+      <CompanySection company="Thespian" duration="2 years 9 months">
+        <WorkItem
+          title="React Developer"
+          timeframe="April 2023 - Present (2 years)"
+          location="Zagreb, Croatia"
+        />
+
+        <WorkItem
+          title="Junior React Developer"
+          timeframe="July 2022 - March 2023 (9 months)"
+          location="Zagreb, Croatia"
+        />
+      </CompanySection>
+      <CompanySection company="KONČAR - Digital" duration="1 year 2 months">
+        <WorkItem
+          title="Python and Javascript Developer"
+          timeframe="March 2022 - July 2022 (5 months)"
+          location="Zagreb, Croatia"
+          description="Developing machine learning regression and anomaly detection models and integrating it with Hat-Open open-source python framework developed by Končar, frontend made in virtual DOM (snapdom) environment"
+        />
+
+        <WorkItem
+          title="Junior Javascript and Python Developer"
+          timeframe="June 2021 - March 2022 (10 months)"
+          location="Zagreb, Croatia"
+          description="Developing projects primarily for Energy Sector in Python/JS in Virtual DOM (snapdom) environment"
+        />
+      </CompanySection>
+      <Footer />
+    </div>
+    <div
+      class="fixed right-part p-4 gap-4 w-[500px] top-0 right-0 flex flex-col h-full"
+    >
+      <AbsoluteIsland classes="w-full flex flex-col gap-4 ">
+        <ThemeIcon />
+      </AbsoluteIsland>
+      <AbsoluteIsland classes="w-full flex flex-col gap-4 ">
+        <div class="mb-3">
+          <h3
+            class="font-bold text-md border-b border-gray-200 dark:border-gray-700 pb-1 mb-2"
+          >
+            Skills
+          </h3>
+          <ul class="flex flex-wrap gap-1">
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Design Systems
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Component libs
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              NextJS
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              SEO
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Shader coding
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Low level graphics
+            </li>
+          </ul>
+        </div>
+
+        <div class="mb-3">
+          <h3
+            class="font-bold text-md border-b border-gray-200 dark:border-gray-700 pb-1 mb-2"
+          >
+            Tools
+          </h3>
+          <ul class="flex flex-wrap gap-1">
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              React
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Javascript/Typescript
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Ruby on Rails
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Python
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              C
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              C#
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="font-bold text-md border-b border-gray-200 dark:border-gray-700 pb-1 mb-2"
+          >
+            Certifications
+          </h3>
+          <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
+            <p class="font-medium">Ruby on Rails</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400">
+              Infinum Academy, 2024
+            </p>
+          </div>
+        </div>
+      </AbsoluteIsland>
+    </div>
   </body>
 </html>
 <style>
-  td {
-    /* border: 1px solid white; */
-    padding: 5px;
+  /* Social media icon colors */
+  .text-github {
+    color: #333;
   }
 
-  .cool-col {
-    /* opacity: 0; */
-    background-color: white;
-    background-size: 10px 10px;
-
-    background-image: repeating-linear-gradient(
-      45deg,
-      var(--color-dark) 0,
-      var(--color-dark) 0.5px,
-      transparent 0,
-      transparent 50%
-    );
+  .text-linkedin {
+    color: #0077b5;
   }
 
-  [data-theme="dark"] .cool-col {
-    background-color: black;
+  .text-instagram {
+    color: #e4405f;
   }
 
-  .work-item {
-    padding: 5px;
-    background-color: rgba(0, 0, 255, 0.29);
-    margin: 5px;
-    height: 500px;
+  /* Dark mode adjustments */
+  :global(.dark) .text-github,
+  :global(.dark) .text-linkedin,
+  :global(.dark) .text-instagram {
+    color: #fff;
   }
 </style>

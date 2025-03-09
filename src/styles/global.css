@@ -50,6 +50,14 @@ body {
 
   background-size: 10px 10px;
   background-attachment: fixed;
+  animation: scroll-watcher 1s linear;
+  animation-timeline: scroll();
+}
+
+@keyframes scroll-watcher {
+  to {
+    background-position: 0 -20px;
+  }
 }
 
 [data-theme="dark"] body {

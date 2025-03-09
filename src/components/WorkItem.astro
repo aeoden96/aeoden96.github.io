@@ -1,0 +1,23 @@
+---
+export interface Props {
+  title: string;
+  timeframe: string;
+  location: string;
+  description?: string;
+}
+
+const { title, timeframe, location, description } = Astro.props;
+---
+
+<div class="work-item-component">
+  <span class="font-semibold">{title}</span><br />
+  <span class="text-gray-600">{timeframe}</span><br />
+  <span class="text-gray-600">{location}</span>
+  {description && <p class="text-gray-600 text-sm mt-1">{description}</p>}
+</div>
+
+<style>
+  .work-item-component {
+    margin-bottom: 1.5rem;
+  }
+</style>

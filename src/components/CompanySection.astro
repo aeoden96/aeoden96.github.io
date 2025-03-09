@@ -1,0 +1,23 @@
+---
+export interface Props {
+  company: string;
+  duration: string;
+}
+
+const { company, duration } = Astro.props;
+---
+
+<div class="company-section">
+  <span class="font-semibold">{company}</span><br />
+  <span class="text-gray-600">{duration}</span>
+
+  <div class="mt-4">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .company-section {
+    padding: 1rem;
+  }
+</style>
