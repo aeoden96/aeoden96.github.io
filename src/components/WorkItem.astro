@@ -2,17 +2,33 @@
 export interface Props {
   title: string;
   timeframe: string;
+  company?: string;
   description?: string;
   technologies?: string[];
 }
 
-const { title, timeframe, description, technologies = [] } = Astro.props;
+const {
+  title,
+  timeframe,
+  company,
+  description,
+  technologies = [],
+} = Astro.props;
 ---
 
-<div class="work-item-component">
+<div class="work-item-component flex flex-col gap-2">
   <div class="flex justify-between items-center">
-    <span class="font-semibold">{title}</span>
-    <span class="text-gray-600 text-xs">{timeframe}</span>
+    <div class="flex items-center gap-2">
+      <span class="font-semibold">{title}</span>
+      {
+        company && (
+          <span class="inline-flex items-center bg-blue-100 dark:bg-blue-900 text-xs px-2 py-1 rounded">
+            <span class="mr-1">🏢</span> {company}
+          </span>
+        )
+      }
+    </div>
+    <span class="text-gray-600 text-xs">📅 {timeframe}</span>
   </div>
   {
     description && (
@@ -31,11 +47,8 @@ const { title, timeframe, description, technologies = [] } = Astro.props;
       </div>
     )
   }
-</div>
 
-<style>
-  .work-item-component {
-    border-radius: 0.375rem;
-    border: 1px solid transparent;
-  }
-</style>
+  <div class="key-projects">
+    <slot name="key-projects" />
+  </div>
+</div>

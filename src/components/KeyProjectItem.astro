@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 export interface Props {
   title: string;
   description: string;
@@ -31,10 +33,13 @@ const {
   {
     bannerImage && (
       <div class="banner-image w-full h-32 overflow-hidden">
-        <img
+        <Image
           src={bannerImage}
           alt={`${title} project banner`}
           class="w-full h-full object-cover scroll-image"
+          width={1000}
+          height={600}
+          loading="eager"
         />
       </div>
     )
@@ -62,7 +67,7 @@ const {
     </div>
 
     <div
-      class="hidden-container absolute top-full left-0 w-full h-full items-start flex flex-col justify-center z-50 group-hover:top-0 transition-all duration-300 bg-black/60 backdrop-blur-md p-4 delay-200"
+      class="hidden-container absolute overflow-y-auto top-full left-0 w-full h-full items-start flex flex-col justify-start z-50 group-hover:top-0 transition-all duration-300 bg-black/60 backdrop-blur-md p-4 delay-200"
     >
       <div class="description text-sm mt-3 text-gray-200 max-w-2xl">
         <p>{description}</p>

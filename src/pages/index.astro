@@ -32,7 +32,7 @@ import KeyProjectItem from "../components/KeyProjectItem.astro";
             aria-hidden="true"
             width="32"
             height="32"
-            class="text-github dark:text-white"
+            class="color-[#333] dark:color-white"
             ><path
               fill="currentColor"
               d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
@@ -50,7 +50,7 @@ import KeyProjectItem from "../components/KeyProjectItem.astro";
             aria-hidden="true"
             width="32"
             height="32"
-            class="text-linkedin dark:text-white"
+            class="color-[#333] dark:color-white"
             ><path
               fill="currentColor"
               d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
@@ -72,6 +72,13 @@ import KeyProjectItem from "../components/KeyProjectItem.astro";
           </p>
         </div>
       </AbsoluteIsland>
+
+      <a
+        href="/blog"
+        class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition-colors"
+      >
+        <span class="mr-2">{"◀"}</span> View My Blogs
+      </a>
 
       <AbsoluteIsland classes="w-full flex flex-col gap-4 ">
         <div class="mb-3">
@@ -169,37 +176,13 @@ import KeyProjectItem from "../components/KeyProjectItem.astro";
         </div>
       </AbsoluteIsland>
     </div>
-    <div class="pl-[300px] pt-4 flex flex-col gap-8">
-      <CompanySection company="Thespian" duration="2 years 9 months">
-        <div slot="work-items" class="flex flex-col gap-4">
-          <WorkItem
-            title="Frontend Developer"
-            timeframe="April 2023 - Present (2 years)"
-            technologies={["React", "TypeScript", "NextJS"]}
-          />
-
-          <WorkItem
-            title="Junior Frontend Developer"
-            timeframe="July 2022 - March 2023 (9 months)"
-            technologies={["React", "JavaScript"]}
-          />
-        </div>
-
+    <div class="pl-[300px] pr-4 pt-4 flex flex-col gap-8">
+      <WorkItem
+        title="Frontend Developer"
+        timeframe="April 2023 - Present (2 years)"
+        company="Thespian"
+      >
         <div slot="key-projects" class="grid grid-cols-2 gap-4">
-          <KeyProjectItem
-            title="DCK Media eLearning Platform"
-            description="Elevated DCK media's eLearning experience by replacing their outdated system with a custom platform that simplifies user management, enhances learning paths, and scales with their growing user base. Successfully migrated data and certificates for 50,000 medical professionals across 1600 organizations and clinics."
-            industryTags={["Healthcare", "E-Learning"]}
-            claims={[
-              "70% decreased server maintenance costs",
-              "+50,000 Medical professionals in Germany now benefit from a world-class e-learning service",
-            ]}
-            duration="1 year"
-            role="Lead Frontend Developer"
-            techStack={["React", "Redux", "React Router", "Ruby on Rails"]}
-            bannerImage="/dck.webp"
-          />
-
           <KeyProjectItem
             title="APEX Token Airdrop Platform"
             description="Designed and built a modern web interface for APEX to distribute tokens to existing users. Created a comprehensive solution featuring an advanced pre-phase calculator, a user-friendly wallet connection wizard, and a powerful distribution management system for administrators."
@@ -224,28 +207,6 @@ import KeyProjectItem from "../components/KeyProjectItem.astro";
             techStack={["NextJS", "React"]}
             bannerImage="/thespian.webp"
           />
-
-          <KeyProjectItem
-            title="OpenScience - PubWeave"
-            description="Developed PubWeave, an innovative platform for academics to showcase, share, and collaborate on research papers and preprints. Built a sophisticated WYSIWYG block-style editor based on Editor.js with custom real-time collaboration functionality using WebSockets. Implemented a system to track user edits, visualize collaborator presence, and synchronize content changes across multiple concurrent users."
-            industryTags={["Research", "Academic Publishing", "Collaboration"]}
-            claims={[
-              "Created a custom real-time collaboration system for document editing",
-              "Implemented block-level user presence indicators for concurrent editing",
-              "Designed an intuitive interface for academic content creation",
-            ]}
-            duration="8 months"
-            role="Frontend Developer"
-            techStack={[
-              "React",
-              "Ruby on Rails",
-              "Editor.js",
-              "WebSockets",
-              "Real-time Collaboration",
-            ]}
-            bannerImage="/pubweave.webp"
-          />
-
           <KeyProjectItem
             title="Plastopak Website"
             description="Developed a modern, responsive website for Plastopak, a plastic packaging manufacturer with 30+ years of industry experience. Created a comprehensive product catalog showcasing their sustainable packaging solutions, implemented a contact form for customer inquiries, and built a multilingual interface to serve their international client base."
@@ -293,58 +254,97 @@ import KeyProjectItem from "../components/KeyProjectItem.astro";
             bannerImage="/component-library.webp"
           />
         </div>
-      </CompanySection>
-      <CompanySection company="KONČAR - Digital" duration="1 year 2 months">
-        <div slot="work-items">
-          <WorkItem
-            title="Python and Javascript Developer"
-            timeframe="March 2022 - July 2022 (5 months)"
-            description="Developing machine learning regression and anomaly detection models and integrating it with Hat-Open open-source python framework developed by Končar, frontend made in virtual DOM (snapdom) environment"
-            technologies={[
-              "Python",
-              "JavaScript",
-              "Machine Learning",
-              "Virtual DOM",
+      </WorkItem>
+
+      <WorkItem
+        title="Junior Frontend Developer"
+        timeframe="July 2022 - March 2023 (9 months)"
+        company="Thespian"
+      >
+        <div slot="key-projects" class="grid grid-cols-2 gap-4">
+          <KeyProjectItem
+            title="DCK Media eLearning Platform"
+            description="Elevated DCK media's eLearning experience by replacing their outdated system with a custom platform that simplifies user management, enhances learning paths, and scales with their growing user base. Successfully migrated data and certificates for 50,000 medical professionals across 1600 organizations and clinics."
+            industryTags={["Healthcare", "E-Learning"]}
+            claims={[
+              "70% decreased server maintenance costs",
+              "+50,000 Medical professionals in Germany now benefit from a world-class e-learning service",
             ]}
+            duration="1 year"
+            role="Lead Frontend Developer"
+            techStack={["React", "Redux", "React Router", "Ruby on Rails"]}
+            bannerImage="/dck.webp"
           />
 
-          <WorkItem
-            title="Junior Javascript and Python Developer"
-            timeframe="June 2021 - March 2022 (10 months)"
-            description="Developing projects primarily for Energy Sector in Python/JS in Virtual DOM (snapdom) environment"
-            technologies={["JavaScript", "Python", "Virtual DOM"]}
+          <KeyProjectItem
+            title="OpenScience - PubWeave"
+            description="Developed PubWeave, an innovative platform for academics to showcase, share, and collaborate on research papers and preprints. Built a sophisticated WYSIWYG block-style editor based on Editor.js with custom real-time collaboration functionality using WebSockets. Implemented a system to track user edits, visualize collaborator presence, and synchronize content changes across multiple concurrent users."
+            industryTags={["Research", "Academic Publishing", "Collaboration"]}
+            claims={[
+              "Created a custom real-time collaboration system for document editing",
+              "Implemented block-level user presence indicators for concurrent editing",
+              "Designed an intuitive interface for academic content creation",
+            ]}
+            duration="8 months"
+            role="Frontend Developer"
+            techStack={[
+              "React",
+              "Ruby on Rails",
+              "Editor.js",
+              "WebSockets",
+              "Real-time Collaboration",
+            ]}
+            bannerImage="/pubweave.webp"
           />
         </div>
-      </CompanySection>
-      <Footer />
+      </WorkItem>
+      <WorkItem
+        title="Python and Javascript Developer"
+        timeframe="March 2022 - July 2022 (5 months)"
+        company="Končar Digital"
+        description="Developing machine learning regression and anomaly detection models and integrating it with Hat-Open open-source python framework developed by Končar, frontend made in virtual DOM (snapdom) environment"
+        technologies={[
+          "Python",
+          "JavaScript",
+          "Machine Learning",
+          "Virtual DOM",
+        ]}
+      />
+
+      <WorkItem
+        title="Junior Javascript and Python Developer"
+        timeframe="June 2021 - March 2022 (10 months)"
+        company="Končar Digital"
+        description="Developing projects primarily for Energy Sector in Python/JS in Virtual DOM (snapdom) environment"
+        technologies={["JavaScript", "Python", "Virtual DOM"]}
+      />
+      <!-- <Footer /> -->
     </div>
+
+    <style>
+      .left-part {
+        animation: scroll-watcher-island 1s linear;
+        animation-timeline: scroll();
+      }
+
+      @keyframes scroll-watcher-island {
+        to {
+          transform: translateY(calc(100vh - 100%));
+        }
+      }
+
+      /* Social media icon colors */
+
+      .text-linkedin {
+        color: #0077b5;
+      }
+
+      /* Dark mode adjustments */
+      :global(.dark) .text-github,
+      :global(.dark) .text-linkedin,
+      :global(.dark) .text-instagram {
+        color: #fff;
+      }
+    </style>
   </body>
 </html>
-<style>
-  .left-part {
-    animation: scroll-watcher-island 1s linear;
-    animation-timeline: scroll();
-  }
-
-  @keyframes scroll-watcher-island {
-    to {
-      transform: translateY(calc(100vh - 100%));
-    }
-  }
-
-  /* Social media icon colors */
-  .text-github {
-    color: #333;
-  }
-
-  .text-linkedin {
-    color: #0077b5;
-  }
-
-  /* Dark mode adjustments */
-  :global(.dark) .text-github,
-  :global(.dark) .text-linkedin,
-  :global(.dark) .text-instagram {
-    color: #fff;
-  }
-</style>
