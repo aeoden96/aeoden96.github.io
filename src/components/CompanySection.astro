@@ -7,17 +7,41 @@ export interface Props {
 const { company, duration } = Astro.props;
 ---
 
-<div class="company-section">
-  <span class="font-semibold">{company}</span><br />
-  <span class="text-gray-600">{duration}</span>
+<div class="company-section rounded-lg mr-4">
+  <div class="flex justify-between items-center mb-2">
+    <h2 class="font-semibold text-2xl">{company}</h2>
+    <div class="duration-container flex items-center text-gray-600 text-sm">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 mr-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+        ></path>
+      </svg>
+      <span>{duration}</span>
+    </div>
+  </div>
 
-  <div class="mt-4">
-    <slot />
+  <div class="work-items mt-3 mb-5">
+    <slot name="work-items" />
+  </div>
+
+  <div class="key-projects">
+    <h3 class="font-medium text-xs uppercase text-gray-500 mb-2">
+      Key Projects
+    </h3>
+    <slot name="key-projects" />
   </div>
 </div>
 
 <style>
   .company-section {
-    padding: 1rem;
   }
 </style>

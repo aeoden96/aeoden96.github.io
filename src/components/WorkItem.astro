@@ -2,22 +2,40 @@
 export interface Props {
   title: string;
   timeframe: string;
-  location: string;
   description?: string;
+  technologies?: string[];
 }
 
-const { title, timeframe, location, description } = Astro.props;
+const { title, timeframe, description, technologies = [] } = Astro.props;
 ---
 
 <div class="work-item-component">
-  <span class="font-semibold">{title}</span><br />
-  <span class="text-gray-600">{timeframe}</span><br />
-  <span class="text-gray-600">{location}</span>
-  {description && <p class="text-gray-600 text-sm mt-1">{description}</p>}
+  <div class="flex justify-between items-center">
+    <span class="font-semibold">{title}</span>
+    <span class="text-gray-600 text-xs">{timeframe}</span>
+  </div>
+  {
+    description && (
+      <p class="text-gray-600 text-sm mt-1 max-w-2xl">{description}</p>
+    )
+  }
+
+  {
+    technologies.length > 0 && (
+      <div class="tech-tags mt-2">
+        {technologies.map((tech) => (
+          <span class="inline-block bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded mr-1 mb-1">
+            {tech}
+          </span>
+        ))}
+      </div>
+    )
+  }
 </div>
 
 <style>
   .work-item-component {
-    margin-bottom: 1.5rem;
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
   }
 </style>

@@ -9,6 +9,7 @@ import CompanySection from "../components/CompanySection.astro";
 import EducationItem from "../components/EducationItem.astro";
 import AbsoluteIsland from "../components/AbsoluteIsland.astro";
 import ThemeIcon from "../components/ThemeIcon.astro";
+import KeyProjectItem from "../components/KeyProjectItem.astro";
 ---
 
 <!doctype html>
@@ -17,64 +18,45 @@ import ThemeIcon from "../components/ThemeIcon.astro";
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body class="flex w-full justify-between">
-    <div class="fixed w-[300px] left-part p-4 gap-4 h-full flex flex-col">
-      <AbsoluteIsland classes=" flex flex-col gap-4 ">
-        <div class="social-links flex justify-center gap-4">
-          <a
-            href="https://github.com/aeoden96"
-            target="_blank"
-            class="social-icon hover:opacity-80 transition-opacity"
+    <div class="fixed w-[300px] left-part p-4 gap-4 h-fit flex flex-col">
+      <AbsoluteIsland classes="w-full flex  gap-4 ">
+        <ThemeIcon />
+        <a
+          href="https://github.com/aeoden96"
+          target="_blank"
+          class="social-icon hover:opacity-80 transition-opacity"
+        >
+          <span class="sr-only">GitHub Profile</span>
+          <svg
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+            width="32"
+            height="32"
+            class="text-github dark:text-white"
+            ><path
+              fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            ></path></svg
           >
-            <span class="sr-only">GitHub Profile</span>
-            <svg
-              viewBox="0 0 16 16"
-              aria-hidden="true"
-              width="32"
-              height="32"
-              class="text-github dark:text-white"
-              ><path
-                fill="currentColor"
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-              ></path></svg
-            >
-          </a>
-          <a
-            href="https://www.linkedin.com/in/mateo-martinjak-803040197/"
-            target="_blank"
-            class="social-icon hover:opacity-80 transition-opacity"
+        </a>
+        <a
+          href="https://www.linkedin.com/in/mateo-martinjak-803040197/"
+          target="_blank"
+          class="social-icon hover:opacity-80 transition-opacity"
+        >
+          <span class="sr-only">LinkedIn Profile</span>
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            width="32"
+            height="32"
+            class="text-linkedin dark:text-white"
+            ><path
+              fill="currentColor"
+              d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+            ></path></svg
           >
-            <span class="sr-only">LinkedIn Profile</span>
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              width="32"
-              height="32"
-              class="text-linkedin dark:text-white"
-              ><path
-                fill="currentColor"
-                d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
-              ></path></svg
-            >
-          </a>
-          <a
-            href="https://www.instagram.com/aeoden96"
-            target="_blank"
-            class="social-icon hover:opacity-80 transition-opacity"
-          >
-            <span class="sr-only">Instagram Profile</span>
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              width="32"
-              height="32"
-              class="text-instagram dark:text-white"
-              ><path
-                fill="currentColor"
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
-              ></path></svg
-            >
-          </a>
-        </div>
+        </a>
       </AbsoluteIsland>
       <AbsoluteIsland classes=" flex flex-col gap-4  ">
         <div class="text-center mb-2">
@@ -90,44 +72,7 @@ import ThemeIcon from "../components/ThemeIcon.astro";
           </p>
         </div>
       </AbsoluteIsland>
-    </div>
-    <div class="pl-[300px] pr-[500px]">
-      <CompanySection company="Thespian" duration="2 years 9 months">
-        <WorkItem
-          title="React Developer"
-          timeframe="April 2023 - Present (2 years)"
-          location="Zagreb, Croatia"
-        />
 
-        <WorkItem
-          title="Junior React Developer"
-          timeframe="July 2022 - March 2023 (9 months)"
-          location="Zagreb, Croatia"
-        />
-      </CompanySection>
-      <CompanySection company="KONČAR - Digital" duration="1 year 2 months">
-        <WorkItem
-          title="Python and Javascript Developer"
-          timeframe="March 2022 - July 2022 (5 months)"
-          location="Zagreb, Croatia"
-          description="Developing machine learning regression and anomaly detection models and integrating it with Hat-Open open-source python framework developed by Končar, frontend made in virtual DOM (snapdom) environment"
-        />
-
-        <WorkItem
-          title="Junior Javascript and Python Developer"
-          timeframe="June 2021 - March 2022 (10 months)"
-          location="Zagreb, Croatia"
-          description="Developing projects primarily for Energy Sector in Python/JS in Virtual DOM (snapdom) environment"
-        />
-      </CompanySection>
-      <Footer />
-    </div>
-    <div
-      class="fixed right-part p-4 gap-4 w-[500px] top-0 right-0 flex flex-col h-full"
-    >
-      <AbsoluteIsland classes="w-full flex flex-col gap-4 ">
-        <ThemeIcon />
-      </AbsoluteIsland>
       <AbsoluteIsland classes="w-full flex flex-col gap-4 ">
         <div class="mb-3">
           <h3
@@ -224,9 +169,169 @@ import ThemeIcon from "../components/ThemeIcon.astro";
         </div>
       </AbsoluteIsland>
     </div>
+    <div class="pl-[300px] pt-4 flex flex-col gap-8">
+      <CompanySection company="Thespian" duration="2 years 9 months">
+        <div slot="work-items" class="flex flex-col gap-4">
+          <WorkItem
+            title="Frontend Developer"
+            timeframe="April 2023 - Present (2 years)"
+            technologies={["React", "TypeScript", "NextJS"]}
+          />
+
+          <WorkItem
+            title="Junior Frontend Developer"
+            timeframe="July 2022 - March 2023 (9 months)"
+            technologies={["React", "JavaScript"]}
+          />
+        </div>
+
+        <div slot="key-projects" class="grid grid-cols-2 gap-4">
+          <KeyProjectItem
+            title="DCK Media eLearning Platform"
+            description="Elevated DCK media's eLearning experience by replacing their outdated system with a custom platform that simplifies user management, enhances learning paths, and scales with their growing user base. Successfully migrated data and certificates for 50,000 medical professionals across 1600 organizations and clinics."
+            industryTags={["Healthcare", "E-Learning"]}
+            claims={[
+              "70% decreased server maintenance costs",
+              "+50,000 Medical professionals in Germany now benefit from a world-class e-learning service",
+            ]}
+            duration="1 year"
+            role="Lead Frontend Developer"
+            techStack={["React", "Redux", "React Router", "Ruby on Rails"]}
+            bannerImage="/dck.webp"
+          />
+
+          <KeyProjectItem
+            title="APEX Token Airdrop Platform"
+            description="Designed and built a modern web interface for APEX to distribute tokens to existing users. Created a comprehensive solution featuring an advanced pre-phase calculator, a user-friendly wallet connection wizard, and a powerful distribution management system for administrators."
+            industryTags={["Blockchain", "Fintech"]}
+            claims={[
+              "Intuitive user interface handling 100,000+ users",
+              "Robust distribution system managing over 100,000 claims",
+            ]}
+            duration="6 months"
+            role="Frontend Developer"
+            techStack={["React", "Web3.js", "Wallet Integration", "Redux"]}
+            bannerImage="/apex.webp"
+          />
+
+          <KeyProjectItem
+            title="Thespian Web (TODO)"
+            description="Development of a modern frontend for our agency website using NextJS framework. [TODO: Add more details later]"
+            industryTags={["Web Development", "Agency"]}
+            claims={["TODO: Add key achievements"]}
+            duration="TODO"
+            role="Frontend Developer"
+            techStack={["NextJS", "React"]}
+            bannerImage="/thespian.webp"
+          />
+
+          <KeyProjectItem
+            title="OpenScience - PubWeave"
+            description="Developed PubWeave, an innovative platform for academics to showcase, share, and collaborate on research papers and preprints. Built a sophisticated WYSIWYG block-style editor based on Editor.js with custom real-time collaboration functionality using WebSockets. Implemented a system to track user edits, visualize collaborator presence, and synchronize content changes across multiple concurrent users."
+            industryTags={["Research", "Academic Publishing", "Collaboration"]}
+            claims={[
+              "Created a custom real-time collaboration system for document editing",
+              "Implemented block-level user presence indicators for concurrent editing",
+              "Designed an intuitive interface for academic content creation",
+            ]}
+            duration="8 months"
+            role="Frontend Developer"
+            techStack={[
+              "React",
+              "Ruby on Rails",
+              "Editor.js",
+              "WebSockets",
+              "Real-time Collaboration",
+            ]}
+            bannerImage="/pubweave.webp"
+          />
+
+          <KeyProjectItem
+            title="Plastopak Website"
+            description="Developed a modern, responsive website for Plastopak, a plastic packaging manufacturer with 30+ years of industry experience. Created a comprehensive product catalog showcasing their sustainable packaging solutions, implemented a contact form for customer inquiries, and built a multilingual interface to serve their international client base."
+            industryTags={["Web store", "Internationalization"]}
+            claims={[
+              "Increased online inquiries by 35% through improved user experience",
+              "Enabled international market expansion with multilingual support",
+              "Showcased company's sustainability initiatives to attract eco-conscious clients",
+            ]}
+            duration="3 months"
+            role="Frontend Developer"
+            techStack={[
+              "NextJS",
+              "React",
+              "i18n",
+              "Tailwind CSS",
+              "Contact Form",
+            ]}
+            bannerImage="/plastopak.webp"
+          />
+
+          <KeyProjectItem
+            title="Component Library - React Aria"
+            description="Developed a modern, accessible component library for our agency built with React Aria and Tailwind CSS. Created a comprehensive design system with SCSS variables, implemented semantic color naming conventions, and built theme support for light and dark modes. The library includes a complete styling system structured across multiple files for global styles, breakpoints, variables, colors, and typography."
+            industryTags={[
+              "Design System",
+              "Component Library",
+              "Accessibility",
+            ]}
+            claims={[
+              "Reduced development time by 40% for new projects",
+              "Ensured consistent UI/UX across all agency projects",
+              "Improved accessibility compliance across all applications",
+            ]}
+            duration="6 months"
+            role="Lead Frontend Developer"
+            techStack={[
+              "React",
+              "Tailwind CSS",
+              "React Aria",
+              "SCSS",
+              "Storybook",
+              "Figma",
+            ]}
+            bannerImage="/component-library.webp"
+          />
+        </div>
+      </CompanySection>
+      <CompanySection company="KONČAR - Digital" duration="1 year 2 months">
+        <div slot="work-items">
+          <WorkItem
+            title="Python and Javascript Developer"
+            timeframe="March 2022 - July 2022 (5 months)"
+            description="Developing machine learning regression and anomaly detection models and integrating it with Hat-Open open-source python framework developed by Končar, frontend made in virtual DOM (snapdom) environment"
+            technologies={[
+              "Python",
+              "JavaScript",
+              "Machine Learning",
+              "Virtual DOM",
+            ]}
+          />
+
+          <WorkItem
+            title="Junior Javascript and Python Developer"
+            timeframe="June 2021 - March 2022 (10 months)"
+            description="Developing projects primarily for Energy Sector in Python/JS in Virtual DOM (snapdom) environment"
+            technologies={["JavaScript", "Python", "Virtual DOM"]}
+          />
+        </div>
+      </CompanySection>
+      <Footer />
+    </div>
   </body>
 </html>
 <style>
+  .left-part {
+    animation: scroll-watcher-island 1s linear;
+    animation-timeline: scroll();
+  }
+
+  @keyframes scroll-watcher-island {
+    to {
+      transform: translateY(calc(100vh - 100%));
+    }
+  }
+
   /* Social media icon colors */
   .text-github {
     color: #333;
@@ -234,10 +339,6 @@ import ThemeIcon from "../components/ThemeIcon.astro";
 
   .text-linkedin {
     color: #0077b5;
-  }
-
-  .text-instagram {
-    color: #e4405f;
   }
 
   /* Dark mode adjustments */
