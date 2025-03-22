@@ -1,13 +1,43 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import TestComponent from "../react/TestComponent";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta name="robots" content="noindex, nofollow" />
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="flex w-full justify-between"> </body>
+  <body class="w-screen h-screen">
+    <!-- SEO Content for Crawlers -->
+    <div class="sr-only">
+      <header>
+        <h1>{SITE_TITLE}</h1>
+        <p>{SITE_DESCRIPTION}</p>
+      </header>
+      <main>
+        <section>
+          <h2>Welcome to My Interactive Experience</h2>
+          <p>
+            This is an immersive three.js game that provides an interactive 3D
+            environment. The experience is designed to showcase interactive
+            visualization and game development techniques.
+          </p>
+        </section>
+        <section>
+          <h2>Controls</h2>
+          <p>
+            Use WASD keys to move and mouse to look around. Click to interact
+            with objects in the environment.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Three.js Game Component -->
+    <TestComponent client:only="react">
+      <div slot="fallback">Loading</div>
+    </TestComponent>
+  </body>
 </html>
