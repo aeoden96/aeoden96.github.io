@@ -17,7 +17,7 @@ const {
 ---
 
 <div class="work-item-component flex flex-col gap-2">
-  <div class="flex justify-between items-center">
+  <div class="flex flex-col">
     <div class="flex items-center gap-2">
       <span class="font-semibold">{title}</span>
       {
@@ -28,7 +28,7 @@ const {
         )
       }
     </div>
-    <span class="text-gray-600 text-xs">📅 {timeframe}</span>
+    <span class="text-gray-600 text-xs mt-1">📅 {timeframe}</span>
   </div>
   {
     description && (

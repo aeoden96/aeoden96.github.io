@@ -3,7 +3,7 @@ import createReactAPI from "miniplex-react";
 
 /* Our entity type */
 export type Entity = {
-  position: { x: number; y: number; z: number };
+  position: { phi: number; r: number; y: number };
   health: number;
   three: {};
 };
@@ -19,3 +19,5 @@ export enum PlayerMovement {
   WALK_RIGHT = "walk_right",
   IDLE = "idle",
 }
+
+export const OUTER_RADIUS = 30;

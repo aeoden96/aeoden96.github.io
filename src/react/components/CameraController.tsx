@@ -5,35 +5,30 @@ import type { Entity } from "../state";
 
 interface CameraControllerProps {
   target: Entity["position"];
-  offset?: {
-    x: number;
-    y: number;
-    z: number;
-  };
   lerp?: number;
 }
 
 export function CameraController({
   target,
-  offset = { x: 0, y: 5, z: 5 }, // Default camera position above and behind player
-  lerp = 0.1, // Smoothing factor (0-1)
+  lerp = 1, // Smoothing factor (0-1)
 }: CameraControllerProps) {
   const { camera } = useThree();
   const targetRef = useRef(new THREE.Vector3());
 
+  const cameraPosition = {
+    x: (target.r + 5) * Math.cos(target.phi),
+    y: target.y,
+    z: (target.r + 5) * Math.sin(target.phi),
+  };
+
   useFrame(() => {
-    // Calculate target position with offset
-    targetRef.current.set(
-      target.x + offset.x,
-      target.y + offset.y,
-      target.z + offset.z
-    );
+    targetRef.current.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
     // Smoothly move camera to target (lerp)
     camera.position.lerp(targetRef.current, lerp);
 
     // Look at player position
-    camera.lookAt(target.x, target.y, target.z);
+    camera.lookAt(0, 0, 0);
   });
 
   return null; // This component doesn't render anything

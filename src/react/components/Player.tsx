@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { usePlayerMovement } from "./Movement";
-import { ECS, PlayerMovement, type Entity } from "../state";
+import { ECS, OUTER_RADIUS, PlayerMovement, type Entity } from "../state";
 import { CameraController } from "./CameraController";
 
 interface PlayerProps {
@@ -67,19 +67,23 @@ function AnimatedSprite({
 }
 
 export default function Player({
-  initialPosition = { x: 0, y: 0, z: 0 },
+  initialPosition = { phi: 0, r: OUTER_RADIUS, y: 0 },
 }: PlayerProps) {
   // Use the movement hook to control player position
   const { position, movementType } = usePlayerMovement(initialPosition);
 
   return (
     <ECS.Entity>
-      <CameraController target={position} offset={{ x: 0, y: 0, z: 5 }} />
+      <CameraController target={position} />
       <ECS.Component name="position" data={position} />
       <ECS.Component name="health" data={100} />
       <ECS.Component name="three">
         <Billboard
-          position={[position.x, position.y, position.z]}
+          position={[
+            position.r * Math.cos(position.phi),
+            position.y,
+            position.r * Math.sin(position.phi),
+          ]}
           follow={true}
           lockX={false}
           lockY={false}
