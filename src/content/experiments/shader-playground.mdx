@@ -1,0 +1,69 @@
+---
+title: 'WebGL Shader Playground'
+description: 'Interactive WebGL shader playground with live-editing capabilities'
+pubDate: 'Apr 02 2025'
+heroImage: '/blog-placeholder-3.jpg'
+tags: ['WebGL', 'Shaders', 'JavaScript', 'Interactive']
+---
+
+import ShaderCanvas from "../../components/ShaderCanvas.jsx";
+
+# WebGL Shader Playground
+
+This is an experimental page that demonstrates a simple WebGL shader playground. You can use this page to experiment with fragment shaders and see the results in real-time.
+
+## Interactive Shader Example
+
+Below is a simple WebGL shader that creates a color gradient:
+
+```glsl
+// Fragment shader
+precision mediump float;
+
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / resolution.xy;
+  
+  // Create a simple gradient based on position
+  vec3 color = vec3(uv.x, uv.y, sin(time * 0.5) * 0.5 + 0.5);
+  
+  // Output the color
+  gl_FragColor = vec4(color, 1.0);
+}
+```
+
+<ShaderCanvas client:visible />
+
+**What you're seeing:** This shader creates a gradient where the red component increases from left to right, the green component increases from bottom to top, and the blue component oscillates over time using a sine wave function. The shader runs in real-time on your GPU using WebGL.
+
+## How It Works
+
+This experiment uses WebGL to render shaders directly in the browser. The shader code is compiled and executed on your GPU, allowing for complex visual effects with minimal CPU overhead.
+
+The shader canvas is implemented as a React component that:
+
+1. Creates a WebGL context on a canvas element
+2. Compiles vertex and fragment shaders
+3. Sets up a simple fullscreen quad (two triangles that cover the canvas)
+4. Passes uniform values for time and resolution
+5. Renders the scene at each animation frame
+
+In the future, this page will include:
+
+- An interactive editor where you can modify the shader code
+- Live preview of your changes
+- Ability to save and share your shaders
+- A gallery of example shaders to learn from
+
+## Why Shaders Are Cool
+
+Shaders offer an incredibly efficient way to create complex visuals by leveraging the parallel processing power of modern GPUs. They're used in:
+
+- Video games for realistic lighting and effects
+- Creative coding for generative art
+- Data visualization
+- Scientific simulations
+
+Stay tuned as this experiment evolves with more interactive features! 

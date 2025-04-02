@@ -1,0 +1,50 @@
+---
+title: 'Tic-Tac-Toe'
+description: 'A classic game of Tic-Tac-Toe built with React'
+pubDate: 'Apr 02 2025'
+heroImage: '/blog-placeholder-2.jpg'
+tags: ['Game', 'React', 'Interactive']
+---
+
+import TicTacToe from "../../components/TicTacToe.jsx";
+
+# Tic-Tac-Toe
+
+A classic game of Tic-Tac-Toe built with React. Try to get three in a row before your opponent does!
+
+## Play the Game
+
+<TicTacToe client:visible />
+
+## How It Works
+
+This game is built using React and features:
+
+- Real-time game state management
+- Turn-based gameplay
+- Win condition detection
+- Game reset functionality
+
+The game logic tracks the state of the board, determines the current player, checks for winners after each move, and allows you to reset the game at any time.
+
+## Game Rules
+
+1. The game is played on a 3x3 grid
+2. Players take turns placing X or O in empty squares
+3. The first player to get three of their marks in a row (horizontally, vertically, or diagonally) wins
+4. If all squares are filled and no player has three in a row, the game is a draw
+
+## Implementation Details
+
+The game is implemented as a React component that maintains the game state using React hooks. The board is represented as an array of 9 elements (3x3 grid), and the component handles:
+
+- Rendering the game board
+- Processing player moves
+- Determining game outcome
+- Managing player turns
+
+In the future, I plan to add features like:
+- Score tracking
+- AI opponents with different difficulty levels
+- Customizable board sizes
+- Multiplayer support 

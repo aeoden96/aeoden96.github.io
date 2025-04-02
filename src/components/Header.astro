@@ -2,33 +2,54 @@
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import ThemeIcon from "./ThemeIcon.astro";
+
+const pathname = Astro.url.pathname;
+const subpath = pathname.match(/[^\/]+/g);
+const currentPath = subpath?.[0] || "";
+
+// Define theme colors based on current path
+let headerClass = "bg-white/70 dark:bg-gray-900/70";
+
+if (currentPath === "blog") {
+  headerClass = "bg-indigo-50/70 dark:bg-indigo-900/70";
+} else if (currentPath === "experiments") {
+  headerClass = "bg-purple-50/70 dark:bg-purple-900/70";
+} else if (currentPath === "games") {
+  headerClass = "bg-green-50/70 dark:bg-green-900/70";
+}
 ---
 
 <header
-  class="p-4 m-4 rounded-lg bg-white dark:bg-black m-0 py-1 bg-white/50 dark:bg-black/50 px-0 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800"
+  class={`fixed top-0 left-0 right-0 z-50 py-4 px-6 backdrop-blur-md ${headerClass} border-b border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-300`}
 >
-  <nav class="flex items-center justify-between">
-    <h2><a href="/">{SITE_TITLE}</a></h2>
-  </nav>
-</header>
-<style>
-  h2 {
-    margin: 0;
-    font-size: 1em;
-  }
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+      <a
+        href="/"
+        class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
+        >Home</a
+      >
+    </h2>
 
-  h2 a,
-  h2 a.active {
-    text-decoration: none;
-  }
-  nav a {
-    padding: 1em 0.5em;
-    color: var(--black);
-    border-bottom: 4px solid transparent;
-    text-decoration: none;
-  }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
-  }
-</style>
+    <nav class="flex items-center space-x-6">
+      <HeaderLink
+        href="/blog"
+        class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
+        >Blog</HeaderLink
+      >
+      <HeaderLink
+        href="/experiments"
+        class="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300"
+        >Experiments</HeaderLink
+      >
+      <HeaderLink
+        href="/games"
+        class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
+        >Games</HeaderLink
+      >
+      <ThemeIcon />
+    </nav>
+  </div>
+</header>
+<!-- Add padding to the body to prevent content from hiding behind the fixed header -->
+<div class="pt-20"></div>

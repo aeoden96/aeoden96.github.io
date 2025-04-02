@@ -100,3 +100,204 @@ body {
 ::-webkit-scrollbar-thumb {
   background: gray;
 }
+
+/* Prose/Markdown Content Styles */
+.prose h1 {
+  font-size: 2.5rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  color: rgb(var(--gray-dark)) !important;
+  font-weight: bold !important;
+}
+
+.prose h2 {
+  font-size: 2rem !important;
+  margin-top: 1.8rem !important;
+  margin-bottom: 0.8rem !important;
+  color: rgb(var(--gray-dark)) !important;
+  font-weight: bold !important;
+}
+
+.prose h3 {
+  font-size: 1.5rem !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+  color: rgb(var(--gray-dark)) !important;
+  font-weight: bold !important;
+}
+
+[data-theme="dark"] .prose h1,
+[data-theme="dark"] .prose h2,
+[data-theme="dark"] .prose h3 {
+  color: white !important;
+}
+
+/* Additional styles for markdown content */
+.prose p {
+  margin-bottom: 1rem !important;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1rem !important;
+  margin-left: 1.5rem !important;
+}
+
+.prose blockquote {
+  border-left: 4px solid rgb(var(--gray)) !important;
+  padding-left: 1rem !important;
+  font-style: italic !important;
+  margin: 1.5rem 0 !important;
+}
+
+pre {
+  padding: 1em;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: auto;
+  background-color: rgb(var(--gray-light));
+  box-shadow: var(--box-shadow);
+}
+[data-theme="dark"] pre {
+  background-color: rgb(var(--gray-dark));
+}
+code {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  background-color: rgba(var(--gray), 0.2);
+}
+pre > code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Image styles */
+p > img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  box-shadow: var(--box-shadow);
+}
+
+[data-theme="dark"] p > img {
+  filter: brightness(0.9);
+}
+
+/* Mark (highlight) styles */
+mark {
+  background: linear-gradient(
+    104deg,
+    rgba(255, 230, 0, 0) 0.9%,
+    rgba(255, 230, 0, 0.5) 2.4%,
+    rgba(255, 230, 0, 0.5) 97.5%,
+    rgba(255, 230, 0, 0) 99.1%
+  );
+  padding: 0.12em 0.4em;
+  /* margin: 0 0.4em; */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  border-radius: 4px;
+  color: inherit;
+  position: relative;
+  font-weight: 500;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 -0.12em 0 rgba(255, 230, 0, 0.8);
+  transition: background 0.3s ease;
+}
+
+mark:hover {
+  background: linear-gradient(
+    104deg,
+    rgba(255, 230, 0, 0) 0.9%,
+    rgba(255, 230, 0, 0.7) 2.4%,
+    rgba(255, 230, 0, 0.7) 97.5%,
+    rgba(255, 230, 0, 0) 99.1%
+  );
+}
+
+[data-theme="dark"] mark {
+  background: linear-gradient(
+    104deg,
+    rgba(131, 58, 180, 0) 0.9%,
+    rgba(131, 58, 180, 0.5) 2.4%,
+    rgba(253, 29, 29, 0.5) 50%,
+    rgba(252, 176, 69, 0.5) 97.5%,
+    rgba(252, 176, 69, 0) 99.1%
+  );
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 -0.12em 0 rgba(255, 230, 0, 0.4);
+}
+
+[data-theme="dark"] mark:hover {
+  background: linear-gradient(
+    104deg,
+    rgba(131, 58, 180, 0) 0.9%,
+    rgba(131, 58, 180, 0.7) 2.4%,
+    rgba(253, 29, 29, 0.7) 50%,
+    rgba(252, 176, 69, 0.7) 97.5%,
+    rgba(252, 176, 69, 0) 99.1%
+  );
+}
+
+/* Abbreviation styles */
+abbr {
+  text-decoration: none;
+  position: relative;
+  cursor: help;
+  font-variant: small-caps;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  border-bottom: 1px dotted var(--accent);
+  padding-bottom: 1px;
+  transition: all 0.2s ease;
+}
+
+abbr:hover {
+  border-bottom: 1px solid var(--accent);
+}
+
+abbr::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: rgba(var(--black), 0.8);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75em;
+  border-radius: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-variant: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  top: -20px;
+}
+
+abbr:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+[data-theme="dark"] abbr {
+  border-bottom: 1px dotted var(--accent-dark);
+}
+
+[data-theme="dark"] abbr:hover {
+  border-bottom: 1px solid var(--accent);
+}
+
+[data-theme="dark"] abbr::after {
+  background: rgba(var(--gray-dark), 0.95);
+  color: var(--color-light);
+}
