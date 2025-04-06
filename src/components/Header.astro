@@ -20,10 +20,10 @@ if (currentPath === "blog") {
 ---
 
 <header
-  class={`fixed top-0 left-0 right-0 z-50 py-4 px-6 backdrop-blur-md ${headerClass} border-b border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-300`}
+  class={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 py-4 px-6 backdrop-blur-md ${headerClass} border border-gray-200 dark:border-gray-800 rounded-full shadow-lg transition-colors duration-300 max-w-3xl w-auto`}
 >
-  <div class="max-w-6xl mx-auto flex items-center justify-between">
-    <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+  <div class="flex items-center justify-between">
+    <h2 class="mr-8 text-xl font-bold text-gray-800 dark:text-white">
       <a
         href="/"
         class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
@@ -31,7 +31,7 @@ if (currentPath === "blog") {
       >
     </h2>
 
-    <nav class="flex items-center space-x-6">
+    <nav class="flex items-center space-x-6 ml-8">
       <HeaderLink
         href="/blog"
         class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
@@ -51,5 +51,5 @@ if (currentPath === "blog") {
     </nav>
   </div>
 </header>
-<!-- Add padding to the body to prevent content from hiding behind the fixed header -->
-<div class="pt-20"></div>
+<!-- Adjust padding for the island header -->
+<div class="pt-24"></div>
