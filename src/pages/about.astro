@@ -1,0 +1,441 @@
+---
+import AbsoluteIsland from "../components/AbsoluteIsland.astro";
+import BaseHead from "../components/BaseHead.astro";
+import KeyProjectItem from "../components/KeyProjectItem.astro";
+import ThemeIcon from "../components/ThemeIcon.astro";
+import WorkItem from "../components/WorkItem.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- <meta name="robots" content="noindex, nofollow" /> -->
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="flex w-full justify-between">
+    <div class="fixed w-[300px] left-part p-4 gap-4 h-fit flex flex-col">
+      <AbsoluteIsland classes="w-full flex  gap-4 ">
+        <ThemeIcon />
+        <a
+          href="https://github.com/aeoden96"
+          target="_blank"
+          class="social-icon hover:opacity-80 transition-opacity"
+        >
+          <span class="sr-only">GitHub Profile</span>
+          <svg
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+            width="32"
+            height="32"
+            class="color-[#333] dark:color-white"
+            ><path
+              fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            ></path></svg
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/mateo-martinjak-803040197/"
+          target="_blank"
+          class="social-icon hover:opacity-80 transition-opacity"
+        >
+          <span class="sr-only">LinkedIn Profile</span>
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            width="32"
+            height="32"
+            class="color-[#333] dark:color-white"
+            ><path
+              fill="currentColor"
+              d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+            ></path></svg
+          >
+        </a>
+      </AbsoluteIsland>
+      <AbsoluteIsland classes=" flex flex-col gap-4  ">
+        <div class="text-center mb-2">
+          <h2 class="text-lg text-left font-bold">Mateo Martinjak</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300">Web Developer</p>
+        </div>
+
+        <div class="text-sm">
+          <p class="mb-3">
+            Software Engineer with a strong focus on full-stack web development,
+            specializing in React, TypeScript, Next.js, Node.js and Rails.I also
+            work with Three.js and shaders to create interactive 3D experiences
+            on the web.
+          </p>
+        </div>
+      </AbsoluteIsland>
+
+      <a
+        href="/blog"
+        class="hidden items-center justify-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition-colors"
+      >
+        <span class="mr-2">{"◀"}</span> View My Blogs
+      </a>
+
+      <AbsoluteIsland classes="w-full flex flex-col gap-4 ">
+        <div class="mb-3">
+          <h3
+            class="font-bold text-md border-b border-gray-200 dark:border-gray-700 pb-1 mb-2"
+          >
+            Skills
+          </h3>
+          <ul class="flex flex-wrap gap-1">
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              React
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              TypeScript
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              JavaScript
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              CSS
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Design Systems
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Component libs
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              NextJS
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              SEO
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Shader coding
+            </li>
+            <li
+              class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md text-xs"
+            >
+              Low level graphics
+            </li>
+          </ul>
+        </div>
+
+        <div class="mb-3">
+          <h3
+            class="font-bold text-md border-b border-gray-200 dark:border-gray-700 pb-1 mb-2"
+          >
+            Tools
+          </h3>
+          <ul class="flex flex-wrap gap-1">
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Next.js
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Tailwind CSS
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Redux
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Ruby on Rails
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Python
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              Git
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              C
+            </li>
+            <li
+              class="bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md text-xs"
+            >
+              C#
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="font-bold text-md border-b border-gray-200 dark:border-gray-700 pb-1 mb-2"
+          >
+            Certifications
+          </h3>
+          <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-md">
+            <p class="font-medium">Ruby on Rails</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400">
+              Infinum Academy, 2024
+            </p>
+          </div>
+        </div>
+      </AbsoluteIsland>
+    </div>
+    <div class="pl-[300px] pr-4 pt-4 flex flex-col gap-8">
+      <WorkItem
+        title="Frontend Developer"
+        timeframe="July 2022 - Present (2 years 10 months)"
+        company="Thespian"
+        description="Worked on dozens of mid-sized projects, in constant feedback loop with the clients and product managers, in excellent collaboration with our design team"
+      >
+        <div slot="key-projects" class="grid grid-cols-2 gap-4">
+          <KeyProjectItem
+            title="APEX Token Airdrop Platform"
+            description="Designed and built a modern web interface for APEX to distribute tokens to existing users. Created a comprehensive solution featuring an advanced pre-phase calculator, a user-friendly wallet connection wizard, and a powerful distribution management system for administrators."
+            industryTags={["Blockchain", "Fintech"]}
+            claims={[
+              "Designed a web interface for token distribution to 200,000+ users with advanced blockchain wallet integration",
+              "Instant eligibility checks with automated fraud prevention",
+              "Real-time claim tracking through websockets",
+              "Built an admin dashboard for easy rule adjustments",
+              "Simplified registration with popular browser wallet support",
+            ]}
+            duration="6 months"
+            role="Lead Frontend Developer"
+            techStack={[
+              "React",
+              "TypeScript",
+              "Next.js",
+              "Tailwind CSS",
+              "Zustand",
+              "Wallet Integration",
+            ]}
+            bannerImage="/apex.webp"
+          />
+
+          <KeyProjectItem
+            title="Thespian Website"
+            description="Development of a modern frontend for our agency website using Next.js. Created a performant, SEO-friendly website with integrated marketing services and user engagement tracking features."
+            industryTags={["Web Development", "Agency", "Marketing"]}
+            claims={[
+              "Development of a modern frontend for our agency website using Next.js",
+              "Integrated marketing services for user engagement tracking",
+              "100% SEO-friendly with statically generated pages",
+              "3x user reach with the modernized web experience",
+            ]}
+            duration="6 months"
+            role="Lead Frontend Developer"
+            techStack={[
+              "React",
+              "TypeScript",
+              "Next.js",
+              "Tailwind CSS",
+              "SEO Optimization",
+              "Analytics Integration",
+            ]}
+            bannerImage="/thespian.webp"
+          />
+          <KeyProjectItem
+            title="Plastopak Website"
+            description="Developed a modern, responsive website for Plastopak, a plastic packaging manufacturer with 30+ years of industry experience. Created a comprehensive product catalog showcasing their sustainable packaging solutions, implemented a contact form for customer inquiries, and built a multilingual interface to serve their international client base."
+            industryTags={["Web store", "Internationalization"]}
+            claims={[
+              "Increased online inquiries by 35% through improved user experience",
+              "Enabled international market expansion with multilingual support",
+              "Showcased company's sustainability initiatives to attract eco-conscious clients",
+            ]}
+            duration="1 month"
+            role="Frontend Developer"
+            techStack={[
+              "NextJS",
+              "React",
+              "i18n",
+              "Tailwind CSS",
+              "Contact Form",
+            ]}
+            bannerImage="/plastopak.webp"
+          />
+
+          <KeyProjectItem
+            title="Component Library - React Aria"
+            description="Developed a modern, accessible component library for our agency built with React Aria and Tailwind CSS. Created a comprehensive design system with SCSS variables, implemented semantic color naming conventions, and built theme support for light and dark modes. The library includes a complete styling system structured across multiple files for global styles, breakpoints, variables, colors, and typography."
+            industryTags={[
+              "Design System",
+              "Component Library",
+              "Accessibility",
+            ]}
+            claims={[
+              "60+ reusable, accessible components built",
+              "Used accessibility focused React Aria as backbone for the library",
+              "Built using latest Tailwind + TS for easy future management",
+              "100% integrated Storybook to provide developers with live component documentation",
+              "Drastically reduced project development time for current and future projects",
+              "Ensured consistent UI/UX across all agency projects",
+              "Improved accessibility compliance across all applications",
+            ]}
+            duration="6 months"
+            role="Lead Frontend Developer"
+            techStack={[
+              "React",
+              "Tailwind CSS",
+              "React Aria",
+              "SCSS",
+              "Storybook",
+              "Figma",
+              "TypeScript",
+            ]}
+            bannerImage="/component-library.webp"
+          />
+          <KeyProjectItem
+            title="DCK Media eLearning Platform"
+            description="Elevated DCK media's eLearning experience by replacing their outdated system with a custom platform that simplifies user management, enhances learning paths, and scales with their growing user base. Successfully migrated data and certificates for 50,000 medical professionals across 1600 organizations and clinics."
+            industryTags={["Healthcare", "E-Learning"]}
+            claims={[
+              "70% decreased server maintenance costs",
+              "Implemented magazine shipment distribution system",
+              "50,000+ medical professionals use the platform on a daily basis",
+              "Onboarded 8000 users to Alpha version",
+              "Precise course progress tracking",
+              "1,600 organizations & clinics now benefit from an improved platform",
+            ]}
+            duration="1 year"
+            techStack={[
+              "React",
+              "MOBX",
+              "React Router",
+              "Playwright",
+              "Typescript",
+            ]}
+            bannerImage="/dck.webp"
+          />
+
+          <KeyProjectItem
+            title="OpenScience - PubWeave"
+            description="Developed PubWeave, an innovative platform for academics to showcase, share, and collaborate on research papers and preprints. Built a sophisticated WYSIWYG block-style editor based on Editor.js with custom real-time collaboration functionality using WebSockets. Implemented a system to track user edits, visualize collaborator presence, and synchronize content changes across multiple concurrent users."
+            industryTags={[
+              "Research",
+              "Academic Publishing",
+              "Collaboration",
+              "Blockchain",
+            ]}
+            claims={[
+              "Created a collaborative WYSIWYG editor with real-time synchronization for academic publishing",
+              "Open-source, block-style, rich text editor with real-time article collaboration",
+              "Integrated blockchain Cardano payments system through browser API",
+              "Created a custom real-time collaboration system for document editing",
+              "Implemented block-level user presence indicators for concurrent editing",
+              "Designed an intuitive interface for academic content creation",
+            ]}
+            duration="8 months"
+            role="Lead Frontend Developer"
+            techStack={[
+              "React",
+              "TypeScript",
+              "Tailwind CSS",
+              "Redux",
+              "Ruby on Rails",
+              "Editor.js",
+              "WebSockets",
+              "Real-time Collaboration",
+              "Blockchain Integration",
+            ]}
+            bannerImage="/pubweave.webp"
+          />
+
+          <KeyProjectItem
+            title="Hrvatski kinološki savez (HKS)"
+            description="Revitalized a 20+ year-old dog championship management platform by migrating from an outdated system to a modern web application with improved user experience and performance."
+            industryTags={["Dog Shows", "Championship Management"]}
+            claims={[
+              "Migrated from an outdated platform to a modern Next.js solution",
+              "Simplified data fetching using useQuery",
+              "Revitalized a 20+ year-old dog championship management platform",
+            ]}
+            bannerImage="/hks.webp"
+            duration="4 months"
+            role="Lead Frontend Developer"
+            techStack={[
+              "React",
+              "TypeScript",
+              "Next.js",
+              "Tailwind CSS",
+              "useQuery",
+              "API Integration",
+            ]}
+            bannerImage="/hks.webp"
+          />
+        </div>
+      </WorkItem>
+
+      <WorkItem
+        title="Python and Javascript Developer"
+        timeframe="June 2021 - July 2022 (1 year 2 months)"
+        company="Končar Digital"
+        description="Developing machine learning regression and anomaly detection models and integrating it with Hat-Open open-source python framework developed by Končar, frontend made in virtual DOM (snapdom) environment"
+        technologies={[
+          "Python",
+          "JavaScript",
+          "Machine Learning",
+          "Virtual DOM",
+        ]}
+      />
+
+      <WorkItem
+        title="Junior Javascript and Python Developer"
+        timeframe="March 2018 - August 2019 (1 year 6 months)"
+        company="Končar Digital"
+        description="Developing projects primarily for Energy Sector in Python/JS in Virtual DOM (snapdom) environment"
+        technologies={["JavaScript", "Python", "Virtual DOM"]}
+      />
+      <!-- <Footer /> -->
+    </div>
+
+    <style>
+      .left-part {
+        animation: scroll-watcher-island 1s linear;
+        animation-timeline: scroll();
+      }
+
+      @keyframes scroll-watcher-island {
+        to {
+          transform: translateY(calc(100vh - 100%));
+        }
+      }
+
+      /* Social media icon colors */
+
+      .text-linkedin {
+        color: #0077b5;
+      }
+
+      /* Dark mode adjustments */
+      :global(.dark) .text-github,
+      :global(.dark) .text-linkedin,
+      :global(.dark) .text-instagram {
+        color: #fff;
+      }
+    </style>
+  </body>
+</html>
