@@ -12,12 +12,12 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
   </head>
   <body class="flex flex-col justify-between w-full text-white bg-black">
     <main
-      class="relative flex items-center h-screen justify-end w-full flex-grow px-40"
+      class="relative flex items-center h-screen justify-end w-full flex-grow px-10 md:px-40"
     >
       <section class="z-10 w-full max-w-7xl">
         <h1 class="font-bold text-right leading-tight">
-          <span class="text-5xl md:text-[12rem] text-white block">WORK</span>
-          <span class="text-5xl md:text-[12rem] text-gray-600 block"
+          <span class="text-4xl md:text-[12rem] text-white block">WORK</span>
+          <span class="text-4xl md:text-[12rem] text-gray-600 block"
             >EXPERIENCE</span
           >
         </h1>
@@ -134,6 +134,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { name: "Zustand" },
           { name: "Wallet Integration" },
         ]}
+        image="/apex.webp"
       />
 
       <DarkProject
@@ -159,6 +160,33 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { name: "SEO Optimization" },
           { name: "Analytics Integration" },
         ]}
+        image="/thespian.webp"
+      />
+
+      <DarkProject
+        title="Plastopak Website"
+        duration="1 month"
+        role="Frontend Developer"
+        description="Developed a modern, responsive website for Plastopak, a plastic packaging manufacturer with 30+ years of industry experience. Created a comprehensive product catalog showcasing their sustainable packaging solutions, implemented a contact form for customer inquiries, and built a multilingual interface to serve their international client base."
+        achievements={[
+          {
+            text: "Increased online inquiries by 35% through improved user experience",
+          },
+          {
+            text: "Enabled international market expansion with multilingual support",
+          },
+          {
+            text: "Showcased company's sustainability initiatives to attract eco-conscious clients",
+          },
+        ]}
+        techStack={[
+          { name: "Next.js" },
+          { name: "React" },
+          { name: "i18n" },
+          { name: "Tailwind CSS" },
+          { name: "Contact Form" },
+        ]}
+        image="/plastopak.webp"
       />
 
       <DarkProject
@@ -190,6 +218,78 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { name: "Figma" },
           { name: "TypeScript" },
         ]}
+        image="/component-library.webp"
+      />
+
+      <DarkProject
+        title="OpenScience - PubWeave"
+        duration="8 months"
+        role="Lead Frontend Developer"
+        description="Developed PubWeave, an innovative platform for academics to showcase, share, and collaborate on research papers and preprints. Built a sophisticated WYSIWYG block-style editor based on Editor.js with custom real-time collaboration functionality using WebSockets."
+        achievements={[
+          { text: "Created a collaborative WYSIWYG editor with real-time synchronization for academic publishing" },
+          { text: "Open-source, block-style, rich text editor with real-time article collaboration" },
+          { text: "Integrated blockchain Cardano payments system through browser API" },
+          { text: "Created a custom real-time collaboration system for document editing" },
+          { text: "Implemented block-level user presence indicators for concurrent editing" },
+          { text: "Designed an intuitive interface for academic content creation" },
+        ]}
+        techStack={[
+          { name: "React" },
+          { name: "TypeScript" },
+          { name: "Tailwind CSS" },
+          { name: "Redux" },
+          { name: "Ruby on Rails" },
+          { name: "Editor.js" },
+          { name: "WebSockets" },
+          { name: "Real-time Collaboration" },
+          { name: "Blockchain Integration" },
+        ]}
+        image="/pubweave.webp"
+      />
+
+      <DarkProject
+        title="DCK Media eLearning Platform"
+        duration="1 year"
+        role="Lead Frontend Developer"
+        description="Elevated DCK media's eLearning experience by replacing their outdated system with a custom platform that simplifies user management, enhances learning paths, and scales with their growing user base. Successfully migrated data and certificates for 50,000 medical professionals across 1600 organizations and clinics."
+        achievements={[
+          { text: "70% decreased server maintenance costs" },
+          { text: "Implemented magazine shipment distribution system" },
+          { text: "50,000+ medical professionals use the platform on a daily basis" },
+          { text: "Onboarded 8000 users to Alpha version" },
+          { text: "Precise course progress tracking" },
+          { text: "1,600 organizations & clinics now benefit from an improved platform" },
+        ]}
+        techStack={[
+          { name: "React" },
+          { name: "MOBX" },
+          { name: "React Router" },
+          { name: "Playwright" },
+          { name: "TypeScript" },
+        ]}
+        image="/dck.webp"
+      />
+
+      <DarkProject
+        title="Hrvatski kinološki savez (HKS)"
+        duration="4 months"
+        role="Lead Frontend Developer"
+        description="Revitalized a 20+ year-old dog championship management platform by migrating from an outdated system to a modern web application with improved user experience and performance."
+        achievements={[
+          { text: "Migrated from an outdated platform to a modern Next.js solution" },
+          { text: "Simplified data fetching using useQuery" },
+          { text: "Revitalized a 20+ year-old dog championship management platform" },
+        ]}
+        techStack={[
+          { name: "React" },
+          { name: "TypeScript" },
+          { name: "Next.js" },
+          { name: "Tailwind CSS" },
+          { name: "useQuery" },
+          { name: "API Integration" },
+        ]}
+        image="/hks.webp"
       />
     </DarkWorkItem>
 
