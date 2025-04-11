@@ -1,0 +1,60 @@
+---
+export interface Props {
+  companyName: string;
+  title: string;
+  period: string;
+}
+
+const { companyName, title, period } = Astro.props;
+---
+
+<section class="work-item flex-row flex w-full">
+  <div class="w-full flex justify-start items-start p-10">
+    <div class="">
+      <h2 class="text-3xl font-bold text-white mb-6">{title}</h2>
+      <p class="text-gray-400 mb-8">
+        {companyName} · {period}
+      </p>
+
+      <!-- Projects List -->
+      <div class="space-y-16">
+        <slot />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col w-[80px] flex-1 h-full justify-between relative gap-4"
+  >
+    <span class="text-white font-bold">current</span>
+    <span class="text-white font-bold">past</span>
+  </div>
+  <div class="tape-measure w-[20px] relative flex gap-4"></div>
+  <div class="relative side-bar flex gap-4">
+    <div
+      class="bg-[#26262683] sticky top-10 flex text-white [writing-mode:vertical-lr] h-fit p-4 font-semibold text-4xl"
+    >
+      {companyName.toUpperCase()}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tape-measure {
+    background-color: #000;
+    opacity: 0.8;
+    background-image: linear-gradient(#262626 2px, transparent 2px),
+      linear-gradient(90deg, #262626 2px, transparent 2px),
+      linear-gradient(#262626 1px, transparent 1px),
+      linear-gradient(90deg, #262626 1px, #000 1px);
+    background-size:
+      30px 60px,
+      30px 60px,
+      10px 20px,
+      0px 20px;
+    background-position:
+      -2px -2px,
+      -2px -2px,
+      -1px -1px,
+      -1px -1px;
+  }
+</style>

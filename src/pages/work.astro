@@ -1,0 +1,346 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import DarkProject from "../components/DarkProject.astro";
+import DarkWorkItem from "../components/DarkWorkItem.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="flex flex-col justify-between w-full text-white bg-black">
+    <main
+      class="relative flex items-center h-screen justify-end w-full flex-grow px-40"
+    >
+      <section class="z-10 w-full max-w-7xl">
+        <h1 class="font-bold text-right leading-tight">
+          <span class="text-5xl md:text-[12rem] text-white block">WORK</span>
+          <span class="text-5xl md:text-[12rem] text-gray-600 block"
+            >EXPERIENCE</span
+          >
+        </h1>
+
+        <div
+          class="mt-8 flex flex-col md:flex-row md:justify-between md:items-end"
+        >
+          <div>
+            <p class="text-sm text-gray-400 mb-1">
+              Mateo Martinjak / Full-Stack Software Engineer
+            </p>
+            <div class="w-full h-px bg-gray-700 my-6"></div>
+            <div class="flex flex-col gap-1">
+              <a
+                href="/about"
+                class="text-sm text-gray-400 hover:text-white transition-colors"
+                >// ABOUT</a
+              >
+              <a
+                href="/blog"
+                class="text-sm text-gray-400 hover:text-white transition-colors"
+                >// BLOGS</a
+              >
+              <a
+                href="/experiments"
+                class="text-sm text-gray-400 hover:text-white transition-colors"
+                >// EXPERIMENTS</a
+              >
+              <a
+                href="/games"
+                class="text-sm text-gray-400 hover:text-white transition-colors"
+                >// GAMES</a
+              >
+            </div>
+          </div>
+
+          <div class="mt-12 md:mt-0">
+            <p class="text-sm md:text-base text-gray-400 max-w-md mb-6">
+              Full-stack developer driven by a passion for building efficient,
+              secure applications. Expertise in web development, with a focus on
+              performance and security, pushing boundaries in code.
+            </p>
+            <div class="flex gap-4 items-center">
+              <a
+                href="https://github.com/aeoden96"
+                target="_blank"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  class="inline-block"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/mateo-martinjak-803040197/"
+                target="_blank"
+                class="text-gray-400 hover:text-white transition-colors ml-4"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  class="inline-block"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <DarkWorkItem
+      companyName="Thespian agency"
+      title="Frontend Developer"
+      period="July 2022 - Present (2 years 10 months)"
+    >
+      <DarkProject
+        title="APEX Token Airdrop Platform"
+        duration="6 months"
+        role="Lead Frontend Developer"
+        description="Designed and built a modern web interface for APEX to distribute tokens to existing users. Created a comprehensive solution featuring an advanced pre-phase calculator, a user-friendly wallet connection wizard, and a powerful distribution management system for administrators."
+        achievements={[
+          {
+            text: "Designed a web interface for token distribution to 200,000+ users with advanced blockchain wallet integration",
+          },
+          {
+            text: "Instant eligibility checks with automated fraud prevention",
+          },
+          { text: "Real-time claim tracking through websockets" },
+          { text: "Built an admin dashboard for easy rule adjustments" },
+          {
+            text: "Simplified registration with popular browser wallet support",
+          },
+        ]}
+        techStack={[
+          { name: "React" },
+          { name: "TypeScript" },
+          { name: "Next.js" },
+          { name: "Tailwind CSS" },
+          { name: "Zustand" },
+          { name: "Wallet Integration" },
+        ]}
+      />
+
+      <DarkProject
+        title="Thespian Website"
+        duration="6 months"
+        role="Lead Frontend Developer"
+        description="Development of a modern frontend for our agency website using Next.js. Created a performant, SEO-friendly website with integrated marketing services and user engagement tracking features."
+        achievements={[
+          {
+            text: "Development of a modern frontend for our agency website using Next.js",
+          },
+          {
+            text: "Integrated marketing services for user engagement tracking",
+          },
+          { text: "100% SEO-friendly with statically generated pages" },
+          { text: "3x user reach with the modernized web experience" },
+        ]}
+        techStack={[
+          { name: "React" },
+          { name: "TypeScript" },
+          { name: "Next.js" },
+          { name: "Tailwind CSS" },
+          { name: "SEO Optimization" },
+          { name: "Analytics Integration" },
+        ]}
+      />
+
+      <DarkProject
+        title="Component Library - React Aria"
+        duration="6 months"
+        role="Lead Frontend Developer"
+        description="Developed a modern, accessible component library for our agency built with React Aria and Tailwind CSS. Created a comprehensive design system with SCSS variables, implemented semantic color naming conventions, and built theme support for light and dark modes."
+        achievements={[
+          { text: "60+ reusable, accessible components built" },
+          {
+            text: "Used accessibility focused React Aria as backbone for the library",
+          },
+          {
+            text: "Built using latest Tailwind + TS for easy future management",
+          },
+          {
+            text: "100% integrated Storybook to provide developers with live component documentation",
+          },
+          {
+            text: "Drastically reduced project development time for current and future projects",
+          },
+        ]}
+        techStack={[
+          { name: "React" },
+          { name: "Tailwind CSS" },
+          { name: "React Aria" },
+          { name: "SCSS" },
+          { name: "Storybook" },
+          { name: "Figma" },
+          { name: "TypeScript" },
+        ]}
+      />
+    </DarkWorkItem>
+
+    <main class="flex flex-col w-full px-10 md:px-40 pt-32 pb-20">
+      <!-- Končar Digital (First position) -->
+      <section class="mb-20">
+        <div class="mb-8">
+          <h2 class="text-3xl font-bold text-white">
+            Python and Javascript Developer
+          </h2>
+          <p class="text-gray-400">
+            Končar Digital · June 2021 - July 2022 (1 year 2 months)
+          </p>
+          <p class="text-gray-300 max-w-3xl mt-4">
+            Developing machine learning regression and anomaly detection models
+            and integrating it with Hat-Open open-source python framework
+            developed by Končar, frontend made in virtual DOM (snapdom)
+            environment.
+          </p>
+          <div class="mt-4">
+            <h4 class="text-gray-400 text-sm uppercase mb-2">Technologies</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >Python</span
+              >
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >JavaScript</span
+              >
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >Machine Learning</span
+              >
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >Virtual DOM</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Končar Digital (Second position) -->
+      <section class="mb-20">
+        <div class="mb-8">
+          <h2 class="text-3xl font-bold text-white">
+            Junior Javascript and Python Developer
+          </h2>
+          <p class="text-gray-400">
+            Končar Digital · March 2018 - August 2019 (1 year 6 months)
+          </p>
+          <p class="text-gray-300 max-w-3xl mt-4">
+            Developing projects primarily for Energy Sector in Python/JS in
+            Virtual DOM (snapdom) environment.
+          </p>
+          <div class="mt-4">
+            <h4 class="text-gray-400 text-sm uppercase mb-2">Technologies</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >JavaScript</span
+              >
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >Python</span
+              >
+              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
+                >Virtual DOM</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills section -->
+      <section class="mb-20">
+        <h2 class="text-4xl font-bold text-white mb-8">SKILLS & TOOLS</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <!-- Skills -->
+          <div>
+            <h3 class="text-xl font-semibold text-white mb-4">Skills</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm">React</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >TypeScript</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >JavaScript</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm">CSS</span>
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >Design Systems</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >Component libs</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >NextJS</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm">SEO</span>
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >Shader coding</span
+              >
+              <span class="bg-blue-900 text-white px-3 py-2 text-sm"
+                >Low level graphics</span
+              >
+            </div>
+          </div>
+
+          <!-- Tools -->
+          <div>
+            <h3 class="text-xl font-semibold text-white mb-4">Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-900 text-white px-3 py-2 text-sm"
+                >Next.js</span
+              >
+              <span class="bg-green-900 text-white px-3 py-2 text-sm"
+                >Tailwind CSS</span
+              >
+              <span class="bg-green-900 text-white px-3 py-2 text-sm"
+                >Redux</span
+              >
+              <span class="bg-green-900 text-white px-3 py-2 text-sm"
+                >Ruby on Rails</span
+              >
+              <span class="bg-green-900 text-white px-3 py-2 text-sm"
+                >Python</span
+              >
+              <span class="bg-green-900 text-white px-3 py-2 text-sm">Git</span>
+              <span class="bg-green-900 text-white px-3 py-2 text-sm">C</span>
+              <span class="bg-green-900 text-white px-3 py-2 text-sm">C#</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications section -->
+      <section>
+        <h2 class="text-4xl font-bold text-white mb-8">CERTIFICATIONS</h2>
+        <div class="bg-gray-800 p-6 rounded-md max-w-md">
+          <h3 class="text-xl font-semibold text-white">Ruby on Rails</h3>
+          <p class="text-gray-400">Infinum Academy, 2024</p>
+        </div>
+      </section>
+    </main>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+    </style>
+  </body>
+</html>

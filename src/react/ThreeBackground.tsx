@@ -80,8 +80,8 @@ const WaveySurface = ({
         emissiveIntensity = 2.5;
       } else if (isMajorGridLine) {
         size = 0.04 * (0.85 + Math.random() * 0.3);
-        color = new Color(0x00aaff);
-        emissive = new Color(0x00ffff);
+        color = new Color(0x00314a);
+        emissive = new Color(0x00314a);
         emissiveIntensity = 2;
       }
 
@@ -251,15 +251,15 @@ const ThreeBackground = () => {
         <pointLight
           position={[0, 10, 5]}
           intensity={isDarkTheme ? 0.2 : 0.1}
-          color={isDarkTheme ? "#00ccff" : "#4488ff"}
+          color={isDarkTheme ? "#013340" : "#4488ff"}
         />
         <WaveySurface
-          position={[-10, 2, 4]}
+          position={[-15, 2, 4]}
           side="left"
           rotation={[0, 0, Math.PI / 2]}
         />
         <WaveySurface
-          position={[10, 2, 4]}
+          position={[15, 2, 4]}
           side="right"
           rotation={[0, 0, Math.PI / 2]}
         />
