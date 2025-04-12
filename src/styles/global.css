@@ -47,11 +47,6 @@ body {
 
   font-size: 20px;
   line-height: 1.7;
-
-  background-size: 10px 10px;
-  background-attachment: fixed;
-  animation: scroll-watcher 1s linear;
-  animation-timeline: scroll();
 }
 
 @keyframes scroll-watcher {
@@ -156,7 +151,6 @@ pre {
   border-radius: 8px;
   overflow: auto;
   background-color: rgb(var(--gray-light));
-  box-shadow: var(--box-shadow);
 }
 [data-theme="dark"] pre {
   background-color: rgb(var(--gray-dark));
@@ -180,7 +174,6 @@ p > img {
   height: auto;
   border-radius: 8px;
   margin: 1.5rem 0;
-  box-shadow: var(--box-shadow);
 }
 
 [data-theme="dark"] p > img {

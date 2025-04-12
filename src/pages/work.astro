@@ -9,8 +9,9 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <meta name="robots" content="noindex, nofollow" />
   </head>
-  <body class="flex flex-col justify-between w-full text-white bg-black">
+  <body class="flex flex-col justify-between w-full gap-20 text-white bg-black">
     <main
       class="relative flex items-center h-screen justify-end w-full flex-grow px-10 md:px-40"
     >
@@ -32,9 +33,9 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
             <div class="w-full h-px bg-gray-700 my-6"></div>
             <div class="flex flex-col gap-1">
               <a
-                href="/about"
+                href="/"
                 class="text-sm text-gray-400 hover:text-white transition-colors"
-                >// ABOUT</a
+                >// HOME</a
               >
               <a
                 href="/blog"
@@ -104,13 +105,16 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
     </main>
 
     <DarkWorkItem
+    workList={["Worked on dozens of mid-sized projects", "Constant feedback loop with clients and product managers", "Excellent collaboration with the design team", "Led development of modern web interfaces"]}
       companyName="Thespian agency"
       title="Frontend Developer"
-      period="July 2022 - Present (2 years 10 months)"
+      startDate="July 2022"
+      endDate="Present"
     >
       <DarkProject
         title="APEX Token Airdrop Platform"
         duration="6 months"
+        claim="Designed a web interface for token distribution to 200,000+ users with advanced blockchain wallet integration"
         role="Lead Frontend Developer"
         description="Designed and built a modern web interface for APEX to distribute tokens to existing users. Created a comprehensive solution featuring an advanced pre-phase calculator, a user-friendly wallet connection wizard, and a powerful distribution management system for administrators."
         achievements={[
@@ -135,6 +139,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { name: "Wallet Integration" },
         ]}
         image="/apex.webp"
+        video="/apex.webm"
       />
 
       <DarkProject
@@ -161,6 +166,8 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { name: "Analytics Integration" },
         ]}
         image="/thespian.webp"
+        video="/thespian.webm"
+        claim="3x user reach with the new modernized website"
       />
 
       <DarkProject
@@ -187,6 +194,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { name: "Contact Form" },
         ]}
         image="/plastopak.webp"
+        video="/plastopak.webm"
       />
 
       <DarkProject
@@ -194,6 +202,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
         duration="6 months"
         role="Lead Frontend Developer"
         description="Developed a modern, accessible component library for our agency built with React Aria and Tailwind CSS. Created a comprehensive design system with SCSS variables, implemented semantic color naming conventions, and built theme support for light and dark modes."
+        claim="Drastically reduced project development time for current and future projects"
         achievements={[
           { text: "60+ reusable, accessible components built" },
           {
@@ -225,6 +234,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
         title="OpenScience - PubWeave"
         duration="8 months"
         role="Lead Frontend Developer"
+        claim="Created a collaborative WYSIWYG editor with real-time synchronization for academic publishing"
         description="Developed PubWeave, an innovative platform for academics to showcase, share, and collaborate on research papers and preprints. Built a sophisticated WYSIWYG block-style editor based on Editor.js with custom real-time collaboration functionality using WebSockets."
         achievements={[
           { text: "Created a collaborative WYSIWYG editor with real-time synchronization for academic publishing" },
@@ -261,6 +271,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
           { text: "Precise course progress tracking" },
           { text: "1,600 organizations & clinics now benefit from an improved platform" },
         ]}
+        claim="Migrated data for 40k+ medical staff & reduced server costs by 70% through the platform"
         techStack={[
           { name: "React" },
           { name: "MOBX" },
@@ -274,6 +285,7 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
       <DarkProject
         title="Hrvatski kinološki savez (HKS)"
         duration="4 months"
+        claim="Revitalized a 20+ year-old dog championship management platform"
         role="Lead Frontend Developer"
         description="Revitalized a 20+ year-old dog championship management platform by migrating from an outdated system to a modern web application with improved user experience and performance."
         achievements={[
@@ -293,72 +305,66 @@ import DarkWorkItem from "../components/DarkWorkItem.astro";
       />
     </DarkWorkItem>
 
+
+
+    <DarkWorkItem
+      companyName="Končar Digital"
+      title="Python and Javascript Developer"
+      startDate="June 2021"
+      endDate="July 2022"
+    >
+      <DarkProject
+        title="Machine Learning Integration"
+        duration="1 year 2 months"
+        role="Python and Javascript Developer"
+        description="Developed machine learning regression and anomaly detection models and integrated them with Hat-Open open-source python framework developed by Končar. Created frontend interfaces in virtual DOM (snapdom) environment."
+        claim="Built robust ML models for energy sector applications with real-time data processing"
+        achievements={[
+          { text: "Developed regression and anomaly detection models for industrial applications" },
+          { text: "Integrated ML models with the Hat-Open framework" },
+          { text: "Created responsive dashboards for data visualization" },
+          { text: "Optimized algorithms for real-time data processing" }
+        ]}
+        techStack={[
+          { name: "Python" },
+          { name: "JavaScript" },
+          { name: "Machine Learning" },
+          { name: "Virtual DOM" },
+          { name: "Hat-Open" }
+        ]}
+        image="/koncar.webp"
+      />
+    </DarkWorkItem>
+
+    <DarkWorkItem
+      companyName="Končar Digital"
+      title="Junior Javascript and Python Developer"
+      startDate="March 2018"
+      endDate="August 2019"
+    >
+      <DarkProject
+        title="Energy Sector Solutions"
+        duration="1 year 6 months"
+        role="Junior Javascript and Python Developer"
+        description="Developed projects primarily for the Energy Sector using Python and JavaScript in a Virtual DOM (snapdom) environment. Created interactive dashboards and monitoring solutions for energy management systems."
+        claim="Built specialized web applications for energy sector monitoring and control"
+        achievements={[
+          { text: "Developed interactive dashboards for monitoring energy systems" },
+          { text: "Created data visualization components for real-time metrics" },
+          { text: "Implemented responsive interfaces for control systems" },
+          { text: "Contributed to the company's Virtual DOM framework" }
+        ]}
+        techStack={[
+          { name: "JavaScript" },
+          { name: "Python" },
+          { name: "Virtual DOM" },
+          { name: "Data Visualization" }
+        ]}
+        image="/koncar.webp"
+      />
+    </DarkWorkItem>
+
     <main class="flex flex-col w-full px-10 md:px-40 pt-32 pb-20">
-      <!-- Končar Digital (First position) -->
-      <section class="mb-20">
-        <div class="mb-8">
-          <h2 class="text-3xl font-bold text-white">
-            Python and Javascript Developer
-          </h2>
-          <p class="text-gray-400">
-            Končar Digital · June 2021 - July 2022 (1 year 2 months)
-          </p>
-          <p class="text-gray-300 max-w-3xl mt-4">
-            Developing machine learning regression and anomaly detection models
-            and integrating it with Hat-Open open-source python framework
-            developed by Končar, frontend made in virtual DOM (snapdom)
-            environment.
-          </p>
-          <div class="mt-4">
-            <h4 class="text-gray-400 text-sm uppercase mb-2">Technologies</h4>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >Python</span
-              >
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >JavaScript</span
-              >
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >Machine Learning</span
-              >
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >Virtual DOM</span
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Končar Digital (Second position) -->
-      <section class="mb-20">
-        <div class="mb-8">
-          <h2 class="text-3xl font-bold text-white">
-            Junior Javascript and Python Developer
-          </h2>
-          <p class="text-gray-400">
-            Končar Digital · March 2018 - August 2019 (1 year 6 months)
-          </p>
-          <p class="text-gray-300 max-w-3xl mt-4">
-            Developing projects primarily for Energy Sector in Python/JS in
-            Virtual DOM (snapdom) environment.
-          </p>
-          <div class="mt-4">
-            <h4 class="text-gray-400 text-sm uppercase mb-2">Technologies</h4>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >JavaScript</span
-              >
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >Python</span
-              >
-              <span class="bg-gray-800 text-gray-300 px-2 py-1 text-sm"
-                >Virtual DOM</span
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Skills section -->
       <section class="mb-20">
         <h2 class="text-4xl font-bold text-white mb-8">SKILLS & TOOLS</h2>

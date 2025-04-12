@@ -13,7 +13,6 @@ import GeoCanvas from "../react/components/GeoCanvas";
   <body
     class="flex flex-col justify-between w-full h-screen text-white bg-black overflow-hidden"
   >
-    <!-- <ThreeBackground client:idle /> -->
 
     <main
       class="relative flex items-center justify-start w-full flex-grow lg:px-40 px-10"
@@ -37,9 +36,9 @@ import GeoCanvas from "../react/components/GeoCanvas";
             <div class="w-full h-px bg-gray-700 my-6"></div>
             <div class="flex flex-col gap-1">
               <a
-                href="/about"
+                href="/work"
                 class="text-sm text-gray-400 hover:text-white transition-colors"
-                >// ABOUT</a
+                >// WORK EXPERIENCE</a
               >
               <a
                 href="/blog"
@@ -105,7 +104,7 @@ import GeoCanvas from "../react/components/GeoCanvas";
         </div>
       </section>
       <div class="absolute opacity-30 z-0 w-full right-0 h-full">
-        <GeoCanvas client:idle />
+        <GeoCanvas client:media="(min-width: 768px)" />
       </div>
     </main>
 

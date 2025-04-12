@@ -14,6 +14,7 @@ const ClothMaterial = shaderMaterial(
     twistFactor: 0.5,
     pulseFactor: 0.2,
     distortionFactor: 0.3,
+    pointSize: 5.0,
   },
   // Vertex shader
   `
@@ -23,6 +24,7 @@ const ClothMaterial = shaderMaterial(
     uniform float twistFactor;
     uniform float pulseFactor;
     uniform float distortionFactor;
+    uniform float pointSize;
     varying vec2 vUv;
     varying float vElevation;
 
@@ -91,7 +93,7 @@ const ClothMaterial = shaderMaterial(
       vElevation = waveX + waveY + waveZ + distortion;
       
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pulsed, 1.0);
-      gl_PointSize = 2.0;
+      gl_PointSize = pointSize;
     }
   `,
   // Fragment shader
@@ -126,6 +128,7 @@ declare module "@react-three/fiber" {
       twistFactor?: number;
       pulseFactor?: number;
       distortionFactor?: number;
+      pointSize?: number;
       transparent?: boolean;
       depthWrite?: boolean;
     };
@@ -157,6 +160,7 @@ export default function Geo() {
         twistFactor={0.5}
         pulseFactor={0.2}
         distortionFactor={0.3}
+        pointSize={3.0}
         transparent
         depthWrite={false}
       />

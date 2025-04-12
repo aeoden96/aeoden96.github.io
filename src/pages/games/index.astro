@@ -5,6 +5,7 @@ import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
+import BlogCard from "../../components/BlogCard.astro";
 
 const games = (await getCollection("games")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -15,66 +16,23 @@ const games = (await getCollection("games")).sort(
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen">
+  <body class="bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen">
     <Header />
     <main class="max-w-4xl mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold text-center mb-10 text-gray-800">Games</h1>
+      <h1 class="text-3xl font-bold text-center mb-10 text-gray-800 dark:text-gray-100">Games</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {
           games.map((game, index) => (
-            <a
-              href={`/games/${game.id}/`}
-              class={`block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ${index === 0 ? "md:col-span-2" : ""}`}
-            >
-              <div class="relative">
-                <img
-                  src={game.data.heroImage}
-                  alt=""
-                  class={`w-full h-auto object-cover ${index === 0 ? "md:h-80" : "h-60"}`}
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div class="p-6">
-                <h2
-                  class={`font-bold text-gray-800 mb-2 ${index === 0 ? "text-2xl md:text-3xl" : "text-xl"}`}
-                >
-                  {game.data.title}
-                </h2>
-                <p class="text-gray-500 mb-4">
-                  <FormattedDate date={game.data.pubDate} />
-                </p>
-                {game.data.description && (
-                  <p class="text-gray-600 overflow-hidden text-ellipsis max-h-12">
-                    {game.data.description}
-                  </p>
-                )}
-                {game.data.tags && game.data.tags.length > 0 && (
-                  <div class="mt-2 flex flex-wrap gap-2">
-                    {game.data.tags.map((tag) => (
-                      <span class="px-2 py-1 text-xs font-medium bg-green-50 text-green-700 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <div class="mt-4 inline-flex items-center text-sm font-medium text-green-600 hover:text-green-500">
-                  Play game
-                  <svg
-                    class="ml-1 w-4 h-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </a>
+            <BlogCard
+              url={`/games/${game.id}/`}
+              title={game.data.title}
+              pubDate={game.data.pubDate}
+              description={game.data.description}
+              tags={game.data.tags}
+              isFeature={index === 0}
+               actionText="Play game"
+              tagColorClass="bg-green-50 text-green-700"
+            />
           ))
         }
       </div>

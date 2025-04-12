@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, alt, width = 1000, height = 600 } = Astro.props;
+
+---
+<div class="image-viewer-container relative">
+  <div class="media-container cursor-pointer">
+    <Image
+      src={src}
+      alt={alt}
+      class="w-full object-cover hover:opacity-90 transition-opacity"
+      width={width}
+      height={height}
+    />
+    <div class=" expand-image-btn image-overlay rounded-md absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition-opacity duration-300">
+      <button class=" bg-white cursor-pointer text-black rounded-full p-3 transform hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h6v6"></path>
+          <path d="M9 21H3v-6"></path>
+          <path d="M21 3l-7 7"></path>
+          <path d="M3 21l7-7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="fullscreen-image-container fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-8 backdrop-blur-sm">
+    <button class="close-image absolute top-4 right-4 text-white p-2 hover:bg-gray-700 rounded-full transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="image-wrapper w-full max-w-6xl relative rounded-lg overflow-hidden">
+      <img src={src} alt={alt} class="w-full max-h-[90vh] object-contain" />
+    </div>
+  </div>
+</div>
+
+<script>
+  // Find all expand buttons on the page
+  const expandButtons = document.querySelectorAll('.expand-image-btn');
+  
+  expandButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const mediaContainer = button.closest('.media-container');
+      const imageViewer = mediaContainer?.closest('.image-viewer-container');
+      const fullscreenContainer = imageViewer?.querySelector('.fullscreen-image-container');
+      
+      if (fullscreenContainer) {
+        // Show the fullscreen modal
+        fullscreenContainer.classList.remove('hidden');
+        fullscreenContainer.classList.add('flex');
+        
+        // Add event listener for closing
+        const closeButton = fullscreenContainer.querySelector('.close-image');
+        closeButton?.addEventListener('click', () => {
+          fullscreenContainer.classList.add('hidden');
+          fullscreenContainer.classList.remove('flex');
+        });
+        
+        // Close on background click
+        fullscreenContainer.addEventListener('click', (event) => {
+          if (event.target === fullscreenContainer) {
+            closeButton?.dispatchEvent(new Event('click'));
+          }
+        });
+      }
+    });
+  });
+
+  // Also allow clicking directly on the image to open fullscreen
+  document.querySelectorAll('.media-container > img').forEach(img => {
+    img.addEventListener('click', () => {
+      const expandBtn = img.parentElement?.querySelector('.expand-image-btn');
+      if (expandBtn) {
+        expandBtn.dispatchEvent(new Event('click'));
+      }
+    });
+  });
+</script>
+
+<style>
+  .image-viewer-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .media-container img {
+    cursor: pointer;
+  }
+</style> 

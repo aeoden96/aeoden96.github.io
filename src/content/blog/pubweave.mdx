@@ -1,0 +1,68 @@
+---
+title: "PubWeave - Collaborative Preprint Text Editor"
+description: "PubWeave, phase 1: A blog editor and preprint collaboration platform."
+pubDate: "Oct 19 2023"
+---
+
+import ArchiveNotice from "../../components/ArchiveNotice.astro";
+import ImageViewer from "../../components/ImageViewer.astro";
+
+<ArchiveNotice
+  originalUrl="https://www.pubweave.com/blog/pubweave-collaborative-preprint-text-editor"
+  originalTitle="PubWeave - Collaborative Preprint Text Editor"
+/>
+
+## Introduction
+
+PubWeave is built using a [ Ruby on Rails /  
+ React
+](https://www.pubweave.com/blog/intellarts-technology-stack) stack and serves
+as a blog and preprint platform and, in later stages, will evolve into a modular
+article building tool. PubWeave's aim is to aid academics in showcasing, sharing,
+and collaborating on their forthcoming articles.
+
+In terms of development environments, the backend uses <mark>Ruby on Rails</mark>, while the frontend uses <mark>React</mark>, a choice which facilitated the bootstrapping of a custom application. In this article, we will focus primarily on the editor component of the platform, as it constitutes a core functionality of PubWeave.
+
+## Discovering Editor.js
+
+[<mark>Editor.js</mark>](https://editorjs.io/) is an open-source, <mark>block-style</mark>, rich text editor that proved to be an excellent fit for our needs. It is highly extendable through plugins and offers basic tools and a user-friendly interface for text editing. Additionally, it boasts a large and growing user base that has built extensions catering to a wide range of content types.
+
+<ImageViewer src="/blogs/pubweave/editor-view.jpg" alt="Editor.js interface" />
+
+Editor.js is easy to work with since it outputs a <mark>JSON</mark> file with a well-defined structure. Each plugin used within the editor adheres to this same structure:
+
+<ImageViewer src="/blogs/pubweave/blocks.png" alt="Editor.js block structure" />
+
+Uploading this data to the server is straightforward. Whenever a user modifies a section of the article, both the frontend and the server can effortlessly detect disparities in the article's structure and handle them accordingly.
+
+## Building the real time collaboration feature
+
+Since the editor itself doesn't support <mark>real time collaboration</mark> (yet), we had to build our own.
+
+To implement this functionality, we used <mark>websockets</mark> to establish a real-time connection between the frontend and backend. We kept track of all users currently on the editor screen, and using the Editor.js <mark>API</mark>, identified the specific section each collaborator was editing at any given moment.
+
+On the server side, we maintained a list of all actively edited sections, along with their respective users. While this part was relatively straightforward, we still needed a method for displaying and rendering this information within the editor itself.
+
+One option was to simply display the collaborator's caret in the editor at the location where they were writing text, but given that it is a "block-oriented" editor and the content itself is organized into blocks, it felt more intuitive to "block off" the entire section that a particular collaborator was editing. While the rendering of this "blocking off" component proved to be very easy, the challenging part was adding text to the editor retroactively through an API (as opposed to manual typing).
+
+## Collaborator conundrum
+
+This issue proved to be a bit difficult to solve due to the nature of the editor itself. You see, <mark>React</mark> really prefers <mark>controlled components</mark>, where a parent component manages its state. However, in our case, Editor.js lacks the ability to function as a controlled component, since it prefers to maintain its state internally and requires every modification to be carried out through its API functions like `editor.update()` or `editor.clear()`. While there was a React version of the library, we opted to use the original JavaScript one, which still lacked the desired functionality.
+
+As a result, all content visible on the editor screen can only be altered and accessed through the API.
+
+<ImageViewer src="/blogs/pubweave/workflow.png" alt="Workflow diagram" />
+
+Consequently, when faced with a scenario in which we receive a modification via a websocket from another collaborator and wish to render it using the editor API, the editor immediately returns the content as if the change originated from the current instance.
+
+The core issue was that the change hook we invoke in Editor API lacks the option to silently insert the change. Consequently, we found it necessary to address this behavior by introducing additional React states within the app. This approach prevented the inadvertent notification to the server of a change that did not occur in reality, a behavior that would otherwise cause cascading recursive calls across all active collaborative sessions.
+
+## Future improvements
+
+Lately, an intriguing data structure has been garnering popularity, and for good reason: <mark>CRDT</mark>, which stands for <mark>conflict-free replicated data type</mark>, is a data structure that is designed to be replicated across multiple computers on a network. It allows independent, concurrent updates to replicas, features an algorithm for automatic conflict resolution, and ensures eventual convergence despite potential differences in states.
+
+The <mark>Yjs</mark> library, implemented by various editors, is itself an implementation of CRDT. There exists an interesting Medium article on the topic for those interested in toying with it. A prominent example of an editor utilizing Yjs is <mark>Plate</mark>, which ships with an integrated collaboration feature in its editor. Furthermore, Plate offers a comprehensive solution for collaborative editing by providing a server-side implementation, named <mark>Hocuspocus</mark>,. While we couldn't implement it because our backend is written in Rails, it stands as an excellent starting "plate" for those building from scratch.
+
+## Concluding thoughts
+
+Editor.js performs extremely well, up until the moment when one attempts to implement features beyond its API's capabilities. <mark>Rich text editors</mark> are still in their infancy, lacking a perfect or even a great solution for collaboration functionalities. However, this project demonstrates the feasibility of constructing such a tool. While it may be basic at present, with continued refinement, it holds the potential to evolve into a superb platform for collaborators to seamlessly share and edit their articles.

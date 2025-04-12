@@ -2,36 +2,43 @@
 export interface Props {
   companyName: string;
   title: string;
-  period: string;
+  startDate: string;
+  endDate: string;
+  workList?: string[];
 }
 
-const { companyName, title, period } = Astro.props;
+const { companyName, title, startDate, endDate, workList } = Astro.props;
 ---
 
 <section class="work-item flex-row flex w-full">
-  <div class="w-full flex justify-start items-start p-10">
-    <div class="w-full">
-      <h2 class="text-3xl font-bold text-white mb-6">{title}</h2>
-      <p class="text-gray-400 mb-8">
-        {companyName} · {period}
-      </p>
+  <div class="w-full flex justify-start items-start py-10">
+    <div class="sticky px-6 top-20 text-left flex flex-col gap-4 max-w-sm">
+      <h2 class=" text-5xl font-bold text-white">{title}  
+     </h2>
+
+     <span class="text-gray-400 text-sm uppercase">//  {startDate} - {endDate}</span>
+ 
+     
+     <ul class="text-gray-300 text-sm list-disc pl-5 space-y-1">
+       {workList?.map((item) => <li>{item}</li>)}
+     </ul>
+    </div>    
 
       <!-- Projects List -->
-      <div class="w-full flex flex-col gap-20">
+      <div class="w-full flex flex-col gap-60">
         <slot />
       </div>
-    </div>
   </div>
   <div
     class="flex flex-col  w-[80px]  justify-between relative gap-4"
   >
-    <span class="text-white font-bold">current</span>
-    <span class="text-white font-bold">2022</span>
+    <span class="text-white text-sm font-bold uppercase">{endDate}</span>
+    <span class="text-white text-sm font-bold uppercase">{startDate}</span>
   </div>
   <div class="tape-measure w-[20px] relative flex gap-4"></div>
   <div class="relative side-bar flex gap-4">
     <div
-      class="bg-[#26262683] sticky top-10 flex text-white [writing-mode:vertical-lr] h-fit p-4 font-semibold text-4xl"
+      class="bg-[#26262683] sticky top-20 flex text-white [writing-mode:vertical-lr] h-fit p-4 font-semibold text-4xl"
     >
       {companyName.toUpperCase()}
     </div>

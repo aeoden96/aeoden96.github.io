@@ -17,9 +17,12 @@ export interface Props {
   achievements: Achievement[];
   techStack: TechItem[];
   image?: string;
+  video?: string;
+  claim?: string;
 }
 
-const { title, duration, role, description, achievements, techStack, image } =
+const { title, duration, role, description, achievements, techStack, image, video, claim =
+  "Transforming ideas into digital experiences" } =
   Astro.props;
 ---
 
@@ -29,7 +32,7 @@ const { title, duration, role, description, achievements, techStack, image } =
       {title}
     </h3>
     {image && (
-      <div class="w-full relative overflow-hidden mt-0">
+      <div class="w-full relative overflow-hidden mt-0 media-container">
         <Image
           src={image}
           alt={`${title} project banner`}
@@ -38,15 +41,30 @@ const { title, duration, role, description, achievements, techStack, image } =
           height={600}
           loading="eager"
         />
-       
+        
+        {video && (
+          <div class="video-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <button class="play-video-btn bg-white text-black rounded-full p-3 transform hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     )}
   </div>
   
+  <blockquote class="claim-quote my-6 bg-[#101318] border-l-2 border-[#0d3d56] pl-6 py-3 pr-4 relative rounded-r-sm overflow-hidden">
+    <div class="wave-glow absolute inset-0 opacity-20"></div>
+    <p class="text-xl font-light text-[#3a8bb3] relative z-10">
+      <span class="text-[#0a97c9] font-medium">"</span>{claim}<span class="text-[#0a97c9] font-medium">"</span>
+    </p>
+ 
+  </blockquote>
+  
   <div class="mb-4 flex gap-2 flex-wrap">
-    <span class="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm"
-      >{duration}</span
-    >
+ 
     <span class="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-sm"
       >{role}</span
     >
@@ -72,27 +90,82 @@ const { title, duration, role, description, achievements, techStack, image } =
       }
     </div>
   </div>
+
+  {video && (
+    <div class="video-container fixed inset-0 z-50 bg-black/50 hidden items-center justify-center p-8 backdrop-blur-sm">
+      <button class="close-video absolute top-4 right-4 text-white p-2 hover:bg-gray-700 rounded-full transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="video-wrapper w-full max-w-6xl relative rounded-lg overflow-hidden" data-video-src={video}>
+        <!-- Video will be loaded here when button is clicked -->
+      </div>
+    </div>
+  )}
 </div>
+
+<script>
+  // Find all play buttons on the page
+  const playButtons = document.querySelectorAll('.play-video-btn');
+  
+  playButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const mediaContainer = button.closest('.media-container');
+      const project = mediaContainer?.closest('.project');
+      const videoContainer = project?.querySelector('.video-container');
+      const videoWrapper = videoContainer?.querySelector('.video-wrapper');
+      
+      if (videoContainer && videoWrapper) {
+        // Get the video source
+        const videoSrc = videoWrapper.getAttribute('data-video-src');
+        
+        // Create video element only when user clicks play
+        if (videoSrc && !videoWrapper.querySelector('video')) {
+          const videoElement = document.createElement('video');
+          videoElement.src = videoSrc;
+          videoElement.className = 'w-full';
+          videoElement.controls = true;
+          videoElement.autoplay = true;
+          
+          videoWrapper.appendChild(videoElement);
+        }
+        
+        // Show the video modal
+        videoContainer.classList.remove('hidden');
+        videoContainer.classList.add('flex');
+        
+        // Add event listener for closing
+        const closeButton = videoContainer.querySelector('.close-video');
+        closeButton?.addEventListener('click', () => {
+          videoContainer.classList.add('hidden');
+          videoContainer.classList.remove('flex');
+          
+          // Pause the video when closing
+          const video = videoWrapper.querySelector('video');
+          if (video) {
+            video.pause();
+          }
+        });
+        
+        // Close on background click
+        videoContainer.addEventListener('click', (event) => {
+          if (event.target === videoContainer) {
+            closeButton?.dispatchEvent(new Event('click'));
+          }
+        });
+      }
+    });
+  });
+</script>
 
 <style>
   .project {
     position: relative;
   }
-
-  .project::before {
-    content: "";
-    position: absolute;
-    left: -20px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(
-      to bottom,
-      rgba(107, 114, 128, 0),
-      rgba(107, 114, 128, 0.5) 20%,
-      rgba(107, 114, 128, 0.5) 80%,
-      rgba(107, 114, 128, 0)
-    );
-  }
+  
+ 
+ 
 </style>
 
