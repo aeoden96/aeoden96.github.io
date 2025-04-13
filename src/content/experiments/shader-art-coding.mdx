@@ -1,0 +1,626 @@
+---
+title: "Introduction to Shader Art Coding"
+description: "Exploring the basics of shader art coding"
+pubDate: "Apr 14 2023"
+---
+
+import FragmentViewer from "../../react/components/FragmentViewer.tsx";
+import TutorialNotice from "../../components/TutorialNotice.astro";
+
+<TutorialNotice
+  originalUrl="https://www.youtube.com/watch?v=f4s1h2YETNY"
+  originalTitle="An introduction to Shader Art Coding | YouTube"
+  originalAuthor="kishimisu"
+  originalAuthorUrl="https://www.kishimisu.art/"
+/>
+
+This experiment demonstrates Perlin noise using a custom WebGL shader.
+
+<FragmentViewer client:load shader="glow_circles" />
+
+## Step by step
+
+### Step 1: Basic Circle SDF
+
+Let's start with a basic Signed Distance Function (SDF) for a circle. An SDF returns:
+
+- Positive values outside the shape
+- Zero on the shape's boundary
+- Negative values inside the shape
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={1}
+/>
+
+```glsl
+// Signed distance fn (SDF) of a circle with r = 0.5
+// r > 0 - outside of sphere
+// r = 0 - on the sphere radius
+// r < 0 - inside the sphere
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+    d -= 0.5;
+    d = abs(d);// Added abs() to reverse the inside
+
+    return vec3(d,d,d);
+}
+```
+
+### Step 2: Step Function
+
+Next, we introduce the step function to create a clear ring around the circle. The step function creates a sharp transition:
+
+- Points further from the circle radius than 0.1 become white (0.0)
+- Points closer to the circle radius than 0.1 become black (1.0)
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={2}
+/>
+
+```glsl
+// Introducing step function
+// - points further from the sphere radius than offset (0.1) -> white (0.0)
+// - points closer to the sphere radius than offset (0.1) -> black (1.0)
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+    d -= 0.5;
+    d = abs(d);
+
+    d = step(0.1, d);
+    // creates a ring around the sphere of thickness 0.2
+
+    return vec3(d,d,d);
+}
+
+//  to note: smoothstep(0.049,0.051, d) ===== step(0.1, d)
+```
+
+### Step 3: Smooth Step Function
+
+Now we replace the step function with smoothstep for more gentle transitions:
+
+- Points below 0.0 become black
+- Points between 0.0 and 0.1 get a smooth gradient
+- Points above 0.1 become white
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={3}
+/>
+
+```glsl
+// Introducing smooth step function
+// d < a -> black (0.0)
+// d in [a,b] -> interpolation
+// d > b -> white (1.0)
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+    d -= 0.5;
+     d = abs(d);
+
+    d = smoothstep(0.0,0.1, d);
+
+    return vec3(d,d,d);
+}
+```
+
+### Step 4: Radial Repetition with Sine
+
+Now we apply the sine function to our distance value to create a radial repetition pattern:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={4}
+/>
+
+```glsl
+// Apply sin() to d to create a radial repetition of the ring (instead of fixed radius = 0.5)
+// Note: It will look like a small circle with r = .1:
+//    because of the step fn
+//    and because sin ~ x (for x around 0)
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+    d = sin(d);
+    d = abs(d);
+    d = smoothstep(0.0,0.1, d);
+
+    return vec3(d,d,d);
+}
+```
+
+### Step 5: Controlling Oscillation
+
+We can modify the sine function to control the oscillation's length and amplitude:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={5}
+/>
+
+```glsl
+// We alter sin() funciton:
+// - multiply it with p - to shrink oscillation lenght (so we can se more than one ring on [0,1]
+// - divide by p - to reduce amplitude (color sharpness)
+//
+// Note: sin(px)/p 'zooms out' sin fn so it generates p-oscilations on [0, 2π]
+// Note: if p = 2π, one full oscilation will occur on [0,1]
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+    d = sin(d * 8.)/ 8.;
+    d = abs(d);
+    d = smoothstep(0.0,0.1, d);
+
+    return vec3(d,d,d);
+}
+```
+
+### Step 6: Adding Animation
+
+Let's add animation by incorporating the time variable:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={6}
+/>
+
+```glsl
+// Adding uTime component
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = smoothstep(0.0,0.1, d);
+
+    return vec3(d,d,d);
+}
+```
+
+### Step 7: Creating a Neon Effect
+
+For a more dramatic "neon" look, we'll replace the smoothstep with a 1/x function:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={7}
+/>
+
+```glsl
+// For 'Neon' look, 1/x is much better than smoothstep
+// Note: 1/x on [0,1] is >> 1, therefore white (0.0), so we introduce factor 0.01
+// 1/x creates a sharp white line with diminishing dark background
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+    return vec3(d,d,d);
+}
+```
+
+### Step 8: Adding Color
+
+Let's introduce color to our visualization by tinting the white areas:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={8}
+/>
+
+```glsl
+// Introducing color
+// We just tinted the white areas with blue color
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+   vec3 col = vec3(1.0, 2.0, 3.0);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+    return col * d;
+}
+```
+
+### Step 9: Using a Color Palette
+
+Now we'll use a color palette that changes based on distance from the center:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={9}
+/>
+
+```glsl
+// Using color palette
+// It changes color from the center of the sphere to the edge
+// Note: Rings sometimes look like they change width, that is just due to color change
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+   vec3 col = palette(d);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+
+    return col * d;
+}
+```
+
+### Step 10: Dynamic Color Palette
+
+We can make the palette gradient dynamic by incorporating the time variable:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={10}
+/>
+
+```glsl
+// Palette is constant for some point p
+// Using time variable, we're making the palette gradient dinamic
+vec3 generate(vec2 uv) {
+   float d = length(uv);
+
+   vec3 col = palette(d + uTime);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+
+    return col * d;
+}
+```
+
+### Step 11: Spatial Repetition
+
+Let's create a repeating pattern across the canvas using the fract function:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={11}
+/>
+
+```glsl
+// Spacial repetition
+// frac(x,y) return fraction part of x
+// if uv is [-1,1]x[-1,1] and some xy in it, frac will
+// return SAME value for each of the points xy, -xy, x-y, -x-y
+// ISSUE: each small section is now a copy of a I. quadrant: [0,1]x[0,1] area
+vec3 generate(vec2 uv) {
+    uv = fract(uv);
+
+   float d = length(uv);
+
+   vec3 col = palette(d + uTime);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+
+    return col * d;
+}
+```
+
+### Step 12: Fixing Repetition Issues
+
+We'll fix the repetition pattern by properly scaling and offsetting the UV coordinates:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={12}
+/>
+
+```glsl
+// Spacial repetition - issue fix
+// Its as simple as offseting uv by 0.5
+// If me multiply uv by p:
+//  - before fract: it will widen the area, therefore multiply the # of grid elements
+//  - after  fract: it will widen the area, therefore shrink each individual grid item
+vec3 generate(vec2 uv) {
+
+    uv *= 2.; // [-2,2]x[-2,2] (it will duplicate oscillations)
+    uv = fract(uv); // [-2,2] -> 4 segments -> [0,1]x[0,1]
+    uv -= 0.5; // each segment is now in [-1,1]x[-1,1]
+
+   // d now represents local distance relative to the center of each repetition
+   float d = length(uv);
+
+   vec3 col = palette(d + uTime);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+
+    return col * d;
+}
+```
+
+### Step 13: Global Color Variation
+
+Let's save the original distance to create color variations across the entire canvas:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={13}
+/>
+
+```glsl
+// Saving the original distance to the center of the canvas
+// We alter the color with d0, that way we override individual colors from each quadrant
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    uv = fract(uv * 2.0) - 0.5;
+
+    float d = length(uv);
+    float d0 = length(uv0);
+
+   vec3 col = palette(d0 + uTime);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+
+    return col * d;
+}
+```
+
+### Step 14: Introducing Final Color
+
+Let's create a final color variable to prepare for more complex effects:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={14}
+/>
+
+```glsl
+// Introducing finalColor
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+
+    uv = fract(uv * 2.0) - 0.5;
+
+    float d = length(uv);
+    float d0 = length(uv0);
+
+    vec3 col = palette(d0 + uTime);
+
+    d = sin(d * 8. + uTime)/ 8.;
+    d = abs(d);
+    d = 0.02/d;
+
+    finalColor += col * d;
+    return finalColor;
+}
+```
+
+### Step 15: Adding Iteration
+
+We'll introduce a loop to create more complex patterns with multiple layers:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={15}
+/>
+
+```glsl
+// Introducing loop
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+    for(float i=0.; i< 3.; i++){
+        uv = fract(uv * 2.0) - 0.5;
+
+        float d = length(uv);
+        float d0 = length(uv0);
+
+        vec3 col = palette(d0 + uTime*.3);
+
+        d = sin(d * 8. + uTime)/ 8.;
+        d = abs(d);
+        d = 0.02/d;
+
+        finalColor += col * d;
+
+    }
+
+
+    return finalColor;
+}
+```
+
+### Step 16: Fixing Pattern Repetition
+
+Let's improve our iteration by using fractional scaling to create more interesting patterns:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={16}
+/>
+
+```glsl
+// Fixing the issue: perfect matching of repetitions
+// We divide the quadrants by a fraction, so each subdivision is generated with an offset
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+    for(float i=0.; i< 2.; i++){
+        uv = fract(uv * 1.5) - 0.5;
+
+        float d = length(uv);
+        float d0 = length(uv0);
+
+        vec3 col = palette(d0 + uTime*.3);
+
+        d = sin(d * 8. + uTime)/ 8.;
+        d = abs(d);
+        d = 0.02/d;
+
+        finalColor += col * d;
+
+    }
+
+
+    return finalColor;
+}
+```
+
+### Step 17: Adding Exponential Variation
+
+We'll use the exponential function to create more complex variations in our pattern:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={17}
+/>
+
+```glsl
+// Introducing exp to increase variations further
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+    for(float i=0.; i< 3.; i++){
+        uv = fract(uv * 1.5) - 0.5;
+
+        float d0 = length(uv0);
+
+        float d = length(uv) * exp(-d0) ;
+
+        vec3 col = palette(d0 + uTime*.2);
+
+        d = sin(d * 8. + uTime)/ 8.;
+        d = abs(d);
+        d = 0.01/d;
+
+        finalColor += col * d;
+
+    }
+
+
+    return finalColor;
+}
+```
+
+### Step 18: Color Offsets Per Iteration
+
+Let's create unique color variations for each iteration of our loop:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={18}
+/>
+
+```glsl
+// Introducing i for color offsets for each iteration
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+    for(float i=0.; i< 3.; i++){
+        uv = fract(uv * 1.5) - 0.5;
+
+        float d0 = length(uv0);
+
+        float d = length(uv) * exp(-d0) ;
+
+        vec3 col = palette(d0 + i*.4 + uTime*.2);
+
+        d = sin(d * 8. + uTime)/ 8.;
+        d = abs(d);
+        d = 0.01/d;
+
+        finalColor += col * d;
+
+    }
+
+
+    return finalColor;
+}
+```
+
+### Step 19: Enhancing Contrast
+
+Finally, we'll use the pow function to enhance the contrast of our visualization:
+
+<FragmentViewer
+  client:visible={{ rootMargin: "-200px" }}
+  shader="glow_circles"
+  step={19}
+/>
+
+```glsl
+// Introducing pow to enhance contrast of the image
+// controls intensity, pow() on [0,1] reduces lower shades to 0
+vec3 generate(vec2 uv) {
+
+    vec2 uv0 = uv;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+    for(float i=0.; i< 3.; i++){
+        uv = fract(uv * 1.5) - 0.5;
+
+        float d0 = length(uv0);
+
+        float d = length(uv) * exp(-d0) ;
+
+        vec3 col = palette(d0 + i*.4 + uTime*.2);
+
+        d = sin(d * 8. + uTime)/ 8.;
+        d = abs(d);
+        d = pow(0.01/d, 1.2);
+
+        finalColor += col * d;
+
+    }
+
+
+    return finalColor;
+}
+```
+
+## Further Learning
+
+This tutorial is based on the work of <mark>[kishimisu](https://www.kishimisu.art/)</mark>, whose creative shader art and excellent explanations have made WebGL shaders more accessible. To learn more, check out the original <mark>[An introduction to Shader Art Coding](https://www.youtube.com/watch?v=f4s1h2YETNY)</mark> video tutorial on YouTube.
