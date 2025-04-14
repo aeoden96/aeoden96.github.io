@@ -4,7 +4,7 @@ description: "Exploring the basics of shader art coding"
 pubDate: "Apr 14 2023"
 ---
 
-import FragmentViewer from "../../react/components/FragmentViewer.tsx";
+import FragmentViewerThreeJS from "../../react/components/FragmentViewerThreeJS.tsx";
 import TutorialNotice from "../../components/TutorialNotice.astro";
 
 <TutorialNotice
@@ -13,10 +13,11 @@ import TutorialNotice from "../../components/TutorialNotice.astro";
   originalAuthor="kishimisu"
   originalAuthorUrl="https://www.kishimisu.art/"
 />
+;
 
 This experiment demonstrates Perlin noise using a custom WebGL shader.
 
-<FragmentViewer client:load shader="glow_circles" />
+<FragmentViewerThreeJS client:load shader="glow_circles" />
 
 ## Step by step
 
@@ -28,7 +29,7 @@ Let's start with a basic Signed Distance Function (SDF) for a circle. An SDF ret
 - Zero on the shape's boundary
 - Negative values inside the shape
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={1}
@@ -48,6 +49,12 @@ vec3 generate(vec2 uv) {
 }
 ```
 
+<iframe
+  src="https://www.desmos.com/calculator/ipsegqjz1l?embed"
+  className="w-full h-[500px] border border-gray-300 rounded-md"
+  frameborder="0"
+></iframe>
+
 ### Step 2: Step Function
 
 Next, we introduce the step function to create a clear ring around the circle. The step function creates a sharp transition:
@@ -55,7 +62,7 @@ Next, we introduce the step function to create a clear ring around the circle. T
 - Points further from the circle radius than 0.1 become white (0.0)
 - Points closer to the circle radius than 0.1 become black (1.0)
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={2}
@@ -87,7 +94,7 @@ Now we replace the step function with smoothstep for more gentle transitions:
 - Points between 0.0 and 0.1 get a smooth gradient
 - Points above 0.1 become white
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={3}
@@ -113,7 +120,7 @@ vec3 generate(vec2 uv) {
 
 Now we apply the sine function to our distance value to create a radial repetition pattern:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={4}
@@ -139,7 +146,7 @@ vec3 generate(vec2 uv) {
 
 We can modify the sine function to control the oscillation's length and amplitude:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={5}
@@ -167,7 +174,7 @@ vec3 generate(vec2 uv) {
 
 Let's add animation by incorporating the time variable:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={6}
@@ -190,7 +197,7 @@ vec3 generate(vec2 uv) {
 
 For a more dramatic "neon" look, we'll replace the smoothstep with a 1/x function:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={7}
@@ -215,7 +222,7 @@ vec3 generate(vec2 uv) {
 
 Let's introduce color to our visualization by tinting the white areas:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={8}
@@ -241,7 +248,7 @@ vec3 generate(vec2 uv) {
 
 Now we'll use a color palette that changes based on distance from the center:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={9}
@@ -269,7 +276,7 @@ vec3 generate(vec2 uv) {
 
 We can make the palette gradient dynamic by incorporating the time variable:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={10}
@@ -296,7 +303,7 @@ vec3 generate(vec2 uv) {
 
 Let's create a repeating pattern across the canvas using the fract function:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={11}
@@ -328,7 +335,7 @@ vec3 generate(vec2 uv) {
 
 We'll fix the repetition pattern by properly scaling and offsetting the UV coordinates:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={12}
@@ -364,7 +371,7 @@ vec3 generate(vec2 uv) {
 
 Let's save the original distance to create color variations across the entire canvas:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={13}
@@ -396,7 +403,7 @@ vec3 generate(vec2 uv) {
 
 Let's create a final color variable to prepare for more complex effects:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={14}
@@ -430,7 +437,7 @@ vec3 generate(vec2 uv) {
 
 We'll introduce a loop to create more complex patterns with multiple layers:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={15}
@@ -468,7 +475,7 @@ vec3 generate(vec2 uv) {
 
 Let's improve our iteration by using fractional scaling to create more interesting patterns:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={16}
@@ -507,7 +514,7 @@ vec3 generate(vec2 uv) {
 
 We'll use the exponential function to create more complex variations in our pattern:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={17}
@@ -546,7 +553,7 @@ vec3 generate(vec2 uv) {
 
 Let's create unique color variations for each iteration of our loop:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={18}
@@ -585,7 +592,7 @@ vec3 generate(vec2 uv) {
 
 Finally, we'll use the pow function to enhance the contrast of our visualization:
 
-<FragmentViewer
+<FragmentViewerThreeJS
   client:visible={{ rootMargin: "-200px" }}
   shader="glow_circles"
   step={19}

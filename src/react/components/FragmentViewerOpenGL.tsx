@@ -90,27 +90,12 @@ function initBuffers(gl: WebGLRenderingContext) {
   };
 }
 
-const containerStyle = {
-  width: "100%",
-  height: "600px",
-  margin: "2rem 0",
-  borderRadius: "8px",
-  overflow: "hidden",
-  boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-};
-
-const canvasStyle = {
-  width: "100%",
-  height: "100%",
-  display: "block",
-};
-
 type Props = {
   shader: string;
   step?: number;
 };
 
-export default function TutorialFragmentViewer({ shader, step }: Props) {
+export default function FragmentViewerOpenGL({ shader, step }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
 
@@ -253,14 +238,10 @@ export default function TutorialFragmentViewer({ shader, step }: Props) {
   }, []);
 
   return (
-    <div
-      style={containerStyle}
-      className="fragment-viewer-container aspect-square"
-    >
+    <div className="fragment-viewer-container aspect-square w-full h-[600px] my-4 rounded-md shadow-lg overflow-hidden">
       <canvas
         ref={canvasRef}
-        style={canvasStyle}
-        className="fragment-viewer-canvas aspect-square"
+        className="fragment-viewer-canvas aspect-square w-full h-full"
       />
     </div>
   );

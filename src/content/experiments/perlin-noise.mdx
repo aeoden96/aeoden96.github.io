@@ -4,7 +4,7 @@ description: "A WebGL shader implementation of Perlin noise"
 pubDate: "Apr 14 2023"
 ---
 
-import FragmentViewer from "../../react/components/FragmentViewer.tsx";
+import FragmentViewerThreeJS from "../../react/components/FragmentViewerThreeJS.tsx";
 import TutorialNotice from "../../components/TutorialNotice.astro";
 
 <TutorialNotice
@@ -121,4 +121,4 @@ void main() {
 
 ```
 
-<FragmentViewer client:load shader="perlin" />
+<FragmentViewerThreeJS client:load shader="perlin" />
