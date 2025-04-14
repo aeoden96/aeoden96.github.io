@@ -441,12 +441,6 @@ vec3 generate(vec2 uv) {
 }
 `;
 
-const glowCirclesFragmentShader = `
-${palleteAndVars}
-${step19}
-${mainFunction}
-`;
-
 export const getStepCode = (step: number) => {
   return (
     {

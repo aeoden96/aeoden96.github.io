@@ -1,9 +1,8 @@
 ---
-title: 'WebGL Shader Playground'
-description: 'Interactive WebGL shader playground with live-editing capabilities'
-pubDate: 'Apr 02 2025'
-heroImage: '/blog-placeholder-3.jpg'
-tags: ['WebGL', 'Shaders', 'JavaScript', 'Interactive']
+title: "WebGL Shader Playground"
+description: "Interactive WebGL shader playground with live-editing capabilities"
+pubDate: "Apr 02 2025"
+heroImage: "/blog-placeholder-3.jpg"
 ---
 
 import ShaderCanvas from "../../components/ShaderCanvas.jsx";
@@ -25,10 +24,10 @@ uniform vec2 resolution;
 
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
-  
+
   // Create a simple gradient based on position
   vec3 color = vec3(uv.x, uv.y, sin(time * 0.5) * 0.5 + 0.5);
-  
+
   // Output the color
   gl_FragColor = vec4(color, 1.0);
 }
@@ -66,4 +65,4 @@ Shaders offer an incredibly efficient way to create complex visuals by leveragin
 - Data visualization
 - Scientific simulations
 
-Stay tuned as this experiment evolves with more interactive features! 
+Stay tuned as this experiment evolves with more interactive features!

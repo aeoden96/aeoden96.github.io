@@ -44,18 +44,3 @@ function Component(props: PropsA | PropsB) {
 ### Why This Is Useful
 
 The power of this pattern is that TypeScript understands the relationship between the discriminant property (`type` in this case) and the rest of the properties. When you check the value of `type`, TypeScript automatically narrows the type of `props` to either `PropsA` or `PropsB`.
-
-This gives you:
-
-- Type safety when accessing properties
-- Autocomplete suggestions that are context-aware
-- Compiler errors if you try to access properties that don't exist in the current type
-
-### When To Use
-
-Discriminated unions are especially useful for:
-
-- Component props that change based on a "mode" or "type"
-- API responses that might return different data structures
-- State management where the state shape changes based on status
-- Modeling complex domain objects with distinct variants
