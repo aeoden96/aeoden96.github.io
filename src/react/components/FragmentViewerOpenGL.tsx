@@ -238,7 +238,7 @@ export default function FragmentViewerOpenGL({ shader, step }: Props) {
   }, []);
 
   return (
-    <div className="fragment-viewer-container aspect-square w-full h-[600px] my-4 rounded-md shadow-lg overflow-hidden">
+    <div className="fragment-viewer-container aspect-square w-full md:h-[600px] my-4 rounded-md shadow-lg overflow-hidden h-[300px]">
       <canvas
         ref={canvasRef}
         className="fragment-viewer-canvas aspect-square w-full h-full"

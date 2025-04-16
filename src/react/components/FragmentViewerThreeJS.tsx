@@ -147,7 +147,7 @@ export default function FragmentViewerThreeJS({
   return (
     <div
       ref={containerRef}
-      className="fragment-viewer-container aspect-square w-full h-[600px] my-4 rounded-md shadow-lg overflow-hidden relative"
+      className="fragment-viewer-container aspect-square w-full md:h-[600px] h-[300px] my-4 rounded-md shadow-lg overflow-hidden relative"
     >
       {isVisible && (
         <Canvas

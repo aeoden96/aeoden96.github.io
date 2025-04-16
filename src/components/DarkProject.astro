@@ -28,7 +28,7 @@ const { title, duration, role, description, achievements, techStack, image, vide
 
 <div class="project pl-6 w-full">
   <div class="relative mb-6">
-    <h3 class="text-3xl font-bold text-gray-600 mb-0 leading-[0.7] uppercase tracking-wider italic">
+    <h3 class="text-lg md:text-3xl font-bold text-gray-600 mb-0 leading-[0.7] uppercase tracking-wider italic">
       {title}
     </h3>
     {image && (
@@ -43,8 +43,8 @@ const { title, duration, role, description, achievements, techStack, image, vide
         />
         
         {video && (
-          <div class="video-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300">
-            <button class="play-video-btn bg-white text-black rounded-full p-3 transform hover:scale-110 transition-transform">
+          <div class="video-overlay absolute inset-0 flex items-center justify-center bg-black/20 md:bg-black/40 md:opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <button class="play-video-btn animate-pulse bg-white text-black rounded-full p-3 transform hover:scale-110 transition-transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
@@ -57,8 +57,8 @@ const { title, duration, role, description, achievements, techStack, image, vide
   
   <blockquote class="claim-quote my-6 bg-[#101318] border-l-2 border-[#0d3d56] pl-6 py-3 pr-4 relative rounded-r-sm overflow-hidden">
     <div class="wave-glow absolute inset-0 opacity-20"></div>
-    <p class="text-xl font-light text-[#3a8bb3] relative z-10">
-      <span class="text-[#0a97c9] font-medium">"</span>{claim}<span class="text-[#0a97c9] font-medium">"</span>
+    <p class="text-lg md:text-xl font-light text-[#3a8bb3] relative z-10">
+      <span class="text-[#0a97c9] md:font-medium">"</span>{claim}<span class="text-[#0a97c9] font-medium">"</span>
     </p>
  
   </blockquote>
@@ -69,12 +69,12 @@ const { title, duration, role, description, achievements, techStack, image, vide
       >{role}</span
     >
   </div>
-  <p class="text-gray-300 max-w-3xl mb-4">
+  <p class="text-gray-300 max-w-3xl mb-4 text-sm md:text-base">
     {description}
   </p>
   <div class="mb-4">
     <h4 class="text-gray-400 text-sm uppercase mb-2">Achievements</h4>
-    <ul class="text-gray-300 space-y-1">
+    <ul class="text-gray-300 space-y-1 text-sm md:text-base">
       {achievements.map((achievement) => <li>• {achievement.text}</li>)}
     </ul>
   </div>

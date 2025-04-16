@@ -12,33 +12,33 @@ const { companyName, title, startDate, endDate, workList } = Astro.props;
 
 <section class="work-item flex-row flex w-full">
   <div class="w-full flex justify-start items-start flex-col py-10">
-    <div class="sticky px-6 top-20 text-left flex flex-col gap-4  ">
-      <h2 class=" text-6xl uppercase font-bold text-white">{title}
-     </h2>
+    <div class="sticky px-6 top-20 text-left flex flex-col gap-4">
+      <h2 class="text-3xl md:text-6xl uppercase font-bold text-white">
+        {title}
+      </h2>
 
-     <span class="text-gray-400 text-sm uppercase">//  {startDate} - {endDate}</span>
- 
-     
-     <ul class="text-gray-300 text-md list-disc pl-5 space-y-1">
-       {workList?.map((item) => <li>{item}</li>)}
-     </ul>
-    </div>    
+      <span class="text-gray-400 text-sm uppercase"
+        >// {startDate} - {endDate}</span
+      >
 
-      <!-- Projects List -->
-      <div class="w-full flex flex-col gap-60 bg-black pt-20 z-10">
-        <slot />
-      </div>
+      <ul class="text-gray-300 text-sm md:text-md list-disc pl-5 space-y-1">
+        {workList?.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+
+    <!-- Projects List -->
+    <div class="w-full flex flex-col gap-20 md:gap-60 bg-black pt-20 z-10">
+      <slot />
+    </div>
   </div>
-  <div
-    class="flex flex-col  w-[80px]  justify-between relative gap-4"
-  >
+  <div class="hidden md:flex flex-col w-[80px] justify-between relative gap-4">
     <span class="text-white text-sm font-bold uppercase">{endDate}</span>
     <span class="text-white text-sm font-bold uppercase">{startDate}</span>
   </div>
-  <div class="tape-measure w-[20px] relative flex gap-4"></div>
+  <div class="tape-measure w-[20px] relative gap-4 hidden md:flex"></div>
   <div class="relative side-bar flex gap-4">
     <div
-      class="bg-[#26262683] sticky top-20 flex text-white [writing-mode:vertical-lr] h-fit p-4 font-semibold text-4xl"
+      class="md:bg-[#0c0c0c] sticky top-20 flex text-white [writing-mode:vertical-lr] h-fit p-2 md:p-4 font-semibold text-xl md:text-4xl"
     >
       {companyName.toUpperCase()}
     </div>

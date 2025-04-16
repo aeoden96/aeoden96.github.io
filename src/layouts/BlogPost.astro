@@ -32,7 +32,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         width: 720px;
         max-width: calc(100% - 2em);
         margin: auto;
-        padding: 1em;
+        /* padding: 1em; */
         color: rgb(var(--gray-dark));
       }
       [data-theme="dark"] .prose {
@@ -61,7 +61,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <Header />
     <main class="blog-post !w-full">
       <article>
- 
         <div class="prose">
           <div class="title">
             <div class="date">
