@@ -1,7 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import GeoCanvas from "../react/components/GeoCanvas";
 ---
 
 <!doctype html>
@@ -103,9 +102,6 @@ import GeoCanvas from "../react/components/GeoCanvas";
           </div>
         </div>
       </section>
-      <div class="absolute opacity-30 z-0 w-full right-0 h-full">
-        <GeoCanvas client:media="(min-width: 768px)" />
-      </div>
     </main>
 
     <style>
