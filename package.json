@@ -35,5 +35,8 @@
     "@types/lodash": "^4.17.16",
     "@types/three": "^0.174.0"
   },
-  "packageManager": "yarn@1.22.22"
+  "engines": {
+    "node": "20.11.0",
+    "yarn": "1.22.22"
+  }
 }
