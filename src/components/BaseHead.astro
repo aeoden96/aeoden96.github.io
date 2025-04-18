@@ -11,9 +11,13 @@ interface Props {
   image?: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
+const {
+  title,
+  description,
+  // image = "/blog-placeholder-1.jpg"
+} = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -45,31 +49,31 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
   crossorigin
 />
 
-<!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
-
-<SEO
-  title={title}
-  description={description}
-  openGraph={{
+<!-- openGraph={
+  {
     basic: {
       title: title,
       type: "A type.",
       image: image,
     },
-  }}
+  }
+} -->
+
+<SEO
+  title={title}
+  description={description}
   extend={{
     // extending the default link tags
-    link: [{ rel: "icon", href: "/favicon.ico" }],
+    link: [{ rel: "icon", href: "/favicon.svg" }],
     // extending the default meta tags
-    meta: [
-      {
-        name: "twitter:image",
-        content:
-          "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
-      },
-      { name: "twitter:title", content: "Tinker Tailor Soldier Spy" },
-      { name: "twitter:description", content: "Agent" },
-    ],
+    // meta: [
+    //   {
+    //     name: "twitter:image",
+    //     content:
+    //       "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
+    //   },
+    //   { name: "twitter:title", content: "Tinker Tailor Soldier Spy" },
+    //   { name: "twitter:description", content: "Agent" },
+    // ],
   }}
 />
