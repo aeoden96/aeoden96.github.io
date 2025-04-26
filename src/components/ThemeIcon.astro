@@ -2,7 +2,7 @@
 
 ---
 
-<button id="themeToggle" class="border-none bg-none cursor-pointer">
+<button class="themeToggle" class="border-none bg-none cursor-pointer">
   <svg width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path
       class="sun fill-black dark:fill-transparent"
@@ -17,38 +17,40 @@
   </svg>
 </button>
 <script is:inline>
-  const theme = (() => {
-    const localStorageTheme = localStorage?.getItem("theme") ?? "";
-    if (["dark", "light"].includes(localStorageTheme)) {
-      return localStorageTheme;
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
+  if (typeof window.__themeSetupDone === 'undefined') {
+    window.__themeSetupDone = true;
+    const theme = (() => {
+      const localStorageTheme = localStorage?.getItem("theme") ?? "";
+      if (["dark", "light"].includes(localStorageTheme)) {
+        return localStorageTheme;
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    })();
 
-  if (theme === "light") {
-    //document.documentElement.classList.remove('dark');
-    document.documentElement.setAttribute("data-theme", "light");
-  } else {
-    //document.documentElement.classList.add('dark');
-    document.documentElement.setAttribute("data-theme", "dark");
+    if (theme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    window.localStorage.setItem("theme", theme);
+
+    const handleToggleClick = () => {
+      console.log("handleToggleClick");
+      const element = document.documentElement;
+      const isDark = element.getAttribute("data-theme") === "dark";
+      const other = isDark ? "light" : "dark";
+      element.setAttribute("data-theme", other);
+
+      localStorage.setItem("theme", other);
+    };
+
+    const toggles = document.getElementsByClassName("themeToggle");
+    for (const toggle of toggles) {
+      toggle.addEventListener("click", handleToggleClick);
+    }
   }
-
-  window.localStorage.setItem("theme", theme);
-
-  const handleToggleClick = () => {
-    const element = document.documentElement;
-    //element.classList.toggle("dark");
-    const isDark = element.getAttribute("data-theme") === "dark";
-    const other = isDark ? "light" : "dark";
-    element.setAttribute("data-theme", other);
-
-    localStorage.setItem("theme", other);
-  };
-
-  document
-    .getElementById("themeToggle")
-    ?.addEventListener("click", handleToggleClick);
 </script>

@@ -13,11 +13,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
   <head>
     <BaseHead title={title} description={description} />
     <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
-      }
       .hero-image {
         width: 100%;
       }
@@ -28,24 +23,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         border-radius: 12px;
         box-shadow: var(--box-shadow);
       }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        /* padding: 1em; */
-        color: rgb(var(--gray-dark));
-      }
-      [data-theme="dark"] .prose {
-        color: white;
-      }
+  
       .title {
         margin-bottom: 1em;
         padding: 1em 0;
         text-align: center;
         line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
       }
       .date {
         margin-bottom: 0.5em;
@@ -61,7 +44,72 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <Header />
     <main class="blog-post !w-full">
       <article>
-        <div class="prose">
+        <div  class:list={[
+    "prose dark:prose-invert w-[720px] max-w-[calc(100%-2em)] mx-auto",
+    "prose-p:text-justify prose-img:rounded-xl",
+    
+    // links
+    "prose-a:text-sky-800 prose-a:font-medium prose-a:inline ",
+    // links - hover
+    "prose-a:transition-all prose-a:duration-300 prose-a:hover:text-sky-500",
+    // links - dark
+    "dark:prose-a:text-sky-400 dark:prose-a:hover:text-sky-300",
+    
+    // headings - shared
+    " prose-headings:font-medium prose-headings:tracking-tight",
+    
+    // h1
+    "prose-h1:mt-0 prose-h1:mb-0.5 prose-h1:text-2xl prose-h1:font-light",
+    // h1 - responsive
+    "prose-h1:text-2xl prose-h1:font-light sm:prose-h1:text-3xl sm:prose-h1:font-normal",
+    // h1 - dark
+    "dark:prose-h1:text-gray-100",
+    
+    // h2
+    "prose-h2:mt-6 prose-h2:mb-3 prose-h2:text-xl prose-h2:font-medium",
+    // h2 - responsive
+    "sm:prose-h2:text-2xl",
+    // h2 - dark
+    "dark:prose-h2:text-gray-200",
+    
+    // h3
+    "prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-lg prose-h3:font-medium",
+    // h3 - responsive
+    "sm:prose-h3:text-xl",
+    // h3 - dark
+    "dark:prose-h3:text-gray-300",
+    
+    // h4
+    "prose-h4:mt-4 prose-h4:mb-1 prose-h4:text-base prose-h4:font-semibold",
+    // h4 - responsive
+    "sm:prose-h4:text-lg",
+    
+    // h5
+    "prose-h5:mt-3 prose-h5:mb-1 prose-h5:text-sm prose-h5:font-bold",
+    // h5 - responsive
+    "sm:prose-h5:text-base",
+    
+    // h6
+    "prose-h6:mt-3 prose-h6:mb-1 prose-h6:text-xs prose-h6:font-bold prose-h6:uppercase",
+    // h6 - responsive
+    "sm:prose-h6:text-sm",
+
+    // p
+    "prose-p:text-justify prose-p:leading-normal prose-p:text-sm prose-p:font-extralight",
+    // p - dark
+    "dark:prose-p:text-gray-400",
+    // p - responsive
+    "sm:prose-p:text-lg",
+    
+    // blockquote
+    "prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-6",
+    // code
+    "prose-code:before:content-none prose-code:after:content-none  prose-code:font-mono prose-code:text-sm prose-code:font-light prose-code:px-1 prose-code:mx-0.5 prose-code:py-1 prose-code:rounded prose-code:bg-gray-200/70 dark:prose-code:bg-gray-800/70 prose-code:text-gray-700 dark:prose-code:text-gray-300",
+    // pre
+    "prose-pre:p-4 prose-pre:my-6 prose-pre:rounded-lg prose-pre:overflow-auto prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:text-sm",
+    // pre > code
+    "[&_pre_code]:bg-transparent [&_pre_code]:p-0"
+  ]}>
           <div class="title">
             <div class="date">
               <FormattedDate date={pubDate} />
