@@ -35,7 +35,7 @@ const experiments = (await getCollection("experiments")).sort(
         {
           experiments.map((experiment, index) => (
             <BlogCard
-              url={`/experiments/${experiment.id}/`}
+              url={`/experiments/${experiment.id}`}
               title={experiment.data.title}
               pubDate={experiment.data.pubDate}
               description={experiment.data.description}

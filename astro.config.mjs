@@ -10,6 +10,7 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), sitemap(), react()],
+  trailingSlash: "never",
   site: "https://mteo.dev",
   vite: {
     plugins: [tailwindcss()],

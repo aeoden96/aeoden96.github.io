@@ -24,7 +24,7 @@ const games = (await getCollection("games")).sort(
         {
           games.map((game, index) => (
             <BlogCard
-              url={`/games/${game.id}/`}
+              url={`/games/${game.id}`}
               title={game.data.title}
               pubDate={game.data.pubDate}
               description={game.data.description}

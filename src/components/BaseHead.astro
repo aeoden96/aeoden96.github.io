@@ -19,6 +19,13 @@ const structuredData = {
 };
 
 const { title, description } = Astro.props;
+
+function removeTrailingSlash(str: string) {
+  return str.replace(/\/+$/, '');
+}
+
+const canonicalUrl = removeTrailingSlash(new URL(Astro.url.pathname, Astro.site).toString());
+
 ---
 
 <!-- Global Metadata -->
@@ -53,6 +60,15 @@ const { title, description } = Astro.props;
 <SEO
   title={title}
   description={description}
+  canonical={canonicalUrl}
+  openGraph={{
+    basic: {
+      title: title,
+      type: "website",
+      url: canonicalUrl,
+      image: `${canonicalUrl}/opengraph.webp`,
+    },
+  }}
   extend={{
     link: [{ rel: "icon", href: "/favicon.ico" }],
   }}
