@@ -12,6 +12,9 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), react()],
   trailingSlash: "never",
   site: "https://mteo.dev",
+  build: {
+    format: "file",
+  },
   vite: {
     plugins: [tailwindcss()],
   },

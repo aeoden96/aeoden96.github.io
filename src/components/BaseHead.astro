@@ -20,11 +20,12 @@ const structuredData = {
 
 const { title, description } = Astro.props;
 
-function removeTrailingSlash(str: string) {
-  return str.replace(/\/+$/, '');
-}
+// Remove .html extension from pathname for canonical URLs
+let cleanPathname = Astro.url.pathname.endsWith('.html') 
+  ? Astro.url.pathname.slice(0, -5) 
+  : Astro.url.pathname;
 
-const canonicalUrl = removeTrailingSlash(new URL(Astro.url.pathname, Astro.site).toString());
+const canonicalUrl = new URL(cleanPathname, Astro.site).toString().replace(/\/$/, '');
 
 ---
 
