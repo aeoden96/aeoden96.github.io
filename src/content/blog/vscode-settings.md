@@ -2,7 +2,7 @@
 title: "VS Code - Custom Settings"
 description: "Enhancing productivity with customized VS Code settings"
 pubDate: "Jul 8 2023"
-heroImage: "/blog-placeholder-3.jpg"
+tags: ["vscode", "productivity"]
 ---
 
 ## Custom Settings for VS Code
@@ -13,10 +13,12 @@ Visual Studio Code allows you to customize settings to match your workflow.
 
 To customize your settings in VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) and search for "Preferences: Open Settings (JSON)". Then add these settings:
 
+#### Default Profile Settings
+
+Basic settings that improve the editing experience.
+
 ```json
-// USER keybinds
 {
-  // "Default" profile settings
   "editor.inlineSuggest.enabled": true,
   "editor.stickyScroll.enabled": true,
   "editor.guides.bracketPairs": "active",
@@ -36,16 +38,28 @@ To customize your settings in VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on
   "editor.tabSize": 2,
 
   "workbench.startupEditor": "none",
-  "todohighlight.isEnable": true,
+  "todohighlight.isEnable": true
+}
+```
 
-  // ---------- Editor ----------
+#### Editor Settings
 
+Font and appearance customizations for the code editor.
+
+```json
+{
   "editor.fontFamily": "MesloLGS NF",
   "editor.fontLigatures": true,
-  "editor.fontSize": 14,
+  "editor.fontSize": 14
+}
+```
 
-  // ---------- Terminal ----------
+#### Terminal Settings
 
+Customizations for the integrated terminal experience.
+
+```json
+{
   "terminal.external.osxExec": "iTerm.app",
   "terminal.external.linuxExec": "konsole",
   "terminal.integrated.fontFamily": "MesloLGS NF",
@@ -55,10 +69,16 @@ To customize your settings in VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.automationProfile.linux": {
     "path": "/usr/bin/zsh" // or "/bin/zsh" if you're using Ubuntu
-  },
+  }
+}
+```
 
-  // ---------- Git ----------
+#### Git Settings
 
+Git integration and GitHub Copilot configuration.
+
+```json
+{
   "git.autofetch": true,
   "git.ignoreRebaseWarning": true,
   "git.openRepositoryInParentFolders": "never",
@@ -72,10 +92,16 @@ To customize your settings in VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on
     "yaml": true,
     "jsonc": true,
     "ruby": true
-  },
+  }
+}
+```
 
-  // ---------- Eslint and Prettier ----------
+#### ESLint and Prettier Settings
 
+Code formatting and linting configurations.
+
+```json
+{
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
@@ -91,10 +117,16 @@ To customize your settings in VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on
 
   "prettier.singleQuote": true,
   "prettier.trailingComma": "none",
-  "prettier.enable": true,
+  "prettier.enable": true
+}
+```
 
-  // ---------- Language Specific Settings ----------
+#### Language Specific Settings
 
+Configurations specific to file types and languages.
+
+```json
+{
   "files.associations": {
     "*.html.erb": "html"
   },
@@ -116,10 +148,10 @@ To customize your settings in VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 
-  // "[javascript][javascriptreact][typescript][typescriptreact]": {
-  //   "editor.codeActionsOnSave": {
-  //     "source.fixAll.eslint": "explicit"
-  //   }
-  // }
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+     "editor.codeActionsOnSave": {
+       "source.fixAll.eslint": "explicit"
+     }
+   }
 }
 ```

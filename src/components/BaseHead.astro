@@ -4,6 +4,7 @@
 import "../styles/global.css";
 import { SITE_TITLE } from "../consts";
 import { SEO } from "astro-seo";
+import { toCanonicalUrl } from "../helpers";
 
 interface Props {
   title: string;
@@ -20,12 +21,7 @@ const structuredData = {
 
 const { title, description } = Astro.props;
 
-// Remove .html extension from pathname for canonical URLs
-let cleanPathname = Astro.url.pathname.endsWith('.html') 
-  ? Astro.url.pathname.slice(0, -5) 
-  : Astro.url.pathname;
-
-const canonicalUrl = new URL(cleanPathname, Astro.site).toString().replace(/\/$/, '');
+const canonicalUrl = toCanonicalUrl(Astro.url.pathname, Astro.site);
 
 ---
 

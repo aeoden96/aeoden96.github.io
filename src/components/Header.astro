@@ -2,8 +2,9 @@
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import ThemeIcon from "./ThemeIcon.astro";
+import { toCanonicalUrl } from "../helpers";
 
-const pathname = Astro.url.pathname;
+const pathname =  toCanonicalUrl(Astro.url.pathname);
 const subpath = pathname.match(/[^\/]+/g);
 const currentPath = subpath?.[0] || "";
 
@@ -20,9 +21,9 @@ if (currentPath === "blog") {
 ---
 
 <header
-  class={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 py-4 px-6 backdrop-blur-md ${headerClass} rounded-md sm:rounded-full shadow-sm transition-colors duration-300 w-[95%] sm:w-auto sm:max-w-3xl`}
+  class={` fixed top-4 left-1/2 transform -translate-x-1/2 z-50 py-4 px-6 backdrop-blur-md ${headerClass} rounded-md sm:rounded-full shadow-sm transition-colors duration-300 w-[95%] sm:w-auto sm:max-w-3xl`}
 >
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between gap-8">
     <h2 class="text-xl font-bold text-gray-800 dark:text-white">
       <a
         href="/"
@@ -39,7 +40,7 @@ if (currentPath === "blog") {
     </button>
 
     <!-- Desktop navigation -->
-    <nav class="hidden sm:flex items-center space-x-6 ml-8">
+    <nav class="hidden sm:flex items-center gap-4">
       <HeaderLink
         href="/blog"
         class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
@@ -77,9 +78,6 @@ if (currentPath === "blog") {
         class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
         >Games</HeaderLink
       >
-      <div class="pt-1">
-        <ThemeIcon />
-      </div>
     </div>
   </div>
 </header>

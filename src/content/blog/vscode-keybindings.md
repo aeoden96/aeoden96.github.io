@@ -2,7 +2,7 @@
 title: "VS Code - Custom Keybindings"
 description: "Enhancing productivity with custom keyboard shortcuts"
 pubDate: "Jul 8 2023"
-heroImage: "/blog-placeholder-3.jpg"
+tags: ["vscode", "productivity"]
 ---
 
 ## Custom Keybindings for VS Code
