@@ -140,7 +140,7 @@ export default function Geo() {
   const materialRef = useRef<any>(undefined);
 
   // Animate the cloth effect
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (materialRef.current) {
       materialRef.current.time += delta * 0.1;
     }

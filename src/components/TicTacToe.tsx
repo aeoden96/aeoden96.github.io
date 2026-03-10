@@ -1,10 +1,11 @@
 import { OrbitControls, RoundedBox } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import map from "lodash/map";
 import flatMap from "lodash/flatMap";
 import range from "lodash/range";
 import * as THREE from "three";
+import type { MutableRefObject } from "react";
 
 export default function TicTacToe() {
   const [hoveredBlock, setHoveredBlock] = useState<{

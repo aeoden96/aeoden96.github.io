@@ -52,7 +52,7 @@ const canonicalUrl = toCanonicalUrl(Astro.url.pathname, Astro.site);
   type="font/woff"
   crossorigin
 />
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
 <SEO
   title={title}

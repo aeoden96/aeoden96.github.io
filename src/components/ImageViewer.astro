@@ -50,7 +50,7 @@ const { src, alt, width = 1000, height = 600 } = Astro.props;
   const expandButtons = document.querySelectorAll('.expand-image-btn');
   
   expandButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
       const mediaContainer = button.closest('.media-container');
       const imageViewer = mediaContainer?.closest('.image-viewer-container');
       const fullscreenContainer = imageViewer?.querySelector('.fullscreen-image-container');

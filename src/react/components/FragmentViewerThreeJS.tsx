@@ -1,9 +1,8 @@
-import React, {
+import {
+  type ChangeEvent,
+  useEffect,
   useRef,
   useState,
-  useEffect,
-  type RefObject,
-  type DragEventHandler,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
@@ -151,7 +150,7 @@ export default function FragmentViewerThreeJS({
     >
       {isVisible && (
         <Canvas
-          onDrag={(e) => {}}
+          onDrag={() => {}}
           className="fragment-viewer-canvas aspect-square w-full h-full"
           gl={{ antialias: true, alpha: false }}
           orthographic

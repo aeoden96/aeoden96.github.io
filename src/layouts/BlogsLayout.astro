@@ -5,8 +5,6 @@ import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
-import type { CollectionEntry } from "astro:content";
-
 interface Props {
   pageTitle?: string;
   description?: string;

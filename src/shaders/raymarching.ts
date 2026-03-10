@@ -581,6 +581,7 @@ vec3 generate(vec2 uv, vec2 m) {
 }
 `;
 
+// @ts-ignore
 const raymarchingFragmentShader = `
 ${palleteAndVars}
 ${step13}

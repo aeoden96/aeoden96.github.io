@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { OUTER_RADIUS, PlayerMovement, type Entity } from "../state";

@@ -21,7 +21,7 @@ export interface Props {
   claim?: string;
 }
 
-const { title, duration, role, description, achievements, techStack, image, video, claim =
+const { title, role, description, achievements, techStack, image, video, claim =
   "Transforming ideas into digital experiences" } =
   Astro.props;
 ---
@@ -111,7 +111,7 @@ const { title, duration, role, description, achievements, techStack, image, vide
   const playButtons = document.querySelectorAll('.play-video-btn');
   
   playButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
       const mediaContainer = button.closest('.media-container');
       const project = mediaContainer?.closest('.project');
       const videoContainer = project?.querySelector('.video-container');

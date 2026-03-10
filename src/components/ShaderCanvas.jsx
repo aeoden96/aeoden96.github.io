@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Vertex shader - just pass through positions
 const vertexShaderSource = `

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import perlinFragmentShader from "../../shaders/perlin";
 import { getGlowCirclesShader } from "../../shaders/glow_circles";
 
