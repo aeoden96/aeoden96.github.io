@@ -1,93 +1,31 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
-import ThemeIcon from "./ThemeIcon.astro";
 import { toCanonicalUrl } from "../helpers";
 
 const pathname =  toCanonicalUrl(Astro.url.pathname);
 const subpath = pathname.match(/[^\/]+/g);
 const currentPath = subpath?.[0] || "";
-
-// Define theme colors based on current path
-let headerClass = "bg-white/70 dark:bg-gray-900/70";
-
-if (currentPath === "blog") {
-  headerClass = "bg-indigo-50/70 dark:bg-indigo-900/70";
-} else if (currentPath === "experiments") {
-  headerClass = "bg-purple-50/70 dark:bg-purple-900/70";
-} else if (currentPath === "games") {
-  headerClass = "bg-green-50/70 dark:bg-green-900/70";
-}
 ---
 
-<header
-  class={` fixed top-4 left-1/2 transform -translate-x-1/2 z-50 py-4 px-6 backdrop-blur-md ${headerClass} rounded-md sm:rounded-full shadow-sm transition-colors duration-300 w-[95%] sm:w-auto sm:max-w-3xl`}
->
-  <div class="flex items-center justify-between gap-8">
-    <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+<header class="w-full py-8 mb-10 border-b border-gray-800">
+  <div class="flex flex-row items-center justify-between gap-4">
+    <div class="flex flex-row gap-6 flex-wrap">
       <a
         href="/"
-        class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
-        >Home</a
-      >
-    </h2>
-
-    <!-- Mobile menu button -->
-    <button id="menu-toggle" class="block sm:hidden text-gray-700 dark:text-gray-300 focus:outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
-
-    <!-- Desktop navigation -->
-    <nav class="hidden sm:flex items-center gap-4">
-      <HeaderLink
+        class={`text-sm md:text-base ${currentPath === "" ? "text-white" : "text-gray-500"} hover:text-white transition-colors uppercase`}
+      >// HOME</a>
+      <a
         href="/blog"
-        class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
-        >Blog</HeaderLink
-      >
-      <HeaderLink
+        class={`text-sm md:text-base ${currentPath === "blog" ? "text-white" : "text-gray-500"} hover:text-white transition-colors uppercase`}
+      >// BLOGS</a>
+      <a
         href="/experiments"
-        class="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300"
-        >Experiments</HeaderLink
-      >
-      <HeaderLink
+        class={`text-sm md:text-base ${currentPath === "experiments" ? "text-white" : "text-gray-500"} hover:text-white transition-colors uppercase`}
+      >// EXPERIMENTS</a>
+      <a
         href="/games"
-        class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
-        >Games</HeaderLink
-      >
-      <ThemeIcon />
-    </nav>
-  </div>
-
-  <!-- Mobile navigation menu -->
-  <div id="mobile-menu" class="hidden sm:hidden mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-    <div class="flex flex-col space-y-3">
-      <HeaderLink
-        href="/blog"
-        class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
-        >Blog</HeaderLink
-      >
-      <HeaderLink
-        href="/experiments"
-        class="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300"
-        >Experiments</HeaderLink
-      >
-      <HeaderLink
-        href="/games"
-        class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
-        >Games</HeaderLink
-      >
+        class={`text-sm md:text-base ${currentPath === "games" ? "text-white" : "text-gray-500"} hover:text-white transition-colors uppercase`}
+      >// GAMES</a>
     </div>
   </div>
 </header>
-<!-- Adjust padding for the island header -->
-<div class="pt-24"></div>
-
-<script>
-  // Toggle mobile menu
-  document.getElementById('menu-toggle')?.addEventListener('click', () => {
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenu?.classList.toggle('hidden');
-  });
-</script>

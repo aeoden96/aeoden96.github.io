@@ -8,8 +8,6 @@ export interface Props {
   description?: string;
   tags?: string[];
   isFeature?: boolean;
-  actionText?: string;
-  tagColorClass?: string;
 }
 
 const { 
@@ -19,67 +17,34 @@ const {
   description, 
   tags, 
   isFeature = false, 
-  actionText,
-  tagColorClass = "bg-indigo-50 text-indigo-700"
 } = Astro.props;
 
-function generateGradientColors(seed: string): string[] {
-  // Simple hash function to convert string to number
-  const hashString = (str: string): number => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = ((hash << 5) - hash) + str.charCodeAt(i);
-      hash |= 0; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-  };
-
-  // Generate colors from seed
-  const hash = hashString(seed);
-  const h1 = hash % 360;
-  const h2 = (h1 + 40 + (hash % 80)) % 360;
-  const s = 65 + (hash % 20);
-  const l = 55 + (hash % 20);
-
-  return [
-    `hsl(${h1}, ${s}%, ${l}%)`,
-    `hsl(${h2}, ${s}%, ${l}%)`
-  ];
-}
-
-const gradientColors = generateGradientColors(title);
 ---
 <a
   href={url}
-  class={`block bg-white dark:bg-gray-800 rounded-lg overflow-hidden ring-2 ring-transparent  hover:ring-gray-400 dark:hover:ring-gray-200 transition-shadow duration-300 ${isFeature ? "md:col-span-2" : ""}`}
+  class={`block border border-gray-800 bg-black hover:border-gray-500 transition-colors duration-300 p-6 flex flex-col justify-between ${isFeature ? "md:col-span-2" : ""}`}
 >
-  <div class="relative h-10 flex items-center justify-start px-2 gap-2">
-      <div
-        style={`background: linear-gradient(135deg, ${gradientColors.join(', ')});`}
-        aria-hidden="true"
-        role="presentation"
-        class="w-full object-cover h-10 absolute top-0 left-0"
-      />
-      {tags && tags.length > 0 && tags.map((tag) => (
-        <span class={`flex items-center justify-center py-1 px-2 z-10 text-sm leading-[15px] font-medium text-white bg-white/20 backdrop-blur-sm uppercase  rounded-md`}>
-          {tag}
-        </span>  
-      ))}
-    
-  </div>
-  <div class="p-6">
-    <h2
-      class=" text-gray-800 text-lg  dark:text-gray-100 mb-2"
-    >
+  <div>
+    <h2 class="text-white text-2xl font-bold uppercase tracking-tight mb-2">
       {title}
     </h2>
-    <p class="text-gray-500 dark:text-gray-400 mb-4">
+    <p class="text-gray-500 text-xs mb-4 uppercase tracking-widest">
       <FormattedDate date={pubDate} />
     </p>
     {description && (
-      <p class="text-gray-600 text-md text-ellipsis  dark:text-gray-400">
+      <p class="text-gray-400 text-sm mb-6 leading-relaxed">
         {description}
       </p>
     )}
   </div>
-</a> 
+  
+  {tags && tags.length > 0 && (
+    <div class="flex flex-wrap gap-2 mt-4">
+      {tags.map((tag) => (
+        <span class="text-xs text-gray-400 uppercase border border-gray-800 px-2 py-1">
+          {tag}
+        </span>  
+      ))}
+    </div>
+  )}
+</a>
