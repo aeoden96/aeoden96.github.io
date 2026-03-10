@@ -31,9 +31,9 @@ const experiments = defineCollection({
   }),
 });
 
-const games = defineCollection({
-  // Load Markdown and MDX files in the `src/content/games/` directory.
-  loader: glob({ base: "./src/content/games", pattern: "**/*.{md,mdx}" }),
+const projects = defineCollection({
+  // Load Markdown and MDX files in the `src/content/projects/` directory.
+  loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
   // Type-check frontmatter using a schema
   schema: z.object({
     title: z.string(),
@@ -46,4 +46,4 @@ const games = defineCollection({
   }),
 });
 
-export const collections = { blog, experiments, games };
+export const collections = { blog, experiments, projects };

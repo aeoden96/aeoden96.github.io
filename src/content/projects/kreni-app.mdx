@@ -1,0 +1,38 @@
+---
+title: "Kreni - live ZET Tracker"
+description: "A frontend-only web application for tracking Zagreb's public transport in real-time."
+pubDate: "Mar 10 2026"
+heroImage: "/projects/kreni-screenshot-wide.png"
+---
+
+
+Kreni (also known as ZET Live) is a frontend-only web application designed to track Zagreb's public transport—trams and buses—in real-time. It provides lightning-fast performance, real-time stop locations, schedule data, and route visualization without a backend server!
+
+## Features
+
+- **Real-Time Data**: Tracks stop locations and route information interactively.
+- **Continuous Vehicle Tracking**: Seamlessly follow any active vehicle along its route directly on the map.
+- **Parking Zones Integration**: View up-to-date city parking zones integrated directly into the map view.
+- **Sibling Platform Routing**: Easily navigate and switch between opposite direction platforms at the same stop.
+- **Optimized Data Pipeline**: Pre-processes 114 MB of GTFS data into highly optimized JSON chunks.
+- **Smart Chunking & Fetching**: Provides an extremely fast load time (approx. 450 KB initial load, 3KB-70KB per interaction).
+- **PWA Support**: Native-like experience with installability prompts and caching.
+
+## Visuals
+
+Here is how the application looks on different screen formats.
+
+![Wide Screen Screenshot](/projects/kreni-screenshot-wide.png)
+
+![Mobile Screen Screenshot](/projects/kreni-screenshot-mobile.png)
+
+## Technical Stack
+
+- **Vite 7**: For incredibly fast builds.
+- **React 19**: Utilizing the latest features of React with strict TypeScript.
+- **Tailwind CSS v4 & DaisyUI 5**: Highly customized and themed user interface.
+- **Data Pipeline**: Custom Python scripts optimizing the initial transit data and saving it statically to a CDN.
+
+## Architecture
+
+This application represents a paradigm shift where complex spatio-temporal datasets can be intelligently chunked and served purely from static files. It caches the schedule information in memory directly in the browser and loads extra details seamlessly on-the-fly, reducing server costs and infrastructure needs significantly.

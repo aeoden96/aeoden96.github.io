@@ -11,7 +11,7 @@ interface Props {
   pageTitle?: string;
   description?: string;
   image?: string;
-  collection: "blog" | "experiments" | "games";
+  collection: "blog" | "experiments" | "projects";
 }
 
 const {
@@ -26,7 +26,7 @@ const posts = (await getCollection(collection)).sort(
 const title = {
   blog: "BLOGS",
   experiments: "EXPERIMENTS",
-  games: "GAMES",
+  projects: "PROJECTS",
 }[collection];
 ---
 
