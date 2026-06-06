@@ -1,38 +1,55 @@
 ---
-title: "Kreni - live ZET Tracker"
-description: "A frontend-only web application for tracking Zagreb's public transport in real-time."
+title: "Kreni — live Zagreb transit map"
+description: "Built solo. Found by 4,400+ people in the first month — live trams, buses, trains and city layers over static files and a Cloudflare Worker."
 pubDate: "Mar 10 2026"
 heroImage: "/projects/kreni-screenshot-wide.png"
+tags: ["react", "typescript", "cloudflare", "maps"]
 ---
 
+Kreni started as a personal tool for checking when the next tram was coming. It ended up with 4,435 active users in its first month, a write-up in Večernji list, and a peak of 660 people on it in a single day — none of which I expected.
 
-Kreni (also known as ZET Live) is a frontend-only web application designed to track Zagreb's public transport—trams and buses—in real-time. It provides lightning-fast performance, real-time stop locations, schedule data, and route visualization without a backend server!
+The core idea: preprocess Zagreb's entire GTFS dataset (114 MB) into small JSON shards at deploy time, serve them from a CDN, and decode live vehicle positions from the GTFS-Realtime protobuf feed through a Cloudflare Worker. No backend server, no database — the browser does the heavy lifting.
 
-## Features
+## Numbers
 
-- **Real-Time Data**: Tracks stop locations and route information interactively.
-- **Continuous Vehicle Tracking**: Seamlessly follow any active vehicle along its route directly on the map.
-- **Parking Zones Integration**: View up-to-date city parking zones integrated directly into the map view.
-- **Sibling Platform Routing**: Easily navigate and switch between opposite direction platforms at the same stop.
-- **Optimized Data Pipeline**: Pre-processes 114 MB of GTFS data into highly optimized JSON chunks.
-- **Smart Chunking & Fetching**: Provides an extremely fast load time (approx. 450 KB initial load, 3KB-70KB per interaction).
-- **PWA Support**: Native-like experience with installability prompts and caching.
+| | |
+|---|---|
+| Active users (first month) | 4,435 |
+| Total interactions | 73,700+ |
+| Page views | 35,495 |
+| Peak day | 660 users (Mar 29, 2026) |
+| Routes selected | 1,096 |
+| Onboarding completions | 2,072 |
+
+Traffic came from Večernji list (~615 referrals), Facebook (~880), and 2,200+ direct visits.
+
+## What it does
+
+- Live bus and tram positions with interpolation between GTFS-RT updates
+- HŽPP train tracking as a separate map mode
+- City layers: parking zones, Nextbike stations, road closures, water fountains, EV charging, cycling paths, student cafeterias
+- Delay information from trip update feeds
+- PWA — installable, schedule data works offline
+- Croatian, English and German
+
+## How it works
+
+At build time, a Python + shell pipeline downloads the GTFS zip from ZET (and HŽPP for trains), slices it into shards, and writes them to `public/data/`. Vite builds the SPA; GitHub Actions deploys to Cloudflare Pages.
+
+At runtime, a Cloudflare Worker handles everything the browser can't fetch directly: proxies the GTFS-RT protobuf with edge caching (~7s), serves road closure data from Zagreb open data (~1h cache), Nextbike JSON (~15s cache), and parsed service alerts stored in KV. A cron job runs every 10 minutes to aggregate congestion stats.
+
+Initial load is ~450 KB. Each map interaction fetches 3–70 KB of shard data on demand from the CDN.
+
+## Stack
+
+- React 19 + Vite 7, TypeScript throughout
+- Leaflet for the map
+- Tailwind CSS v4 + DaisyUI 5
+- Cloudflare Pages + Worker + KV + R2
+- GitHub Actions for build, deploy, GTFS processing and service alert parsing
 
 ## Visuals
 
-Here is how the application looks on different screen formats.
+![Wide screen](/projects/kreni-screenshot-wide.png)
 
-![Wide Screen Screenshot](/projects/kreni-screenshot-wide.png)
-
-![Mobile Screen Screenshot](/projects/kreni-screenshot-mobile.png)
-
-## Technical Stack
-
-- **Vite 7**: For incredibly fast builds.
-- **React 19**: Utilizing the latest features of React with strict TypeScript.
-- **Tailwind CSS v4 & DaisyUI 5**: Highly customized and themed user interface.
-- **Data Pipeline**: Custom Python scripts optimizing the initial transit data and saving it statically to a CDN.
-
-## Architecture
-
-This application represents a paradigm shift where complex spatio-temporal datasets can be intelligently chunked and served purely from static files. It caches the schedule information in memory directly in the browser and loads extra details seamlessly on-the-fly, reducing server costs and infrastructure needs significantly.
+![Mobile](/projects/kreni-screenshot-mobile.png)
