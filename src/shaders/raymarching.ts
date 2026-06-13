@@ -608,6 +608,8 @@ export const getStepCode = (step: number) => {
   );
 };
 
+export { palleteAndVars };
+
 export const getRaymarchingShader = (step: number) => {
   const stepCode = getStepCode(step);
 

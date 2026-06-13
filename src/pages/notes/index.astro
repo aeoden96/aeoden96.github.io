@@ -4,6 +4,7 @@ import Header from "../../components/Header.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
+import WorldBackground from "../../components/WorldBackground.astro";
 
 const notes = (await getCollection("notes")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -19,15 +20,18 @@ const allTags = [...new Set(
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="bg-[#0a0d14] text-[#e8eaed] min-h-screen flex flex-col font-sans grid-bg">
+  <body class="bg-[#0a0d14] text-[#ece4d3] min-h-screen flex flex-col font-sans">
+    <WorldBackground />
+    <div class="grid-dot-overlay"></div>
+    <div class="relative z-[2] flex flex-col flex-grow">
     <main class="w-full flex-grow max-w-6xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col">
       <Header />
 
       <section class="mt-16 mb-12">
-        <h1 class="font-bold leading-tight">
-          <span class="text-4xl md:text-[8rem] text-white block uppercase tracking-tighter">NOTES</span>
+        <h1 class="font-display font-semibold leading-tight">
+          <span class="text-4xl md:text-[8rem] text-white block uppercase tracking-[0.03em]">NOTES</span>
         </h1>
-        <p class="text-[#9aa4b2] max-w-2xl mt-4 text-sm">Quick references, snippets, and short-form writing.</p>
+        <p class="text-[#a89c85] max-w-2xl mt-4 text-sm leading-relaxed">Quick references, snippets, and short-form writing.</p>
       </section>
 
       <div class="flex flex-col sm:flex-row gap-3 mb-4">
@@ -37,9 +41,9 @@ const allTags = [...new Set(
             type="text"
             placeholder="Search notes..."
             autocomplete="off"
-            class="w-full bg-[#10141d] border border-[#1c2230] text-[#e8eaed] placeholder-[#3a4454] font-mono text-sm px-4 py-2.5 rounded focus:outline-none focus:border-[#f59e0b] transition-colors duration-200"
+            class="w-full surface text-[#ece4d3] placeholder-[#6f6757] font-mono text-sm px-4 py-2.5 rounded focus:outline-none focus:border-[#f59e0b] transition-colors duration-200"
           />
-          <span class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#3a4454] pointer-events-none">/</span>
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#6f6757] pointer-events-none">/</span>
         </div>
       </div>
 
@@ -47,20 +51,20 @@ const allTags = [...new Set(
         <div class="flex flex-wrap gap-2 mb-4">
           {allTags.map((tag) => (
             <button
-              class="tag-btn font-mono text-[10px] uppercase px-2.5 py-1 rounded border border-[#2a3344] text-[#9aa4b2] hover:border-[#f59e0b] hover:text-[#f59e0b] transition-colors duration-150"
+              class="tag-btn font-mono text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded border border-[#3a3122] text-[#a89c85] hover:border-[#f59e0b] hover:text-[#f59e0b] transition-colors duration-150"
               data-tag={tag}
             >
-              #{tag}
+              {tag}
             </button>
           ))}
         </div>
       )}
 
       <div class="flex items-center gap-2 mb-3">
-        <span id="notes-count" class="font-mono text-xs text-[#5b6577]">{notes.length} entries</span>
+        <span id="notes-count" class="font-mono text-xs text-[#6f6757]">{notes.length} entries</span>
       </div>
 
-      <ul id="notes-list" class="divide-y divide-[#1c2230] border border-[#1c2230] rounded mb-20">
+      <ul id="notes-list" class="divide-y divide-[var(--warm-border-soft)] surface rounded mb-20">
         {notes.map((note) => (
           <li
             class="note-item"
@@ -70,11 +74,11 @@ const allTags = [...new Set(
           >
             <a
               href={`/notes/${note.id}`}
-              class="group flex items-center justify-between gap-4 px-4 py-3 hover:bg-[#10141d] transition-colors duration-150"
+              class="group flex items-center justify-between gap-4 px-4 py-3 hover:bg-[rgba(245,158,11,0.06)] transition-colors duration-150"
             >
               <div class="flex items-center gap-3 min-w-0">
                 <span class="text-[#f59e0b] font-mono text-xs shrink-0">›</span>
-                <span class="text-[#e8eaed] text-sm font-medium group-hover:text-white transition-colors truncate">
+                <span class="text-[#ece4d3] text-sm font-medium group-hover:text-white transition-colors truncate">
                   {note.data.title}
                 </span>
               </div>
@@ -82,13 +86,13 @@ const allTags = [...new Set(
                 {note.data.tags && note.data.tags.filter(t => t !== "snippet").length > 0 && (
                   <div class="hidden sm:flex gap-1.5">
                     {note.data.tags.filter(t => t !== "snippet").map((tag) => (
-                      <span class="font-mono text-[9px] text-[#5b6577] uppercase border border-[#1c2230] px-1.5 py-0.5 rounded">
+                      <span class="font-mono text-[9px] text-[#6f6757] uppercase border border-[#2a2318] px-1.5 py-0.5 rounded">
                         {tag}
                       </span>
                     ))}
                   </div>
                 )}
-                <span class="font-mono text-[10px] text-[#3a4454] whitespace-nowrap">
+                <span class="font-mono text-[10px] text-[#6f6757] whitespace-nowrap">
                   <FormattedDate date={note.data.pubDate} />
                 </span>
               </div>
@@ -97,82 +101,93 @@ const allTags = [...new Set(
         ))}
       </ul>
 
-      <p id="notes-empty" class="hidden font-mono text-sm text-[#3a4454] text-center py-8">
+      <p id="notes-empty" class="hidden font-mono text-sm text-[#6f6757] text-center py-8">
         No notes match your search.
       </p>
     </main>
 
-    <footer class="max-w-6xl mx-auto w-full px-6 md:px-10 lg:px-16 py-8 border-t border-[#1c2230] flex flex-col md:flex-row items-start md:items-center justify-between gap-2 font-mono text-[11px] text-[#5b6577]">
+    <footer class="max-w-6xl mx-auto w-full px-6 md:px-10 lg:px-16 py-8 border-t border-[var(--warm-border)] flex flex-col md:flex-row items-start md:items-center justify-between gap-2 font-mono text-[11px] text-[#6f6757]">
       <p>Mateo Martinjak · Zagreb, HR</p>
       <p>© {new Date().getFullYear()} mteo.dev</p>
     </footer>
+    </div>
   </body>
 </html>
 
 <script>
-  const input = document.getElementById("notes-search") as HTMLInputElement;
-  const items = document.querySelectorAll<HTMLElement>(".note-item");
-  const countEl = document.getElementById("notes-count");
-  const emptyEl = document.getElementById("notes-empty");
-  const tagBtns = document.querySelectorAll<HTMLElement>(".tag-btn");
-  const total = items.length;
-
-  let activeTag = "";
-
-  function applyFilters() {
-    const q = input.value.toLowerCase().trim();
-    let visible = 0;
-
-    items.forEach((item) => {
-      const tags = item.dataset.tags ?? "";
-      const haystack = [item.dataset.title ?? "", tags, item.dataset.description ?? ""].join(" ");
-      const matchesSearch = !q || haystack.includes(q);
-      const matchesTag = !activeTag || tags.split(" ").includes(activeTag);
-
-      const match = matchesSearch && matchesTag;
-      item.style.display = match ? "" : "none";
-      if (match) visible++;
-    });
-
-    if (countEl) {
-      countEl.textContent = q || activeTag
-        ? `${visible} / ${total} entries`
-        : `${total} entries`;
-    }
-    if (emptyEl) {
-      emptyEl.classList.toggle("hidden", visible > 0);
-    }
-  }
-
-  input?.addEventListener("input", applyFilters);
-
-  tagBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const tag = btn.dataset.tag ?? "";
-      if (activeTag === tag) {
-        activeTag = "";
-        btn.classList.remove("border-[#f59e0b]", "text-[#f59e0b]");
-        btn.classList.add("border-[#2a3344]", "text-[#9aa4b2]");
-      } else {
-        tagBtns.forEach((b) => {
-          b.classList.remove("border-[#f59e0b]", "text-[#f59e0b]");
-          b.classList.add("border-[#2a3344]", "text-[#9aa4b2]");
-        });
-        activeTag = tag;
-        btn.classList.add("border-[#f59e0b]", "text-[#f59e0b]");
-        btn.classList.remove("border-[#2a3344]", "text-[#9aa4b2]");
-      }
-      applyFilters();
-    });
-  });
-
+  // Global shortcut: "/" focuses the notes search, Escape blurs it.
+  // Registered once for the whole session (document survives navigations).
   document.addEventListener("keydown", (e) => {
+    const input = document.getElementById("notes-search") as HTMLInputElement | null;
+    if (!input) return;
     if (e.key === "/" && document.activeElement !== input) {
       e.preventDefault();
-      input?.focus();
+      input.focus();
     }
     if (e.key === "Escape") {
-      input?.blur();
+      input.blur();
     }
+  });
+
+  // (Re)bind search + tag filtering on first load and after every navigation,
+  // since the notes DOM is rebuilt on each client-side route change.
+  document.addEventListener("astro:page-load", () => {
+    const input = document.getElementById("notes-search") as HTMLInputElement | null;
+    const items = document.querySelectorAll<HTMLElement>(".note-item");
+    if (!input || items.length === 0) return;
+
+    const countEl = document.getElementById("notes-count");
+    const emptyEl = document.getElementById("notes-empty");
+    const tagBtns = document.querySelectorAll<HTMLElement>(".tag-btn");
+    const total = items.length;
+
+    let activeTag = "";
+
+    function applyFilters() {
+      const q = input!.value.toLowerCase().trim();
+      let visible = 0;
+
+      items.forEach((item) => {
+        const tags = item.dataset.tags ?? "";
+        const haystack = [item.dataset.title ?? "", tags, item.dataset.description ?? ""].join(" ");
+        const matchesSearch = !q || haystack.includes(q);
+        const matchesTag = !activeTag || tags.split(" ").includes(activeTag);
+
+        const match = matchesSearch && matchesTag;
+        item.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+
+      if (countEl) {
+        countEl.textContent = q || activeTag
+          ? `${visible} / ${total} entries`
+          : `${total} entries`;
+      }
+      if (emptyEl) {
+        emptyEl.classList.toggle("hidden", visible > 0);
+      }
+    }
+
+    input.addEventListener("input", applyFilters);
+
+    tagBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tag = btn.dataset.tag ?? "";
+        if (activeTag === tag) {
+          activeTag = "";
+          btn.classList.remove("border-[#f59e0b]", "text-[#f59e0b]");
+          btn.classList.add("border-[#3a3122]", "text-[#a89c85]");
+        } else {
+          tagBtns.forEach((b) => {
+            b.classList.remove("border-[#f59e0b]", "text-[#f59e0b]");
+            b.classList.add("border-[#3a3122]", "text-[#a89c85]");
+          });
+          activeTag = tag;
+          btn.classList.add("border-[#f59e0b]", "text-[#f59e0b]");
+          btn.classList.remove("border-[#3a3122]", "text-[#a89c85]");
+        }
+        applyFilters();
+      });
+    });
   });
 </script>

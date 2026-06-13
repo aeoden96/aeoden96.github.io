@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import WorldBackground from "../components/WorldBackground.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -14,7 +15,11 @@ const { title, description, pubDate, updatedDate } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="bg-[#0a0d14] text-[#e8eaed] min-h-screen flex flex-col font-sans grid-bg">
+  <body class="bg-[#0a0d14] text-[#ece4d3] min-h-screen flex flex-col font-sans">
+    <WorldBackground />
+    <div class="edge-glow"></div>
+    <div class="grid-dot-overlay"></div>
+    <div class="relative z-[2] flex flex-col flex-grow">
     <main class="w-full flex-grow max-w-6xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col">
       <Header />
 
@@ -22,16 +27,16 @@ const { title, description, pubDate, updatedDate } = Astro.props;
         <div class="w-full max-w-[720px] mx-auto">
           <!-- Post header -->
           <div class="mb-10">
-            <h1 class="text-3xl md:text-5xl font-bold uppercase tracking-tighter text-white leading-tight mb-4">
+            <h1 class="font-display text-3xl md:text-5xl font-semibold uppercase tracking-[0.03em] text-white leading-tight mb-4">
               {title}
             </h1>
-            <div class="flex gap-4 font-mono text-xs text-[#5b6577] uppercase tracking-widest mb-6">
+            <div class="flex gap-4 hud text-[11px] text-[#6f6757] mb-6">
               <span class="accent-text-dim"><FormattedDate date={pubDate} /></span>
               {updatedDate && (
                 <span>(updated: <FormattedDate date={updatedDate} />)</span>
               )}
             </div>
-            <div class="w-full h-px bg-[#1c2230]"></div>
+            <div class="w-full h-px bg-[var(--warm-border)]"></div>
           </div>
 
           <!-- Prose content -->
@@ -40,17 +45,17 @@ const { title, description, pubDate, updatedDate } = Astro.props;
             "prose-p:text-justify prose-img:rounded-none",
             "prose-a:text-white prose-a:font-medium prose-a:underline",
             "prose-a:transition-all prose-a:duration-300 prose-a:hover:text-[#f59e0b]",
-            "prose-headings:font-bold prose-headings:tracking-tight prose-headings:uppercase",
+            "prose-headings:font-display prose-headings:font-semibold prose-headings:tracking-[0.02em] prose-headings:uppercase",
             "prose-h1:mt-0 prose-h1:mb-4 prose-h1:text-3xl sm:prose-h1:text-4xl",
             "prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-2xl sm:prose-h2:text-3xl",
             "prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-xl sm:prose-h3:text-2xl",
             "prose-h4:mt-6 prose-h4:mb-2 prose-h4:text-lg",
-            "prose-p:leading-relaxed prose-p:text-base prose-p:text-[#9aa4b2]",
+            "prose-p:leading-relaxed prose-p:text-base prose-p:text-[#a89c85]",
             "sm:prose-p:text-lg",
-            "prose-blockquote:border-l-4 prose-blockquote:border-[#f59e0b]/40 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-8 prose-blockquote:text-[#9aa4b2]",
-            "prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm prose-code:px-1 prose-code:mx-0.5 prose-code:py-1 prose-code:rounded-none prose-code:bg-[#10141d] prose-code:border prose-code:border-[#1c2230] prose-code:text-[#9aa4b2]",
-            "prose-pre:p-6 prose-pre:my-8 prose-pre:rounded-none prose-pre:overflow-auto prose-pre:bg-[#10141d] prose-pre:border prose-pre:border-[#1c2230] prose-pre:text-sm",
-            "[&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:border-none [&_pre_code]:text-[#9aa4b2]",
+            "prose-blockquote:border-l-4 prose-blockquote:border-[#f59e0b]/40 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-8 prose-blockquote:text-[#a89c85]",
+            "prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm prose-code:px-1 prose-code:mx-0.5 prose-code:py-1 prose-code:rounded-none prose-code:bg-[#15110b] prose-code:border prose-code:border-[#2a2318] prose-code:text-[#a89c85]",
+            "prose-pre:p-6 prose-pre:my-8 prose-pre:rounded-none prose-pre:overflow-auto prose-pre:bg-[#15110b] prose-pre:border prose-pre:border-[#2a2318] prose-pre:text-sm",
+            "[&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:border-none [&_pre_code]:text-[#a89c85]",
           ]}>
             <slot />
           </div>
@@ -58,9 +63,10 @@ const { title, description, pubDate, updatedDate } = Astro.props;
       </article>
     </main>
 
-    <footer class="max-w-6xl mx-auto w-full px-6 md:px-10 lg:px-16 py-8 border-t border-[#1c2230] flex flex-col md:flex-row items-start md:items-center justify-between gap-2 font-mono text-[11px] text-[#5b6577]">
+    <footer class="max-w-6xl mx-auto w-full px-6 md:px-10 lg:px-16 py-8 border-t border-[#2a2318] flex flex-col md:flex-row items-start md:items-center justify-between gap-2 font-mono text-[11px] text-[#6f6757]">
       <p>Mateo Martinjak · Zagreb, HR</p>
       <p>© {new Date().getFullYear()} mteo.dev</p>
     </footer>
+    </div>
   </body>
 </html>

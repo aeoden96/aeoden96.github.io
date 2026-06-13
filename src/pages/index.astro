@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
+import WorldBackground from "../components/WorldBackground.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -19,43 +20,45 @@ const projects = (await getCollection("projects")).sort(
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="min-h-screen w-full bg-[#0a0d14] text-[#e8eaed] font-sans grid-bg">
-    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16">
+  <body class="min-h-screen w-full bg-[#0a0d14] text-[#ece4d3] font-sans">
+    <WorldBackground />
+    <div class="grid-dot-overlay"></div>
+    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 relative z-[2]">
       <Header />
 
       <!-- Hero -->
       <section class="py-20 md:py-28">
-        <p class="font-mono accent-text text-lg mb-4">&gt;<span class="cursor-blink">_</span></p>
-        <h1 class="font-bold leading-[0.95] tracking-tight">
+        <p class="hud accent-text text-[11px] mb-6 flex items-center gap-2.5">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[var(--site-accent)] cursor-blink"></span>
+          Zagreb, HR
+        </p>
+        <h1 class="font-display font-semibold leading-[0.95] tracking-[0.04em]">
           <span class="text-[clamp(2.5rem,9vw,7rem)] text-white block">SOFTWARE</span>
           <span class="text-[clamp(2.5rem,9vw,7rem)] accent-text block">ENGINEER</span>
         </h1>
-        <p class="font-mono text-sm text-[#9aa4b2] mt-5 tracking-wide">
-          // frontend background · backend systems · moving into data engineering
+        <p class="hud text-[11px] md:text-xs text-[#a89c85] mt-6">
+          React · Next.js · TypeScript · Across the stack
         </p>
 
-        <p class="font-mono text-sm text-[#9aa4b2] mt-6 max-w-xl leading-relaxed">
-          <span id="whoami-cmd" class="text-emerald-400"></span>
-          <br />
-          <span id="whoami-output" style="opacity:0">
-            I've built frontends people actually use (React, Next.js — including
-            a transit app with 4k+ active users). Now focused on the backend and
-            data layer: Python, pipelines, large-scale storage. Moving
-            deliberately toward data engineering.
-          </span>
+        <p id="hero-bio" class="text-base text-[#a89c85] mt-8 max-w-xl leading-relaxed" style="opacity:0">
+          Frontend engineer with five years in React, Next.js and TypeScript.
+          I've led the frontend on products used daily by tens of thousands of
+          users — owning features from planning through to release — mentored
+          developers, and shipped my own product, kreni.app, a live Zagreb
+          transit tracker with 5–20k monthly active users.
         </p>
 
-        <div class="flex flex-wrap gap-3 mt-8">
-          <a href="/blog" class="font-mono text-xs uppercase tracking-widest border accent-border accent-text px-4 py-2 rounded hover-accent-bg transition-colors">
+        <div class="flex flex-wrap gap-3 mt-10">
+          <a href="/blog" class="hud text-[11px] bg-[var(--site-accent)] text-[#0a0d14] font-bold px-4 py-2.5 rounded hover:bg-[#fbbf24] transition-colors">
             Read the blog →
           </a>
-          <a href="/projects" class="font-mono text-xs uppercase tracking-widest border border-[#2a3344] text-[#9aa4b2] px-4 py-2 rounded hover-accent-border hover-accent-text transition-colors">
+          <a href="/projects" class="hud text-[11px] bg-[#15110b] border border-[#3a3122] text-[#ece4d3] px-4 py-2.5 rounded hover-accent-border hover-accent-text transition-colors">
             View projects →
           </a>
-          <a href="https://github.com/aeoden96" target="_blank" class="font-mono text-xs uppercase tracking-widest border border-[#2a3344] text-[#9aa4b2] px-4 py-2 rounded hover-accent-border hover-accent-text transition-colors">
+          <a href="https://github.com/aeoden96" target="_blank" class="hud text-[11px] bg-[#15110b] border border-[#3a3122] text-[#ece4d3] px-4 py-2.5 rounded hover-accent-border hover-accent-text transition-colors">
             GitHub
           </a>
-          <a href="https://www.linkedin.com/in/mateo-martinjak-803040197/" target="_blank" class="font-mono text-xs uppercase tracking-widest border border-[#2a3344] text-[#9aa4b2] px-4 py-2 rounded hover-accent-border hover-accent-text transition-colors">
+          <a href="https://www.linkedin.com/in/mateo-martinjak-803040197/" target="_blank" class="hud text-[11px] bg-[#15110b] border border-[#3a3122] text-[#ece4d3] px-4 py-2.5 rounded hover-accent-border hover-accent-text transition-colors">
             LinkedIn
           </a>
         </div>
@@ -63,12 +66,12 @@ const projects = (await getCollection("projects")).sort(
 
       <!-- Recent logs -->
       {posts.length > 0 && (
-        <section class="py-16 border-t border-[#1c2230] fade-up">
+        <section class="py-16 border-t border-[var(--warm-border)] fade-up">
           <div class="flex items-baseline justify-between mb-8">
-            <h2 class="font-mono text-sm uppercase tracking-[0.3em] text-[#9aa4b2]">
-              <span class="accent-text">#</span> recent_blogs
+            <h2 class="hud text-xs text-[#ece4d3] flex items-center gap-2">
+              <span class="accent-text">[01]</span> Recent Writing
             </h2>
-            <a href="/blog" class="font-mono text-xs uppercase tracking-widest accent-text hover:text-white transition-colors">
+            <a href="/blog" class="hud text-[11px] accent-text hover:text-white transition-colors">
               All posts →
             </a>
           </div>
@@ -77,30 +80,28 @@ const projects = (await getCollection("projects")).sort(
             {posts.map((post, i) => (
               <a
                 href={`/blog/${post.id}`}
-                class="group block rounded-lg border border-[#1c2230] bg-[#10141d] hover-accent-border transition-colors p-6 fade-up"
+                class="group block rounded-lg surface hud-card hover-accent-border transition-colors p-6 fade-up"
                 style={`transition-delay: ${i * 80}ms`}
               >
-                <div class="flex items-center gap-2 font-mono text-xs mb-3">
-                  <span class="text-[#5b6577]">[</span>
-                  <span class="accent-text-dim"><FormattedDate date={post.data.pubDate} /></span>
-                  <span class="text-[#5b6577]">]</span>
+                <div class="hud text-[10px] accent-text-dim mb-3">
+                  <FormattedDate date={post.data.pubDate} />
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2">
+                <h3 class="font-display text-xl text-white mb-2 tracking-wide">
                   {post.data.title}
                 </h3>
-                <p class="text-sm text-[#9aa4b2] leading-relaxed mb-4">
+                <p class="text-sm text-[#a89c85] leading-relaxed mb-4">
                   {post.data.description}
                 </p>
                 {post.data.tags && (
                   <div class="flex flex-wrap gap-2 mb-4">
                     {post.data.tags.map((tag) => (
-                      <span class="font-mono text-[10px] uppercase text-[#9aa4b2] border border-[#2a3344] rounded px-2 py-1">
-                        #{tag}
+                      <span class="hud text-[10px] text-[#a89c85] border border-[var(--warm-border-soft)] rounded px-2.5 py-1">
+                        {tag}
                       </span>
                     ))}
                   </div>
                 )}
-                <div class="border-t border-[#1c2230] pt-3 font-mono text-xs uppercase tracking-widest accent-text">
+                <div class="border-t border-[var(--warm-border-soft)] pt-3 hud text-[11px] accent-text">
                   Read →
                 </div>
               </a>
@@ -111,12 +112,12 @@ const projects = (await getCollection("projects")).sort(
 
       <!-- Featured projects -->
       {projects.length > 0 && (
-        <section class="py-16 border-t border-[#1c2230] fade-up">
+        <section class="py-16 border-t border-[var(--warm-border)] fade-up">
           <div class="flex items-baseline justify-between mb-8">
-            <h2 class="font-mono text-sm uppercase tracking-[0.3em] text-[#9aa4b2]">
-              <span class="accent-text">#</span> projects
+            <h2 class="hud text-xs text-[#ece4d3] flex items-center gap-2">
+              <span class="accent-text">[02]</span> Selected Work
             </h2>
-            <a href="/projects" class="font-mono text-xs uppercase tracking-widest accent-text hover:text-white transition-colors">
+            <a href="/projects" class="hud text-[11px] accent-text hover:text-white transition-colors">
               All projects →
             </a>
           </div>
@@ -125,16 +126,16 @@ const projects = (await getCollection("projects")).sort(
             {projects.map((project, i) => (
               <a
                 href={`/projects/${project.id}`}
-                class="group block rounded-lg border border-[#1c2230] bg-[#10141d] hover-accent-border transition-colors p-6 fade-up"
+                class="group block rounded-lg surface hud-card hover-accent-border transition-colors p-6 fade-up"
                 style={`transition-delay: ${i * 80}ms`}
               >
-                <h3 class="text-xl font-bold text-white mb-2">
+                <h3 class="font-display text-xl text-white mb-2 tracking-wide">
                   {project.data.title}
                 </h3>
-                <p class="text-sm text-[#9aa4b2] leading-relaxed">
+                <p class="text-sm text-[#a89c85] leading-relaxed">
                   {project.data.description}
                 </p>
-                <div class="border-t border-[#1c2230] mt-4 pt-3 font-mono text-xs uppercase tracking-widest accent-text">
+                <div class="border-t border-[var(--warm-border-soft)] mt-4 pt-3 hud text-[11px] accent-text">
                   Open →
                 </div>
               </a>
@@ -144,56 +145,54 @@ const projects = (await getCollection("projects")).sort(
       )}
 
       <!-- Ready to collaborate -->
-      <section class="py-16 border-t border-[#1c2230] fade-up">
-        <h2 class="font-mono text-lg text-white mb-3">
-          &lt;<span class="accent-text">READY_TO_COLLABORATE</span> /&gt;
+      <section class="py-16 border-t border-[var(--warm-border)] fade-up">
+        <p class="hud accent-text text-[11px] mb-4">[03] Contact</p>
+        <h2 class="font-display text-2xl md:text-3xl text-white mb-4 tracking-[0.04em]">
+          Ready to <span class="accent-text">collaborate</span>
         </h2>
-        <p class="text-sm text-[#9aa4b2] max-w-2xl leading-relaxed">
-          Available for contract work in
-          <span class="accent-text-dim"> backend systems</span>,
-          <span class="accent-text-dim"> data pipelines</span>, and
-          <span class="accent-text-dim"> data platform design</span>
-          — including security-adjacent contexts. If you're moving, storing,
-          or making sense of data at scale — let's talk.
+        <p class="text-base text-[#a89c85] max-w-2xl leading-relaxed">
+          I take features across the whole stack — from the
+          <span class="accent-text-dim"> API</span> to the
+          <span class="accent-text-dim"> UI</span> — and own
+          <span class="accent-text-dim"> getting them released</span>.
+          Whether you need someone to lead a frontend, ship a product end to
+          end, or bring an idea over the line — let's talk.
         </p>
+        <a href="mailto:contact@mteo.dev" class="hud text-[11px] inline-flex items-center gap-2 mt-8 bg-[var(--site-accent)] text-[#0a0d14] font-bold px-4 py-2.5 rounded hover:bg-[#fbbf24] transition-colors">
+          contact@mteo.dev →
+        </a>
       </section>
 
       <!-- Footer -->
-      <footer class="py-8 border-t border-[#1c2230] flex flex-col md:flex-row items-start md:items-center justify-between gap-2 font-mono text-[11px] text-[#5b6577]">
+      <footer class="py-8 border-t border-[var(--warm-border)] flex flex-col md:flex-row items-start md:items-center justify-between gap-2 hud text-[10px] text-[#6f6757]">
         <p>Mateo Martinjak · Zagreb, HR</p>
         <p>© {new Date().getFullYear()} mteo.dev</p>
       </footer>
     </div>
     <script>
-      // Typewriter: "$ whoami" then reveal bio
-      const CMD = '$ whoami';
-      const cmdEl = document.getElementById('whoami-cmd');
-      const outputEl = document.getElementById('whoami-output');
-      let i = 0;
-      setTimeout(() => {
-        const timer = setInterval(() => {
-          if (cmdEl) cmdEl.textContent = CMD.slice(0, ++i);
-          if (i === CMD.length) {
-            clearInterval(timer);
-            if (outputEl) {
-              outputEl.style.transition = 'opacity 0.4s ease';
-              outputEl.style.opacity = '1';
+      // Runs on first load AND after every client-side navigation.
+      document.addEventListener('astro:page-load', () => {
+        // Gently fade the bio in once the hero has settled.
+        const bioEl = document.getElementById('hero-bio');
+        setTimeout(() => {
+          if (bioEl) {
+            bioEl.style.transition = 'opacity 0.9s ease';
+            bioEl.style.opacity = '1';
+          }
+        }, 450);
+
+        // Scroll fade-up via IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              observer.unobserve(e.target);
             }
-          }
-        }, 55);
-      }, 400);
+          });
+        }, { threshold: 0.1 });
 
-      // Scroll fade-up via IntersectionObserver
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            observer.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+      });
     </script>
   </body>
 </html>

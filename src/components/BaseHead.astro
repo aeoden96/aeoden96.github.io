@@ -4,6 +4,7 @@
 import "../styles/global.css";
 import { SITE_TITLE } from "../consts";
 import { SEO } from "astro-seo";
+import { ClientRouter } from "astro:transitions";
 import { toCanonicalUrl } from "../helpers";
 
 interface Props {
@@ -37,20 +38,16 @@ const canonicalUrl = toCanonicalUrl(Astro.url.pathname, Astro.site);
 />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Font preloads -->
+<!-- Client-side routing so the WebGL dune background can persist across navigations -->
+<ClientRouter />
+
+
+<!-- Fonts — Space Grotesk (display) + Inter (body) + JetBrains Mono (HUD/code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  rel="preload"
-  href="/fonts/atkinson-regular.woff"
-  as="font"
-  type="font/woff"
-  crossorigin
-/>
-<link
-  rel="preload"
-  href="/fonts/atkinson-bold.woff"
-  as="font"
-  type="font/woff"
-  crossorigin
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
 />
 <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 

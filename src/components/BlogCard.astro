@@ -15,7 +15,7 @@ const { url, title, pubDate, description, tags, isFeature = false } = Astro.prop
 
 <a
   href={url}
-  class={`group relative block border border-[#1c2230] bg-[#10141d] hover:bg-[#13171f] transition-colors duration-500 p-6 flex flex-col justify-between rounded-lg ${isFeature ? "md:col-span-2" : ""}`}
+  class={`group relative block surface hover:bg-[rgba(28,21,12,0.55)] transition-colors duration-500 p-6 flex flex-col justify-between rounded-lg ${isFeature ? "md:col-span-2" : ""}`}
 >
   <span class="absolute top-0 left-0 w-full h-[1px] bg-[#f59e0b] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out rounded-tl-lg rounded-tr-lg"></span>
   <span class="absolute bottom-0 right-0 w-full h-[1px] bg-[#f59e0b] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right ease-out rounded-bl-lg rounded-br-lg"></span>
@@ -23,14 +23,14 @@ const { url, title, pubDate, description, tags, isFeature = false } = Astro.prop
   <span class="absolute bottom-0 left-0 w-[1px] h-full bg-[#f59e0b] scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-bottom ease-out"></span>
 
   <div>
-    <h2 class="text-[#e8eaed] group-hover:text-white transition-colors duration-300 text-2xl font-bold uppercase tracking-tight mb-2">
+    <h2 class="font-display text-[#ece4d3] group-hover:text-white transition-colors duration-300 text-2xl tracking-wide mb-2">
       {title}
     </h2>
-    <p class="text-[#5b6577] text-xs mb-4 uppercase tracking-widest font-mono">
+    <p class="hud text-[#6f6757] text-[10px] mb-4">
       <FormattedDate date={pubDate} />
     </p>
     {description && (
-      <p class="text-[#9aa4b2] text-sm mb-6 leading-relaxed">
+      <p class="text-[#a89c85] text-sm mb-6 leading-relaxed">
         {description}
       </p>
     )}
@@ -39,8 +39,8 @@ const { url, title, pubDate, description, tags, isFeature = false } = Astro.prop
   {tags && tags.length > 0 && (
     <div class="flex flex-wrap gap-2 mt-4">
       {tags.map((tag) => (
-        <span class="font-mono text-[10px] text-[#9aa4b2] uppercase border border-[#2a3344] px-2 py-1 rounded transition-colors duration-300">
-          #{tag}
+        <span class="hud text-[10px] text-[#a89c85] border border-[var(--warm-border-soft)] px-2.5 py-1 rounded transition-colors duration-300">
+          {tag}
         </span>
       ))}
     </div>
