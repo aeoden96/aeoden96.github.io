@@ -6,9 +6,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import WorldBackground from "../components/WorldBackground.astro";
 
-const posts = (await getCollection("blog")).sort(
+const experiments = (await getCollection("experiments")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-).slice(0, 2);
+).slice(0, 4);
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -49,8 +49,8 @@ const projects = (await getCollection("projects")).sort(
         </p>
 
         <div class="flex flex-wrap gap-3 mt-10">
-          <a href="/blog" class="hud text-[11px] bg-[var(--site-accent)] text-[#0a0d14] font-bold px-4 py-2.5 rounded hover:bg-[#fbbf24] transition-colors">
-            Read the blog →
+          <a href="/experiments" class="hud text-[11px] bg-[var(--site-accent)] text-[#0a0d14] font-bold px-4 py-2.5 rounded hover:bg-[#fbbf24] transition-colors">
+            View experiments →
           </a>
           <a href="/projects" class="hud text-[11px] bg-[#15110b] border border-[#3a3122] text-[#ece4d3] px-4 py-2.5 rounded hover-accent-border hover-accent-text transition-colors">
             View projects →
@@ -64,37 +64,37 @@ const projects = (await getCollection("projects")).sort(
         </div>
       </section>
 
-      <!-- Recent logs -->
-      {posts.length > 0 && (
+      <!-- Experiments -->
+      {experiments.length > 0 && (
         <section class="py-16 border-t border-[var(--warm-border)] fade-up">
           <div class="flex items-baseline justify-between mb-8">
             <h2 class="hud text-xs text-[#ece4d3] flex items-center gap-2">
-              <span class="accent-text">[01]</span> Recent Writing
+              <span class="accent-text">[01]</span> Experiments
             </h2>
-            <a href="/blog" class="hud text-[11px] accent-text hover:text-white transition-colors">
-              All posts →
+            <a href="/experiments" class="hud text-[11px] accent-text hover:text-white transition-colors">
+              All experiments →
             </a>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {posts.map((post, i) => (
+            {experiments.map((experiment, i) => (
               <a
-                href={`/blog/${post.id}`}
+                href={`/experiments/${experiment.id}`}
                 class="group block rounded-lg surface hud-card hover-accent-border transition-colors p-6 fade-up"
                 style={`transition-delay: ${i * 80}ms`}
               >
                 <div class="hud text-[10px] accent-text-dim mb-3">
-                  <FormattedDate date={post.data.pubDate} />
+                  <FormattedDate date={experiment.data.pubDate} />
                 </div>
                 <h3 class="font-display text-xl text-white mb-2 tracking-wide">
-                  {post.data.title}
+                  {experiment.data.title}
                 </h3>
                 <p class="text-sm text-[#a89c85] leading-relaxed mb-4">
-                  {post.data.description}
+                  {experiment.data.description}
                 </p>
-                {post.data.tags && (
+                {experiment.data.tags && (
                   <div class="flex flex-wrap gap-2 mb-4">
-                    {post.data.tags.map((tag) => (
+                    {experiment.data.tags.map((tag) => (
                       <span class="hud text-[10px] text-[#a89c85] border border-[var(--warm-border-soft)] rounded px-2.5 py-1">
                         {tag}
                       </span>
@@ -102,7 +102,7 @@ const projects = (await getCollection("projects")).sort(
                   </div>
                 )}
                 <div class="border-t border-[var(--warm-border-soft)] pt-3 hud text-[11px] accent-text">
-                  Read →
+                  Open →
                 </div>
               </a>
             ))}

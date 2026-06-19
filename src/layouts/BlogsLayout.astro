@@ -10,7 +10,7 @@ interface Props {
   pageTitle?: string;
   description?: string;
   image?: string;
-  collection: "blog" | "experiments" | "projects";
+  collection: "experiments" | "projects";
 }
 
 const { description, collection } = Astro.props;
@@ -20,7 +20,6 @@ const posts = (await getCollection(collection)).sort(
 );
 
 const title = {
-  blog: "BLOG",
   experiments: "EXPERIMENTS",
   projects: "PROJECTS",
 }[collection];

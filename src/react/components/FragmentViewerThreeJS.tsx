@@ -9,6 +9,7 @@ import * as THREE from "three";
 import perlinFragmentShader from "../../shaders/perlin";
 import { getGlowCirclesShader } from "../../shaders/glow_circles";
 import { getRaymarchingShader } from "../../shaders/raymarching";
+import { getWorldFractalShader } from "../../shaders/world_fractal";
 
 const vertexShader = `
 void main() {
@@ -21,6 +22,7 @@ const getShader = (shader: string, step?: number) => {
     perlin: perlinFragmentShader,
     glow_circles: getGlowCirclesShader(step ?? 19),
     raymarching: getRaymarchingShader(step ?? 13),
+    world_fractal: getWorldFractalShader(step ?? 6),
   }[shader];
 };
 

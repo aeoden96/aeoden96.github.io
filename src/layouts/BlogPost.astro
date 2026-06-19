@@ -5,7 +5,7 @@ import Header from "../components/Header.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import WorldBackground from "../components/WorldBackground.astro";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"experiments">["data"];
 
 const { title, description, pubDate, updatedDate } = Astro.props;
 ---

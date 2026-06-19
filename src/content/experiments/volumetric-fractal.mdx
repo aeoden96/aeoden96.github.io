@@ -1,0 +1,452 @@
+---
+title: "Volumetric KIFS Fractal"
+description: "Building the amber fractal that lives behind this site's homepage"
+pubDate: "Jun 15 2026"
+tags: ["WebGL", "Shaders", "Raymarching"]
+---
+
+import FragmentViewerThreeJS from "../../react/components/FragmentViewerThreeJS.tsx";
+import FractalPlot from "../../react/components/FractalPlot.tsx";
+
+The slow-turning amber structure behind the [homepage](/) is a single fragment
+shader — a volumetric [KIFS](https://en.wikipedia.org/wiki/Iterated_function_system)
+fractal lit in the site's ember palette. This experiment rebuilds it from a bare
+glowing sphere up to the finished effect, one idea at a time.
+
+Unlike a classic raymarcher that stops at the first surface it hits, this one
+never stops: it keeps adding light along the ray, inversely to how close it
+passes to the structure. That's what gives the fractal its soft, glowing,
+"volumetric" feel rather than a solid lit surface.
+
+<FragmentViewerThreeJS client:load shader="world_fractal" isClickable />
+
+> Drag inside the canvas to nudge the camera — on the homepage this reorientation
+> happens automatically on every page navigation.
+
+## Step by step
+
+### Step 1: The emission model — light without surfaces
+
+A classic raymarcher answers one question: *where does this ray first hit a
+surface?* It steps along the ray until the distance field reads ~0, shades that
+point, and stops. We ask a different question entirely: *how much light does this
+ray pick up on its way through the scene?*
+
+Formally we're approximating a line integral of emitted light along the ray,
+
+$$
+L(\mathbf{o}, \mathbf{d}) = \int_{0}^{\infty} e\bigl(\mathbf{o} + t\,\mathbf{d}\bigr)\; \mathrm{d}t,
+$$
+
+where $e(\mathbf{p})$ is an *emission density* at each point in space. This is a
+purely emissive volume — there is no absorption or scattering term, no
+Beer–Lambert falloff — so contributions are simply additive and order
+independent. That is why we can accumulate front-to-back or back-to-front and
+get the same glow.
+
+The trick is the choice of $e$. We tie it to the signed distance field $d(\mathbf{p})$:
+
+$$
+e(\mathbf{p}) \;\propto\; \frac{1}{\lvert d(\mathbf{p})\rvert + \varepsilon}.
+$$
+
+Emission spikes on the surface (where $d = 0$) and falls off smoothly with
+distance, painting a soft halo around the SDF's zero level set. The $\varepsilon$
+(here `0.005`) caps the singularity so the core stays finite. The scene itself is
+the simplest possible: a single sphere.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={1}
+/>
+
+```glsl
+float map(vec3 p) {
+    orbitTrap = abs(p);
+    return length(p) - 0.5;   // SDF of a sphere, radius 0.5
+}
+
+void main() {
+    vec2 uv = (gl_FragCoord.xy - 0.5 * uResolution.xy) / uResolution.y;
+
+    vec3 ro = vec3(0.0, 0.0, -4.5);     // camera, pulled back on z
+    vec3 rd = normalize(vec3(uv, 1.0)); // ray direction
+    float t = 0.0;
+
+    vec3 glow = vec3(0.0);
+    for (int i = 0; i < 90; i++) {
+        vec3 p = ro + rd * t;
+        float d = map(p);
+
+        // Discrete Riemann sum of the emission integral.
+        glow += COL_AMBER * (0.0035 / (abs(d) + 0.005));
+
+        t += abs(d) * 0.45 + 0.015;     // step ~halfway — we don't need exact hits
+        if (t > 10.0) break;
+    }
+
+    gl_FragColor = vec4(NAVY + glow * 0.4, 1.0);
+}
+```
+
+  <FractalPlot client:load mode="emission" width={640} height={320} />
+The `glow +=` line is just a discrete Riemann sum of that integral: `0.0035`
+plays the role of the step measure and `0.005` is $\varepsilon$. One consequence
+worth flagging now — the result is **unbounded HDR**. Rays through the dense core
+sum to values far above `1.0`; we will not deal with that until the tonemap step,
+and the `> 4.0` early-out in the shipped loop is purely an optimisation to stop
+summing once a ray has clearly saturated.
+
+### Step 2: Marching a field you never exit
+
+The integral assumed we could sample continuously; in practice we march in finite
+steps, and *how* we step is where this differs sharply from a normal sphere
+tracer. Three deliberate choices:
+
+```glsl
+glow += COL_AMBER * (0.0035 / (abs(d) + 0.005));
+t += abs(d) * 0.45 + 0.015;
+```
+
+**We never stop.** A sphere tracer terminates the moment `d < ε`. We have no
+termination on hit at all — the ray must pass *through* every structure to keep
+gathering emission on the far side. That see-through quality is the whole point
+of "volumetric".
+
+**We under-step by `0.45`.** Sphere tracing takes the *full* distance `d` because
+the SDF guarantees a sphere of radius `d` is empty — it is the largest safe leap.
+But a safe leap is exactly wrong here: it vaults *over* the bright region near the
+surface, and our Riemann sum aliases into visible banding. Under-stepping to ~0.45
+of the safe distance trades march budget for sampling density right where the
+emission is strongest.
+
+**We use `abs(d)`.** Inside a shape the signed distance goes negative; a raw `d`
+would propose a *backward* step and the ray would stall or reverse at the
+boundary. Taking `abs(d)` keeps every proposed step positive, so the ray glides
+straight through solids and samples emission on both sides. The `+ 0.015` floor
+guarantees strictly positive progress so the loop can never get pinned at a point
+where `d → 0`.
+
+The cost of all this is that we have *abandoned the exactness guarantee* of sphere
+tracing — we are sampling a field, not solving for a precise intersection. Keep
+that licence in mind: in Step 5 we will warp space so aggressively that `d` stops
+being a true distance at all, and only this forgiving marcher makes that legal.
+ 
+  <FractalPlot client:load mode="sampling" width={700} height={300} />
+
+### Step 3: Intersecting rays — the hard union
+
+The fractal's silhouette starts as three infinite cylinders, one down each axis,
+slowly tumbling with time. Each is an SDF of the form `length(p.yz) - r`. Their
+union is a `min`: for distance fields, $d_{A\cup B} = \min(d_A, d_B)$ is itself a
+valid (if conservative) SDF, which is why booleans on SDFs are so cheap.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={2}
+/>
+
+```glsl
+float map(vec3 p) {
+    p.xz *= rot(uTime * CAM_ROT_X);   // slow tumble
+    p.xy *= rot(uTime * CAM_ROT_Y);
+
+    orbitTrap = abs(p);
+
+    float raysX = length(p.yz) - RAYS.x;  // cylinder along X
+    float raysY = length(p.xz) - RAYS.y;  // cylinder along Y
+    float raysZ = length(p.xy) - RAYS.z;  // cylinder along Z
+
+    return min(raysX, min(raysY, raysZ)); // union
+}
+```
+
+`min` is exact but not smooth: where two cylinders meet, the field has a
+*gradient discontinuity* — a sharp crease in $C^1$. With a solid-surface
+renderer you would see a hard seam in the shading; in our glow field the same
+crease reads as an abrupt edge where the light fails to flow between arms. Fixing
+that seam is the next step.
+
+### Step 4: Rounding the union — the smooth minimum
+
+To merge the arms seamlessly we replace `min` with a **polynomial
+smooth-minimum**:
+
+```glsl
+float smin(float a, float b, float k) {
+    float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
+    return mix(b, a, h) - k * h * (1.0 - h);
+}
+```
+
+Read it in two halves. `h` is a normalised blend factor: it is `0` when `a` is
+clearly the smaller, `1` when `b` is, and ramps linearly across a transition band
+of width `k` around the crossover. `mix(b, a, h)` alone would just be a linear
+interpolation between the two distances — the interesting part is the
+`- k·h·(1 - h)` correction. That is a quadratic bump, zero at the band edges and
+reaching its maximum depth of `k/4` at `h = 0.5`; it carves a rounded *fillet*
+into the join. The field stays $C^1$ across the seam, so emission flows
+continuously from one arm into the next and the cross becomes a single connected
+body.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={7}
+/>
+
+```glsl
+float map(vec3 p) {
+    // ... same three cylinders as Step 3 ...
+    float k = 0.3;
+    return smin(smin(raysX, raysY, k), raysZ, k);
+}
+```
+
+One honest caveat: the shipped `map()` does not call this tidy `smin`. It inlines
+a hand-tuned variant with odd baked constants (`6.7`, `-7.3`, asymmetric clamps)
+that were dialed in through the homepage's `lil-gui` until the shape looked
+right. It is the same idea — a soft, art-directed union — just frozen at values
+chosen by eye rather than derived.
+
+### Step 5: Domain warping — bending the metric
+
+Now the move that injects fractal detail. Before measuring distance, we displace
+the sample point itself:
+
+```glsl
+q += sin(q.zxy * WARP_FREQ) * WARP_AMP;   // domain warp, no fold yet
+```
+
+This is **domain warping**: we evaluate the field at a perturbed coordinate
+rather than perturbing the field's output. The `.zxy` swizzle is deliberate — `x`
+is displaced by a function of `z`, `y` by `x`, `z` by `y` — so the warp is
+*non-separable* and cross-couples the axes into an organic twist instead of three
+independent ripples.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={8}
+/>
+
+The subtle, important part is what this does to the *metric*. A genuine signed
+distance field is **1-Lipschitz**: $\lVert \nabla d \rVert \le 1$, meaning the
+value can never change faster than one unit per unit of space — that is precisely
+what makes a step of size `d` safe. The warp's Jacobian, though, carries terms of
+order
+
+$$
+\text{WARP\_AMP} \times \text{WARP\_FREQ} \;=\; 0.29 \times 56.3 \;\approx\; 16,
+$$
+
+so post-warp the field can change ~16× faster than distance allows. `d` is no
+longer a distance — it is, at best, a loose *bound*. A strict sphere tracer fed
+this field would overshoot and tear the surface to pieces. It renders cleanly
+here only because of Step 2's licence: we under-step, we never rely on exact
+hits, and we treat `d` as a glow field. The high frequency frays the clean cross
+into fine rippling filaments — the texture the eye will read as "fractal".
+
+### Step 6: The fold and scale compensation
+
+A KIFS — *Kaleidoscopic* Iterated Function System — builds self-similarity by
+folding space with an affine map, then measuring a simple primitive in the folded
+coordinates. The folding core is three operations:
+
+```glsl
+q = abs(q) - FOLD;     // reflect into one octant, then translate
+q.xy *= rot(ROT3.x);   // rotate on each plane
+q.xz *= rot(ROT3.y);
+q.yz *= rot(ROT3.z);
+q *= SCALE_MULT;       // expand
+```
+
+`abs(q)` reflects every octant onto the first (kaleidoscopic mirror symmetry);
+the subtraction shifts the mirror planes off-centre so the symmetry is
+asymmetric; the rotations re-orient the folded copy; and the scale blows it up so
+the *next* evaluation sees a magnified slice of the same structure. Iterate that
+contraction-and-measure and you get detail at every zoom level. (This particular
+field leans heavily on the high-frequency warp from Step 5 to do much of the
+"iteration's" visual work, so it is a shallow IFS rather than a deep loop — but
+the mechanism is the same.)
+
+The part that trips people up is **scale compensation**. When you multiply space
+by `SCALE_MULT`, every distance measured *in that scaled space* comes back
+`SCALE_MULT` times too large. To return a value that is still a valid distance in
+the *original* world, you must divide by the accumulated scale:
+
+```glsl
+scale *= SCALE_ACCUM;   // track the cumulative magnification
+mergedRays /= scale;    // undo it before returning
+```
+
+Skip this and the marcher mis-steps everywhere — overshooting where the field is
+overstated, crawling where it is understated — and the structure shears apart.
+Finally the folded rays are `smin`-blended with a central `core` sphere to anchor
+the glow, and the whole field renders flat-amber for now.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={3}
+/>
+
+```glsl
+float map(vec3 p) {
+    vec2 mo = mouseShift();
+    p.xz *= rot(uTime * CAM_ROT_X + mo.x * 0.35);  // mouse nudges the orientation
+    p.xy *= rot(uTime * CAM_ROT_Y + mo.y * 0.35);
+
+    vec3 q = p;
+    float scale = 0.26;
+    orbitTrap = vec3(1000.0);
+
+    q += sin(q.zxy * WARP_FREQ) * WARP_AMP;   // domain warp
+    q = abs(q) - FOLD;                        // asymmetric fold
+    q.xy *= rot(ROT3.x);
+    q.xz *= rot(ROT3.y);
+    q.yz *= rot(ROT3.z);
+    q *= SCALE_MULT;
+    scale *= SCALE_ACCUM;
+
+    orbitTrap = min(orbitTrap, abs(q));       // remember closest approach (for colour)
+
+    // Smooth-merge the three folded rays, then blend with the core.
+    float raysX = length(q.yz) - RAYS.x;
+    float raysY = length(q.xz) - RAYS.y;
+    float raysZ = length(q.xy) - RAYS.z;
+
+    float k = 0.1;
+    float h1 = clamp(6.7 + 0.1 * (raysX - raysY) / k, 0.1, 0.4);
+    float mergedRays = mix(raysX, raysY, h1) - k * h1 * (1.0 - h1);
+    float h2 = clamp(0.1 + 0.1 * (mergedRays - raysZ) / k, 0.0, 0.8);
+    mergedRays = mix(mergedRays, raysZ, h2) - k * h2 * (-7.3 - h2);
+
+    float core = length(p) - 0.44;
+    mergedRays /= scale;                       // scale compensation
+
+    float h3 = clamp(0.5 + 0.5 * (core - mergedRays) / 0.3, 0.0, 1.0);
+    float d = mix(core, mergedRays, h3) - 0.3 * h3 * (1.0 - h3);
+
+    return d * 0.3;
+}
+```
+
+### Step 7: Orbit-trap colouring
+
+So far everything is one flat amber. We get colour almost for free from an
+**orbit trap**. As space folds, each point traces an "orbit" through the warped
+coordinates; we track the closest that orbit comes to a chosen set — here the
+three axes, captured by `min(orbitTrap, abs(q))`. The minimum distance to that
+trap is a smooth scalar field, tightly correlated with the fractal's structure
+and costing nothing extra to compute.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={4}
+/>
+
+```glsl
+// inside the march loop:
+vec3 stepColor = mix(COL_HOT, COL_AMBER, smoothstep(0.0, 1.0, orbitTrap.x));
+stepColor = mix(stepColor, COL_EMBER, smoothstep(0.0, 1.0, orbitTrap.y));
+
+glow += stepColor * (0.0035 / (abs(d) + 0.005));
+```
+
+We read two components of the trap as coordinates into the palette — gold at the
+hot core, through the `#f59e0b` accent, down to deep rust ember in the recesses.
+Because the trap varies smoothly along the orbit, the colour bands the structure
+by depth and proximity rather than scattering randomly.
+
+### Step 8: HDR, vignette and the ACES tonemap
+
+Recall the warning from Step 1: the accumulated glow is unbounded HDR, with the
+core far brighter than `1.0`. A naïve clamp crushes that whole range to flat
+white and erases the core's shape. Instead we run an
+[ACES](https://64.github.io/tonemapping/#aces) filmic tonemap — Narkowicz's
+rational approximation to the film-like response curve:
+
+$$
+f(x) = \frac{x\,(a x + b)}{x\,(c x + d) + e}, \qquad
+(a,b,c,d,e) = (2.38,\,-0.04,\,2.35,\,1.52,\,0.14).
+$$
+
+A rational (ratio-of-polynomials) form is chosen because it maps $[0,\infty)$
+into $[0,1)$ with a gentle *toe* near black and a long *shoulder* that compresses
+highlights gracefully — the bright core rolls smoothly toward white instead of
+clipping, while contrast and hue stay filmic. A radial vignette, `1 - 0.55·|uv|²`
+(quadratic falloff toward the corners), then sinks the structure into a pool of
+black so it never competes with foreground text.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={5}
+/>
+
+```glsl
+float vignette = 1.0 - dot(uv, uv) * 0.55;
+glow *= vignette * 0.9;
+
+// ACES filmic tonemap.
+glow = (glow * (2.38 * glow - 0.04)) / (glow * (2.35 * glow + 1.52) + 0.14);
+
+vec3 color = NAVY + glow;
+```
+
+### Step 9: Stochastic sampling — jitter, grain and dither
+
+Two related artifacts remain, both rooted in sampling on a regular grid. First,
+because every ray starts at the same `t = 0` and steps in lockstep, neighbouring
+pixels sample the emission field at correlated positions — the Riemann sum
+*aliases* into concentric banding rings in the volume. The fix is to **jitter the
+ray's start** by a per-pixel hash, refreshed each frame via `uTime`:
+
+```glsl
+// Dither the ray START to break up banding in the volume.
+float t = hash(gl_FragCoord.xy + mod(uTime, 100.0) * 10.0) * 0.05;
+```
+
+This decorrelates the sample lattice across pixels, converting the structured
+banding into high-frequency noise the eye happily integrates as smooth shading —
+the same idea as Monte-Carlo jittered sampling, and the temporal term lets it
+average across frames while the structure turns.
+
+Second, the final 8-bit framebuffer cannot represent the fine gradient of the
+dark navy, so it quantises into visible contour steps. Adding a sub-LSB
+triangular dither — noise of amplitude `±1/255` *before* quantisation — breaks
+those contours below the threshold of perception. A dusting of film grain over
+the composite (the texture of the "window" onto this world) completes the look.
+This is exactly what ships on the homepage.
+
+<FragmentViewerThreeJS
+  client:visible={{ rootMargin: "-200px" }}
+  shader="world_fractal"
+  step={6}
+  isClickable
+/>
+
+```glsl
+// ... march + tonemap as before ...
+
+// Film grain over the final composite.
+float grain = hash(gl_FragCoord.xy + mod(uTime, 1000.0) * 15.0);
+color += (grain - 0.5) * 0.045;
+
+// Break up 8-bit banding.
+color += (hash(gl_FragCoord.xy + 123.456) * 2.0 - 1.0) / 255.0;
+```
+
+## On the homepage
+
+The shipped version ([`world_bg.ts`](https://github.com/aeoden96/aeoden96.github.io/blob/master/src/shaders/world_bg.ts))
+adds a few production concerns this experiment leaves out: a per-device quality
+tier that trims march steps and resolution on weak GPUs, brightness that fades
+with scroll and dims on inner pages, a `prefers-reduced-motion` static fallback,
+and a `transition:persist` canvas so the WebGL context survives client-side
+navigation. The maths driving the picture, though, is the same code you just
+scrolled through.
